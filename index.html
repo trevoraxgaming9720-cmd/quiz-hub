@@ -380,32 +380,46 @@ body {
   transition: var(--transition);
 }
 
-/* Quiz Screen Custom UI Overrides */
+/* Quiz Screen Custom UI Overrides - SINGLE PREMIUM CARD LAYOUT */
 #quizEngineBox {
   background: var(--bg-app);
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 12px;
 }
+
+/* Single Parent Quiz Card */
+.quiz-single-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid #edf2f7;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .floating-quiz-header {
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid #e2e8f0;
-  padding: 16px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
 }
 .quiz-header-pill {
   background: #ffffff;
   border: 1.5px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 6px 12px;
-  font-size: 13px;
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--dark);
   display: flex;
@@ -413,73 +427,75 @@ body {
   gap: 4px;
 }
 .quiz-header-pill.timer-pill {
-  min-width: 80px;
+  min-width: 65px;
   justify-content: center;
 }
 .quiz-header-title-text {
   font-weight: 800;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--primary);
 }
 .quiz-pause-btn-premium {
   background: var(--warning-light);
   border: 1px solid rgba(245, 158, 11, 0.3);
   color: var(--warning);
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
 
 .quiz-main-content-area {
-  padding: 20px;
+  padding: 14px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .premium-question-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  margin-bottom: 20px;
-  border: 1px solid #edf2f7;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 12px;
+  border: none;
 }
 .question-text-style {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--dark);
 }
 .exam-tag-badge {
-  display:block;
-  width:max-content;
-  margin:12px 0 0 auto;
-  text-align:right;
+  display: block;
+  width: max-content;
+  margin: 6px 0 0 auto;
+  text-align: right;
   background: #f1f5f9;
   color: var(--text-secondary);
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 600;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .options-stack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 .options-stack button {
   display: block;
   width: 100%;
-  padding: 16px 20px;
+  padding: 12px 14px;
   background: var(--card-bg);
-  border: 2px solid #e2e8f0;
-  border-radius: 18px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--dark);
   cursor: pointer;
@@ -493,29 +509,30 @@ body {
 .explanation-box-premium {
   background: var(--primary-light);
   border-left: 4px solid var(--primary);
-  border-radius: 14px;
-  padding: 16px;
-  margin-top: 16px;
-  font-size: 14px;
-  line-height: 1.5;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.4;
   color: #1e3a8a;
   display: none;
 }
 
 /* Premium Control Panel bar */
 .quiz-controls-footer {
-  padding: 16px 20px;
+  padding: 12px 14px;
   background: #ffffff;
   border-top: 1px solid #e2e8f0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  margin-top: auto;
 }
 .footer-nav-btn {
-  padding: 14px 22px;
-  border-radius: 16px;
-  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -539,30 +556,30 @@ body {
 /* Premium Navigation jump box */
 .jump-box-premium {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  background: #ffffff;
-  padding: 12px;
-  border-radius: 16px;
+  gap: 6px;
+  margin-bottom: 12px;
+  background: #f8fafc;
+  padding: 8px 10px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
   align-items: center;
 }
 .jump-input-premium {
   flex: 1;
-  padding: 10px;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   outline: none;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
 }
 .jump-btn-premium {
-  padding: 10px 16px;
+  padding: 8px 14px;
   background: var(--dark);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 13px;
+  border-radius: 8px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -707,22 +724,21 @@ body {
     overflow:hidden;
   }
   .premium-app-header{padding:40px 36px;}
-  .floating-quiz-header{padding:20px 28px;}
-  .quiz-main-content-area{padding:28px;}
-  .premium-question-card{padding:30px;}
-  .question-text-style{font-size:22px;line-height:1.7;}
-  .exam-tag-badge{font-size:14px;}
-  .options-stack button{font-size:18px;padding:20px 22px;}
-  .quiz-controls-footer{padding:20px 28px;}
-  .footer-nav-btn{font-size:16px;padding:18px 24px;}
+  .floating-quiz-header{padding:16px 20px;}
+  .quiz-main-content-area{padding:20px;}
+  .premium-question-card{padding:0;}
+  .question-text-style{font-size:18px;line-height:1.6;}
+  .exam-tag-badge{font-size:12px;}
+  .options-stack button{font-size:15px;padding:16px 18px;}
+  .quiz-controls-footer{padding:16px 20px;}
+  .footer-nav-btn{font-size:15px;padding:14px 20px;}
   .search-input{font-size:17px;padding:18px 18px 18px 52px;}
   .stats-grid-dashboard{grid-template-columns:repeat(2,1fr);gap:18px;}
 }
 @media (min-width:1024px){
   .container{max-width:1280px;}
-  .question-text-style{font-size:24px;}
-  .options-stack button{font-size:19px;}
-  .premium-question-card{padding:36px;}
+  .question-text-style{font-size:20px;}
+  .options-stack button{font-size:16px;}
 }
 
 </style>
@@ -791,134 +807,139 @@ body {
   <!-- EXISTING ASSESSMENT INTERACTIVE APPLICATION ENGINE BOX -->
   <div id="quizEngineBox" style="display: none;">
     
-    <!-- Premium Sticky Floating Header Panel Component -->
-    <div class="floating-quiz-header">
-      <div class="quiz-header-pill">
-        <span id="qBadge">Q 1/1</span>
-      </div>
-      <div class="quiz-header-pill timer-pill">
-        <span style="color:var(--success); font-weight:800;" id="qTimer">00:00</span>
-      </div>
-      <div class="quiz-header-title-text">DREAM TO DESTINY</div>
-      <div class="quiz-header-pill timer-pill">
-        <span style="color:var(--text-secondary);" id="liveTimer">00:00</span>
-      </div>
-      <button id="pauseBtn" class="quiz-pause-btn-premium" type="button">❚❚ Pause</button>
-    </div>
+    <!-- SINGLE PREMIUM PARENT CARD FOR ENTIRE QUIZ SCREEN -->
+    <div class="quiz-single-card">
 
-    <div class="quiz-main-content-area">
-      
-      <!-- Quick Navigation Jump Control Module Panel -->
-      <div id="jumpBox" class="jump-box-premium">
-        <input id="jumpNo" type="number" class="jump-input-premium" placeholder="Jump to Question No...">
-        <button class="jump-btn-premium" onclick="goToQuestion(document.getElementById('jumpNo').value)">Go</button>
+      <!-- Premium Sticky Floating Header Panel Component -->
+      <div class="floating-quiz-header">
+        <div class="quiz-header-pill">
+          <span id="qBadge">Q 1/1</span>
+        </div>
+        <div class="quiz-header-pill timer-pill">
+          <span style="color:var(--success); font-weight:800;" id="qTimer">00:00</span>
+        </div>
+        <div class="quiz-header-title-text">DREAM TO DESTINY</div>
+        <div class="quiz-header-pill timer-pill">
+          <span style="color:var(--text-secondary);" id="liveTimer">00:00</span>
+        </div>
+        <button id="pauseBtn" class="quiz-pause-btn-premium" type="button">❚❚ Pause</button>
       </div>
 
-      <div id="quiz-box" style="position:relative;">
+      <div class="quiz-main-content-area">
         
-        <!-- Premium Configured Pause View Modal Component Box Layer -->
-        <div id="pauseModal">
-          <div id="pauseCard">
-            <div style="width:64px; height:64px; border-radius:22px; margin:0 auto 16px; background:var(--warning-light); display:flex; align-items:center; justify-content:center; font-size:28px; color:var(--warning)">⏸</div>
-            <h2 style="color:var(--dark); font-size:22px; font-weight:800; margin-bottom:6px;">Test Paused</h2>
-            <p style="color:var(--text-secondary); font-size:14px; margin-bottom:16px;">Your progress remains securely cached.</p>
-            
-            <div style="margin:0 auto 20px; padding:10px 18px; border-radius:12px; background:#f8fafc; border:1px solid #e2e8f0; font-size:14px; font-weight:700">⏱️ Elapsed: <span id="popupTime">00:00</span></div>
-            
-            <!-- Dashboard metrics stack during live pause view state layer -->
-            <div id="pauseStats" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
-              <div style="background:var(--success-light); border-radius:14px; padding:10px; text-align:center;">
-                <div style="font-size:11px; font-weight:700; color:var(--success)">Correct</div>
-                <div id="pauseCorrect" style="font-size:18px; font-weight:800; color:var(--dark)">0</div>
+        <!-- Quick Navigation Jump Control Module Panel -->
+        <div id="jumpBox" class="jump-box-premium">
+          <input id="jumpNo" type="number" class="jump-input-premium" placeholder="Jump to Question No...">
+          <button class="jump-btn-premium" onclick="goToQuestion(document.getElementById('jumpNo').value)">Go</button>
+        </div>
+
+        <div id="quiz-box" style="position:relative; flex:1; display:flex; flex-direction:column;">
+          
+          <!-- Premium Configured Pause View Modal Component Box Layer -->
+          <div id="pauseModal">
+            <div id="pauseCard">
+              <div style="width:64px; height:64px; border-radius:22px; margin:0 auto 16px; background:var(--warning-light); display:flex; align-items:center; justify-content:center; font-size:28px; color:var(--warning)">⏸</div>
+              <h2 style="color:var(--dark); font-size:22px; font-weight:800; margin-bottom:6px;">Test Paused</h2>
+              <p style="color:var(--text-secondary); font-size:14px; margin-bottom:16px;">Your progress remains securely cached.</p>
+              
+              <div style="margin:0 auto 20px; padding:10px 18px; border-radius:12px; background:#f8fafc; border:1px solid #e2e8f0; font-size:14px; font-weight:700">⏱️ Elapsed: <span id="popupTime">00:00</span></div>
+              
+              <!-- Dashboard metrics stack during live pause view state layer -->
+              <div id="pauseStats" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
+                <div style="background:var(--success-light); border-radius:14px; padding:10px; text-align:center;">
+                  <div style="font-size:11px; font-weight:700; color:var(--success)">Correct</div>
+                  <div id="pauseCorrect" style="font-size:18px; font-weight:800; color:var(--dark)">0</div>
+                </div>
+                <div style="background:var(--danger-light); border-radius:14px; padding:10px; text-align:center;">
+                  <div style="font-size:11px; font-weight:700; color:var(--danger)">Wrong</div>
+                  <div id="pauseWrong" style="font-size:18px; font-weight:800; color:var(--dark)">0</div>
+                </div>
+                <div style="background:var(--primary-light); border-radius:14px; padding:10px; text-align:center; grid-column: span 2;">
+                  <div style="font-size:11px; font-weight:700; color:var(--primary)">Total Progress Attempted</div>
+                  <div style="font-size:16px; font-weight:800; color:var(--dark)"><span id="pauseAtt">0</span> / <span id="pauseTotal">0</span></div>
+                </div>
+                <div style="display:none;"><span id="pauseUn">0</span></div>
               </div>
-              <div style="background:var(--danger-light); border-radius:14px; padding:10px; text-align:center;">
-                <div style="font-size:11px; font-weight:700; color:var(--danger)">Wrong</div>
-                <div id="pauseWrong" style="font-size:18px; font-weight:800; color:var(--dark)">0</div>
+              
+              <div class="btns">
+                <button id="resumePopupBtn" style="background:var(--primary)">Resume</button>
+                <button id="submitPopupBtn" style="background:var(--success)">Submit Test</button>
               </div>
-              <div style="background:var(--primary-light); border-radius:14px; padding:10px; text-align:center; grid-column: span 2;">
-                <div style="font-size:11px; font-weight:700; color:var(--primary)">Total Progress Attempted</div>
-                <div style="font-size:16px; font-weight:800; color:var(--dark)"><span id="pauseAtt">0</span> / <span id="pauseTotal">0</span></div>
-              </div>
-              <div style="display:none;"><span id="pauseUn">0</span></div>
             </div>
-            
-            <div class="btns">
-              <button id="resumePopupBtn" style="background:var(--primary)">Resume</button>
-              <button id="submitPopupBtn" style="background:var(--success)">Submit Test</button>
+          </div>
+
+          <!-- Question Number • Exam Tag • Badge / Question -->
+          <div class="premium-question-card">
+            <div id="q-text" class="question-text-style"></div>
+            <div id="exam-tag" class="exam-tag-badge"></div>
+          </div>
+          
+          <!-- Options Dynamic Cards Stack -->
+          <div id="options" class="options-stack"></div>
+          
+          <!-- Premium Solution Explanation Layout Box Panel Module Component -->
+          <div id="feedback" class="explanation-box-premium"></div>
+        </div>
+
+        <!-- Redesigned Dashboard Metric Assessment Score Card Screen Frame Component Module Layout -->
+        <div id="score-card" style="display:none;" class="premium-result-screen">
+          <div class="result-hero-card">
+            <div class="result-hero-title">Assessment Completed</div>
+            <div class="score-big-display"><span style="font-size:32px; opacity:1; font-weight:800;" id="score"></span> <span>/ <span id="total"></span> Points</span></div>
+            <div id="perfBadge" class="perf-badge-premium">EXCELLENT</div>
+          </div>
+
+          <!-- Premium Analytical Metrics Grid Stack Panel Layout -->
+          <div class="stats-grid-dashboard">
+            <div class="stat-mini-card success-border">
+              <span class="stat-mini-title">Correct Answers</span>
+              <span class="stat-mini-value" id="correct">0</span>
+            </div>
+            <div class="stat-mini-card danger-border">
+              <span class="stat-mini-title">Incorrect Answers</span>
+              <span class="stat-mini-value" id="wrong">0</span>
+            </div>
+            <div class="stat-mini-card primary-border">
+              <span class="stat-mini-title">Total Attempted</span>
+              <span class="stat-mini-value" id="attempted">0</span>
+            </div>
+            <div class="stat-mini-card warning-border">
+              <span class="stat-mini-title">Skipped Questions</span>
+              <span class="stat-mini-value" id="unattempted">0</span>
+            </div>
+            <div class="stat-mini-card primary-border">
+              <span class="stat-mini-title">Accuracy Rate</span>
+              <span class="stat-mini-value"><span id="accuracy">0</span>%</span>
+            </div>
+            <div class="stat-mini-card success-border">
+              <span class="stat-mini-title">Highest Streak</span>
+              <span class="stat-mini-value" id="highestStreak">0</span>
+            </div>
+            <div class="stat-mini-card primary-border">
+              <span class="stat-mini-title">Time Taken</span>
+              <span class="stat-mini-value" id="timeTaken">00:00</span>
+            </div>
+            <div class="stat-mini-card warning-border">
+              <span class="stat-mini-title">Avg Time / Q</span>
+              <span class="stat-mini-value" id="avgTime">00:00</span>
             </div>
           </div>
+
+          <!-- Restart Target Trigger Configurations Box Area Panel -->
+          <div class="restart-actions-container">
+            <button class="full-width-restart-btn" onclick="restartOptions()">Retake / Practice Analytics Mode</button>
+          </div>
         </div>
 
-        <!-- Premium Modern Question Card Box Wrapper Layout Container -->
-        <div class="premium-question-card">
-          <div id="q-text" class="question-text-style"></div>
-          <div id="exam-tag" class="exam-tag-badge"></div>
-        </div>
-        
-        <!-- Options Dynamic Cards Stack -->
-        <div id="options" class="options-stack"></div>
-        
-        <!-- Premium Solution Explanation Layout Box Panel Module Component -->
-        <div id="feedback" class="explanation-box-premium"></div>
       </div>
 
-      <!-- Redesigned Dashboard Metric Assessment Score Card Screen Frame Component Module Layout -->
-      <div id="score-card" style="display:none;" class="premium-result-screen">
-        <div class="result-hero-card">
-          <div class="result-hero-title">Assessment Completed</div>
-          <div class="score-big-display"><span style="font-size:32px; opacity:1; font-weight:800;" id="score"></span> <span>/ <span id="total"></span> Points</span></div>
-          <div id="perfBadge" class="perf-badge-premium">EXCELLENT</div>
-        </div>
-
-        <!-- Premium Analytical Metrics Grid Stack Panel Layout -->
-        <div class="stats-grid-dashboard">
-          <div class="stat-mini-card success-border">
-            <span class="stat-mini-title">Correct Answers</span>
-            <span class="stat-mini-value" id="correct">0</span>
-          </div>
-          <div class="stat-mini-card danger-border">
-            <span class="stat-mini-title">Incorrect Answers</span>
-            <span class="stat-mini-value" id="wrong">0</span>
-          </div>
-          <div class="stat-mini-card primary-border">
-            <span class="stat-mini-title">Total Attempted</span>
-            <span class="stat-mini-value" id="attempted">0</span>
-          </div>
-          <div class="stat-mini-card warning-border">
-            <span class="stat-mini-title">Skipped Questions</span>
-            <span class="stat-mini-value" id="unattempted">0</span>
-          </div>
-          <div class="stat-mini-card primary-border">
-            <span class="stat-mini-title">Accuracy Rate</span>
-            <span class="stat-mini-value"><span id="accuracy">0</span>%</span>
-          </div>
-          <div class="stat-mini-card success-border">
-            <span class="stat-mini-title">Highest Streak</span>
-            <span class="stat-mini-value" id="highestStreak">0</span>
-          </div>
-          <div class="stat-mini-card primary-border">
-            <span class="stat-mini-title">Time Taken</span>
-            <span class="stat-mini-value" id="timeTaken">00:00</span>
-          </div>
-          <div class="stat-mini-card warning-border">
-            <span class="stat-mini-title">Avg Time / Q</span>
-            <span class="stat-mini-value" id="avgTime">00:00</span>
-          </div>
-        </div>
-
-        <!-- Restart Target Trigger Configurations Box Area Panel -->
-        <div class="restart-actions-container">
-          <button class="full-width-restart-btn" onclick="restartOptions()">Retake / Practice Analytics Mode</button>
-        </div>
+      <!-- Redesigned Assessment Interaction Control Bar Footer Panel Menu Layout Area -->
+      <div id="controls" class="quiz-controls-footer">
+        <button id="backBtn" class="footer-nav-btn btn-back-quiz" onclick="prevQ()">Back</button>
+        <button id="submitKeep" class="footer-nav-btn btn-submit-quiz" onclick="confirmSubmit()">Submit Test</button>
+        <button id="nextBtn" class="footer-nav-btn btn-next-quiz" onclick="nextQ()">Next Q</button>
       </div>
 
-    </div>
-
-    <!-- Redesigned Assessment Interaction Control Bar Footer Panel Menu Layout Area -->
-    <div id="controls" class="quiz-controls-footer">
-      <button id="backBtn" class="footer-nav-btn btn-back-quiz" onclick="prevQ()">Back</button>
-      <button id="submitKeep" class="footer-nav-btn btn-submit-quiz" onclick="confirmSubmit()">Submit Test</button>
-      <button id="nextBtn" class="footer-nav-btn btn-next-quiz" onclick="nextQ()">Next Q</button>
     </div>
 
   </div>
@@ -1220,7 +1241,7 @@ async function loadQuizData(quizPath) {
     
     document.getElementById('explorerScreen').style.display='none';
     document.getElementById('quizEngineBox').style.display='flex';
-    document.getElementById('quiz-box').style.display='block';
+    document.getElementById('quiz-box').style.display='flex';
     document.getElementById('controls').style.display='flex';
     document.getElementById('jumpBox').style.display='flex';
     document.querySelector('.floating-quiz-header').style.display='flex';
@@ -1610,7 +1631,7 @@ if(goBtn) goBtn.disabled=false;
    answerCorrect=new Array(data.length).fill(null);
    questionTimes=new Array(data.length).fill(0);
    document.getElementById('score-card').style.display='none';
-   document.getElementById('quiz-box').style.display='block';
+   document.getElementById('quiz-box').style.display='flex';
    document.getElementById('controls').style.display='flex';
    document.getElementById('jumpBox').style.display='flex';
    document.querySelector('.floating-quiz-header').style.display='flex';
@@ -1643,7 +1664,7 @@ if(pt) pt.textContent='00:00';
  answerCorrect=new Array(data.length).fill(null);
  questionTimes=new Array(data.length).fill(0);
  document.getElementById('score-card').style.display='none';
- document.getElementById('quiz-box').style.display='block';
+ document.getElementById('quiz-box').style.display='flex';
  document.getElementById('controls').style.display='flex';
  document.getElementById('jumpBox').style.display='flex';
  document.querySelector('.floating-quiz-header').style.display='flex';
