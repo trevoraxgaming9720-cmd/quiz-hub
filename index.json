@@ -28,6 +28,34 @@
     "path": "GK/Polity/001_Making_of_constitution/PYQ_1.html"
   },
   {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "002_Schedule",
+    "title": "Mock_Test_1",
+    "path": "GK/Polity/002_Schedule/Mock_Test_1.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "002_Schedule",
+    "title": "Mock_Test_2",
+    "path": "GK/Polity/002_Schedule/Mock_Test_2.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "002_Schedule",
+    "title": "PYQ_1",
+    "path": "GK/Polity/002_Schedule/PYQ_1.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "002_Schedule",
+    "title": "PYQ_2",
+    "path": "GK/Polity/002_Schedule/PYQ_2.html"
+  },
+  {
     "subject": "Maths",
     "category": null,
     "chapter": "Percentage",
