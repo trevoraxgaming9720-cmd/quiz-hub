@@ -229,5 +229,47 @@
     "chapter": "002_Time_and_distance",
     "title": "Time_and_distance_3",
     "path": "Maths/002_Time_and_distance/Time_and_distance_3.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "003_Train_boat_race_motion",
+    "title": "001_Train_1",
+    "path": "Maths/003_Train_boat_race_motion/001_Train_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "003_Train_boat_race_motion",
+    "title": "002_Train_2",
+    "path": "Maths/003_Train_boat_race_motion/002_Train_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "003_Train_boat_race_motion",
+    "title": "003_Boat_and_stream_1",
+    "path": "Maths/003_Train_boat_race_motion/003_Boat_and_stream_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "003_Train_boat_race_motion",
+    "title": "004_Boat_and_stream_2",
+    "path": "Maths/003_Train_boat_race_motion/004_Boat_and_stream_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "003_Train_boat_race_motion",
+    "title": "005_Race",
+    "path": "Maths/003_Train_boat_race_motion/005_Race.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "003_Train_boat_race_motion",
+    "title": "006_Circular_motion",
+    "path": "Maths/003_Train_boat_race_motion/006_Circular_motion.html"
   }
 ]
