@@ -11,7 +11,7 @@
 
 <style>
 :root {
-  --primary: #22C55E;
+  --primary: #2563eb;
   --primary-light: #eff6ff;
   --primary-dark: #1d4ed8;
   --success: #10b981;
@@ -1768,7 +1768,7 @@ function applyResultTheme(scorePercent){
   else if(scorePercent>=60) color='#f59e0b';
   else if(scorePercent>=40) color='#fb923c';
 
-  ring.style.stroke=color;
+  ring.style.stroke=bg;
   score.style.color=color;
   badge.style.background=color;
 
@@ -2086,11 +2086,11 @@ sendTelegramResult({
 });
 
 const overallPercent=(Math.max(0,finalScore)/data.length)*100;
-let badge='NEEDS PRACTICE',bg='var(--danger)';
-if(overallPercent>=90){badge='EXCELLENT';bg='var(--success)';}
-else if(overallPercent>=75){badge='VERY GOOD';bg='var(--primary)';}
-else if(overallPercent>=60){badge='GOOD';bg='var(--warning)';}
-else if(overallPercent>=40){badge='NEEDS PRACTICE';bg='var(--text-secondary)';}
+let badge='NEEDS PRACTICE',bg='#EF4444';
+if(overallPercent>=90){badge='EXCELLENT';bg='#10B981';}
+else if(overallPercent>=75){badge='VERY GOOD';bg='#22C55E';}
+else if(overallPercent>=60){badge='GOOD';bg='#F59E0B';}
+else if(overallPercent>=40){badge='AVERAGE';bg='#F97316';}
 
 const pb=document.getElementById('perfBadge');
 pb.innerText=badge;pb.style.background=bg;
