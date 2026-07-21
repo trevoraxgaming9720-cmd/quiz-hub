@@ -11,9 +11,9 @@
 
 <style>
 :root {
-  --primary: #4f46e5;
+  --primary: #2563eb;
   --primary-light: #eff6ff;
-  --primary-dark: #3730a3;
+  --primary-dark: #1d4ed8;
   --success: #10b981;
   --success-light: #ecfdf5;
   --danger: #ef4444;
@@ -22,9 +22,9 @@
   --warning-light: #fffbeb;
   --dark: #0f172a;
   --text-secondary: #475569;
-  --bg-app: #f3f4f6;
+  --bg-app: #f8fafc;
   --card-bg: #ffffff;
-  --radius: 28px;
+  --radius: 24px;
   --shadow-sm: 0 2px 8px rgba(37, 99, 235, 0.04);
   --shadow-md: 0 12px 34px rgba(15, 23, 42, 0.06);
   --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.1);
@@ -78,7 +78,7 @@ body {
 
 /* Premium Gradient Header Component */
 .premium-app-header {
-  background: linear-gradient(135deg,#4f46e5 0%,#2563eb 55%,#06b6d4 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
   padding: 32px 24px;
   border-radius: 0 0 var(--radius) var(--radius);
   color: #ffffff;
@@ -97,7 +97,7 @@ body {
   height: 42px;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,7 +155,7 @@ body {
   width: 100%;
   padding: 16px 16px 16px 48px;
   border: 1.5px solid #e2e8f0;
-  border-radius: 20px;
+  border-radius: 18px;
   font-size: 15px;
   font-weight: 500;
   outline: none;
@@ -223,7 +223,7 @@ body {
 .card-icon-wrapper {
   width: 52px;
   height: 52px;
-  border-radius: 20px;
+  border-radius: 18px;
   background: var(--primary-light);
   display: flex;
   align-items: center;
@@ -303,7 +303,7 @@ body {
   background: var(--primary);
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 14px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -493,7 +493,7 @@ body {
   padding: 14px 16px;
   background: var(--card-bg);
   border: 1.5px solid #e2e8f0;
-  border-radius: 20px;
+  border-radius: 14px;
   text-align: left;
   font-size: 16px;
   font-weight: 600;
@@ -637,7 +637,7 @@ body {
   background: var(--card-bg);
   border: 1px solid #edf2f7;
   padding: 16px;
-  border-radius: 20px;
+  border-radius: 18px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -666,7 +666,7 @@ body {
   background: var(--primary);
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 18px;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
@@ -759,10 +759,10 @@ body {
       <div class="premium-app-header">
         <div class="premium-logo-area">
           <div class="premium-logo-circle">🎓</div>
-          <div class="premium-brand-title">DEV SSC ACADEMY</div>
+          <div class="premium-brand-title">DREAM TO DESTINY</div>
         </div>
-        <h3 id="mainExplorerHeadline" style="font-size:22px; font-weight:800; margin-bottom:4px;">Select Your Practice</h3>
-        <p id="mainExplorerSubline" class="premium-subtitle">Choose a subject and begin your smart preparation.</p>
+        <h3 id="mainExplorerHeadline" style="font-size:22px; font-weight:800; margin-bottom:4px;">Choose Your Test</h3>
+        <p id="mainExplorerSubline" class="premium-subtitle">Select your subject and start practicing.</p>
       </div>
     </div>
 
@@ -771,7 +771,7 @@ body {
       <button id="explorerBackBtn" class="back-circle-btn" onclick="handleExplorerBack()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </button>
-      <h3 id="explorerTitle" class="action-title">Select Your Practice</h3>
+      <h3 id="explorerTitle" class="action-title">Choose Your Test</h3>
     </div>
     
     <!-- Modern Filter Input Component Box -->
@@ -818,7 +818,7 @@ body {
         <div class="quiz-header-pill timer-pill">
           <span style="color:var(--success); font-weight:800;" id="qTimer">00:00</span>
         </div>
-        <div class="quiz-header-title-text">DEV SSC ACADEMY</div>
+        <div class="quiz-header-title-text">DREAM TO DESTINY</div>
         <div class="quiz-header-pill timer-pill">
           <span style="color:var(--text-secondary);" id="liveTimer">00:00</span>
         </div>
@@ -994,8 +994,8 @@ function renderSubjects() {
   dynamicHeaderArea.style.display = "block";
   actionBar.style.display = "none";
 
-  document.getElementById('mainExplorerHeadline').innerText = "Select Your Practice";
-  document.getElementById('mainExplorerSubline').innerText = "Choose a subject and begin your smart preparation.";
+  document.getElementById('mainExplorerHeadline').innerText = "Choose Your Test";
+  document.getElementById('mainExplorerSubline').innerText = "Select your subject and start practicing.";
 
   const subjects = [...new Set(allFlattenedQuizzes.map(q => q.subject))];
 
