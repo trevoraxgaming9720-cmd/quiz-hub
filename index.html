@@ -1296,17 +1296,6 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 
 <!-- RE-ENGINEERED DYNAMIC PREMIUM VIEW RENDERING CORE INTERFACE LAYER -->
 <script>
-let lastTouchEnd = 0;
-document.addEventListener("touchend", function(e){
-  if(e.touches && e.touches.length>1) return;
-  const interactive = e.target.closest('button,a,input,textarea,select,label,[role="button"],.options-stack,#streakPopup');
-  if(interactive) return;
-  const now = Date.now();
-  if(now-lastTouchEnd<300){
-    e.preventDefault();
-  }
-  lastTouchEnd=now;
-},{passive:false});
 
 async function sendTelegramResult(result){
   try{
