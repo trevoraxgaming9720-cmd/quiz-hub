@@ -876,9 +876,10 @@ body {
           
           <!-- Options Dynamic Cards Stack -->
           <div id="options" class="options-stack"></div>
+<div id="toggleExplanation" style="display:none;cursor:pointer;font-size:13px;font-weight:700;color:#2563eb;margin:6px 0 8px 0;text-align:left;">▼ Show Explanation</div>
           
           <!-- Premium Solution Explanation Layout Box Panel Module Component -->
-          <div id="feedback" class="explanation-box-premium"></div>
+          <div id="feedback" class="explanation-box-premium" style="display:none;"></div>
         </div>
 
         <!-- Redesigned Dashboard Metric Assessment Score Card Screen Frame Component Module Layout -->
@@ -1731,6 +1732,34 @@ showQ=function(){
 
 <button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Dismiss Panel</button>
 </div></div>
+
+
+<script>
+(function(){
+const btn=document.getElementById('toggleExplanation');
+const fb=document.getElementById('feedback');
+if(!btn||!fb) return;
+window.resetExplanationUI=function(){
+ fb.style.display='none';
+ btn.style.display='none';
+ btn.innerHTML='▼ Show Explanation';
+};
+window.enableExplanationToggle=function(){
+ btn.style.display='inline-block';
+ fb.style.display='none';
+ btn.innerHTML='▼ Show Explanation';
+};
+btn.onclick=function(){
+ if(fb.style.display==='none'||fb.style.display===''){
+   fb.style.display='block';
+   btn.innerHTML='▲ Hide Explanation';
+ }else{
+   fb.style.display='none';
+   btn.innerHTML='▼ Show Explanation';
+ }
+};
+})();
+</script>
 
 </body>
 </html>
