@@ -621,6 +621,45 @@ h2 { text-align: center; color: #d32f2f; font-size: 1.2rem; margin-bottom: 15px;
   .badge-text,.timer-val{font-size:15px;}
 }
 
+
+#retestCard{
+ max-width:520px;
+ border-radius:30px;
+ padding:30px;
+ background:#fff;
+ box-shadow:0 20px 50px rgba(0,0,0,.15);
+}
+.rtitle{font-size:2rem;font-weight:800;color:#111827;}
+.rsub{font-size:15px;color:#64748b;margin-bottom:24px;}
+.rbtn{
+ border-radius:20px;
+ padding:18px;
+ margin:14px 0;
+ border:1px solid #e5e7eb;
+ background:#fff;
+ transition:.25s;
+}
+.rbtn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.08);}
+.rbtn:nth-of-type(1){background:#eef4ff;border-color:#bfd4ff;}
+.rbtn:nth-of-type(2){background:#fff2f2;border-color:#ffc9c9;}
+.rbtn:nth-of-type(3){background:#fff8ec;border-color:#ffd89c;}
+.rbtn:nth-of-type(4){background:#eefcf4;border-color:#b9efcb;}
+.rbtn small{
+ display:inline-block;
+ margin-top:6px;
+ padding:4px 10px;
+ border-radius:999px;
+ font-weight:700;
+ background:rgba(255,255,255,.7);
+}
+#cancelRetest{
+ border-radius:999px;
+ background:#1f2937;
+ color:#fff;
+ font-size:16px;
+ padding:16px;
+}
+
 </style>
 </head>
 <body>
@@ -1554,8 +1593,8 @@ showQ=function(){
 <!-- Retest Popup Modals -->
 <div id="retestModal"><div id="retestCard">
 <div style="text-align:center;font-size:44px">🔄</div>
-<div class="rtitle">Restart Test Option Pack</div>
-<div class="rsub">Select target execution mode segment safely:</div>
+<div class="rtitle">Restart Test</div>
+<div class="rsub">Choose how you'd like to continue your practice</div>
 
 <div class="rbtn" onclick="startRetest(1)">
 <div style="flex:1;"><b>Full Retest Engine Mode</b><small><span id="cntFull"></span> Questions Available</small></div>➜
