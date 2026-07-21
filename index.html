@@ -1490,7 +1490,14 @@ async function loadQuizData(quizPath) {
   showLoader(true);
   try {
     const quizInfo = allFlattenedQuizzes.find(q=>q.path===quizPath);
-    currentQuizTitle = quizInfo ? cleanHumanReadableTitle(quizInfo.title || quizInfo.name) : "";
+    if (quizInfo) {
+      if (quizInfo.subject) currentSubject = quizInfo.subject;
+      if (quizInfo.category !== undefined) currentCategory = quizInfo.category;
+      if (quizInfo.chapter) currentChapter = quizInfo.chapter;
+      currentQuizTitle = cleanHumanReadableTitle(quizInfo.title || quizInfo.name);
+    } else {
+      currentQuizTitle = "";
+    }
     const response = await fetch(`./${quizPath}`);
     if (!response.ok) throw new Error("File Download Failed");
     const source = await response.text();
@@ -1809,9 +1816,9 @@ const avgSec=attempted?Math.round(elapsed/attempted):0;
 document.getElementById('avgTime').innerText=`${String(Math.floor(avgSec/60)).padStart(2,'0')}:${String(avgSec%60).padStart(2,'0')}`;
 sendTelegramResult({
  name: browserId,
- subject: currentSubject||"",
- category: currentCategory||"",
- chapter: currentChapter||"",
+ subject: cleanHumanReadableTitle(currentSubject||""),
+ category: cleanHumanReadableTitle(currentCategory||""),
+ chapter: cleanHumanReadableTitle(currentChapter||""),
  test: currentQuizTitle || document.title,
  score: `${document.getElementById("score").innerText}/${document.getElementById("total").innerText}`,
  correct: document.getElementById("correct").innerText,
