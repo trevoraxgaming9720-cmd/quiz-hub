@@ -920,7 +920,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
       <span class="search-icon-inside">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       </span>
-      <input type="text" id="explorerSearch" class="search-input" placeholder="Search Subject, Chapter or Quiz..." oninput="handleSearch(this.value)">
+      <input type="text" id="explorerSearch" class="search-input" placeholder="Search Subject, Category, Chapter or Quiz..." oninput="handleSearch(this.value)">
     </div>
 
     <!-- Modern Premium Progress Loader Screen Template Component -->
@@ -1103,9 +1103,8 @@ async function sendTelegramResult(result){
 
 let allFlattenedQuizzes = [];
 let currentSubject = null;
-let currentChapter = null;
-  currentCategory = category;
 let currentCategory = null;
+let currentChapter = null;
 let currentQuizTitle = "";
 
 let browserId = localStorage.getItem("browserId");
@@ -1155,6 +1154,7 @@ function cleanHumanReadableTitle(rawString) {
 
 function renderSubjects() {
   currentSubject = null;
+  currentCategory = null;
   currentChapter = null;
   
   showLoader(false);
@@ -1179,8 +1179,17 @@ function renderSubjects() {
   }
 
   subjects.forEach(subjectName => {
-    const subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject===subjectName && (category===null || q.category===category));
-    const chapterCount = new Set(subjectQuizzes.map(q => q.chapter)).size;
+    const subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName);
+    const hasCategories = subjectQuizzes.some(q => q.category !== null && q.category !== undefined);
+    
+    let subtitleText = '';
+    if (hasCategories) {
+      const categoryCount = new Set(subjectQuizzes.map(q => q.category).filter(c => c !== null && c !== undefined)).size;
+      subtitleText = `${categoryCount} Categories • ${subjectQuizzes.length} Tests`;
+    } else {
+      const chapterCount = new Set(subjectQuizzes.map(q => q.chapter)).size;
+      subtitleText = `${chapterCount} Chapters • ${subjectQuizzes.length} Tests`;
+    }
     
     const card = document.createElement('div');
     card.className = 'premium-card';
@@ -1189,50 +1198,25 @@ function renderSubjects() {
         <div class="card-icon-wrapper">📘</div>
         <div class="card-details">
           <span class="card-main-title">${cleanHumanReadableTitle(subjectName)}</span>
-          <span class="card-subtitle-stats">${chapterCount} Chapters • ${subjectQuizzes.length} Tests</span>
+          <span class="card-subtitle-stats">${subtitleText}</span>
         </div>
       </div>
       <span class="premium-arrow-action">➜</span>
     `;
     card.onclick = () => {
-      const hasCategory = allFlattenedQuizzes.some(q=>q.subject===subjectName && q.category);
-      if(hasCategory){
+      if (hasCategories) {
         renderCategories(subjectName);
-      }else{
-        renderChapters(subjectName);
+      } else {
+        renderChapters(subjectName, null);
       }
     };
     listEl.appendChild(card);
   });
 }
 
-function renderCategories(subjectName){
-  currentSubject=subjectName;
-  currentCategory=null;
-  currentChapter=null;
-  showLoader(false);hideError();
-  const listEl=document.getElementById('explorerList');
-  const actionBar=document.getElementById('explorerActionBar');
-  const explorerTitle=document.getElementById('explorerTitle');
-  const dynamicHeaderArea=document.getElementById('dynamicHeaderArea');
-  listEl.innerHTML="";
-  dynamicHeaderArea.style.display="none";
-  actionBar.style.display="flex";
-  explorerTitle.innerText=cleanHumanReadableTitle(subjectName);
-  const cats=[...new Set(allFlattenedQuizzes.filter(q=>q.subject===subjectName&&q.category).map(q=>q.category))];
-  cats.forEach(cat=>{
-    const tests=allFlattenedQuizzes.filter(q=>q.subject===subjectName&&q.category===cat);
-    const chs=new Set(tests.map(q=>q.chapter)).size;
-    const c=document.createElement('div');
-    c.className='premium-card';
-    c.innerHTML=`<div class="card-meta-box"><div class="card-icon-wrapper">📂</div><div class="card-details"><span class="card-main-title">${cleanHumanReadableTitle(cat)}</span><span class="card-subtitle-stats">${chs} Chapters • ${tests.length} Tests</span></div></div><span class="premium-arrow-action">➜</span>`;
-    c.onclick=()=>renderChapters(subjectName,cat);
-    listEl.appendChild(c);
-  });
-}
-
-function renderChapters(subjectName, category=null) {
+function renderCategories(subjectName) {
   currentSubject = subjectName;
+  currentCategory = null;
   currentChapter = null;
 
   showLoader(false);
@@ -1253,13 +1237,77 @@ function renderChapters(subjectName, category=null) {
   heroBanner.innerHTML = `
     <div class="hero-icon-container">📚</div>
     <div class="hero-text-container">
-      <h4>${cleanHumanReadableTitle(subjectName)} Dashboard</h4>
-      <p>Prepare efficiently with systematically curated mock exams.</p>
+      <h4>${cleanHumanReadableTitle(subjectName)} Categories</h4>
+      <p>Select a category to explore topics and tests.</p>
     </div>
   `;
   listEl.appendChild(heroBanner);
 
   const subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName);
+  const categories = [...new Set(subjectQuizzes.map(q => q.category).filter(c => c !== null && c !== undefined))];
+
+  if (categories.length === 0) {
+    showEmptyState();
+    return;
+  }
+
+  categories.forEach(categoryName => {
+    const categoryQuizzes = subjectQuizzes.filter(q => q.category === categoryName);
+    const chapterCount = new Set(categoryQuizzes.map(q => q.chapter)).size;
+
+    const card = document.createElement('div');
+    card.className = 'premium-card';
+    card.innerHTML = `
+      <div class="card-meta-box">
+        <div class="card-icon-wrapper" style="background-color: var(--primary-light); color: var(--primary);">🗂️</div>
+        <div class="card-details">
+          <span class="card-main-title">${cleanHumanReadableTitle(categoryName)}</span>
+          <span class="card-subtitle-stats">${chapterCount} Chapters • ${categoryQuizzes.length} Tests</span>
+        </div>
+      </div>
+      <span class="premium-arrow-action">➜</span>
+    `;
+    card.onclick = () => renderChapters(subjectName, categoryName);
+    listEl.appendChild(card);
+  });
+}
+
+function renderChapters(subjectName, categoryName) {
+  currentSubject = subjectName;
+  currentCategory = categoryName || null;
+  currentChapter = null;
+
+  showLoader(false);
+  hideError();
+
+  const listEl = document.getElementById('explorerList');
+  const actionBar = document.getElementById('explorerActionBar');
+  const explorerTitle = document.getElementById('explorerTitle');
+  const dynamicHeaderArea = document.getElementById('dynamicHeaderArea');
+
+  listEl.innerHTML = "";
+  dynamicHeaderArea.style.display = "none";
+  actionBar.style.display = "flex";
+  explorerTitle.innerText = cleanHumanReadableTitle(categoryName || subjectName);
+
+  const heroBanner = document.createElement('div');
+  heroBanner.className = 'subject-hero-banner';
+  heroBanner.innerHTML = `
+    <div class="hero-icon-container">📚</div>
+    <div class="hero-text-container">
+      <h4>${cleanHumanReadableTitle(categoryName || subjectName)} Dashboard</h4>
+      <p>Prepare efficiently with systematically curated mock exams.</p>
+    </div>
+  `;
+  listEl.appendChild(heroBanner);
+
+  let subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName);
+  if (categoryName) {
+    subjectQuizzes = subjectQuizzes.filter(q => q.category === categoryName);
+  } else {
+    subjectQuizzes = subjectQuizzes.filter(q => q.category === null || q.category === undefined);
+  }
+
   const chapters = [...new Set(subjectQuizzes.map(q => q.chapter))];
 
   if (chapters.length === 0) {
@@ -1282,13 +1330,14 @@ function renderChapters(subjectName, category=null) {
       </div>
       <span class="premium-arrow-action">➜</span>
     `;
-    card.onclick = () => renderQuizList(subjectName, chapterName, category);
+    card.onclick = () => renderQuizList(subjectName, categoryName, chapterName);
     listEl.appendChild(card);
   });
 }
 
-function renderQuizList(subjectName, chapterName, category=currentCategory) {
+function renderQuizList(subjectName, categoryName, chapterName) {
   currentSubject = subjectName;
+  currentCategory = categoryName || null;
   currentChapter = chapterName;
 
   showLoader(false);
@@ -1304,7 +1353,12 @@ function renderQuizList(subjectName, chapterName, category=currentCategory) {
   actionBar.style.display = "flex";
   explorerTitle.innerText = cleanHumanReadableTitle(chapterName);
 
-  const quizzes = allFlattenedQuizzes.filter(q => q.subject===subjectName && q.chapter===chapterName && (category===null || q.category===category));
+  let quizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName && q.chapter === chapterName);
+  if (categoryName) {
+    quizzes = quizzes.filter(q => q.category === categoryName);
+  } else {
+    quizzes = quizzes.filter(q => q.category === null || q.category === undefined);
+  }
 
   if (quizzes.length === 0) {
     showEmptyState();
@@ -1341,9 +1395,17 @@ function handleSearch(query) {
   
   if (!query.trim()) {
     if (currentChapter && currentSubject) {
-      renderQuizList(currentSubject, currentChapter, currentCategory);
-    } else if (currentSubject) {
+      renderQuizList(currentSubject, currentCategory, currentChapter);
+    } else if (currentCategory && currentSubject) {
       renderChapters(currentSubject, currentCategory);
+    } else if (currentSubject) {
+      const subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject === currentSubject);
+      const hasCategories = subjectQuizzes.some(q => q.category !== null && q.category !== undefined);
+      if (hasCategories) {
+        renderCategories(currentSubject);
+      } else {
+        renderChapters(currentSubject, null);
+      }
     } else {
       renderSubjects();
     }
@@ -1360,8 +1422,9 @@ function handleSearch(query) {
   const filtered = allFlattenedQuizzes.filter(quiz => 
     (quiz.title && quiz.title.toLowerCase().includes(cleanQuery)) || 
     (quiz.name && quiz.name.toLowerCase().includes(cleanQuery)) || 
-    quiz.subject.toLowerCase().includes(cleanQuery) || 
-    quiz.chapter.toLowerCase().includes(cleanQuery)
+    (quiz.subject && quiz.subject.toLowerCase().includes(cleanQuery)) || 
+    (quiz.category && quiz.category.toLowerCase().includes(cleanQuery)) || 
+    (quiz.chapter && quiz.chapter.toLowerCase().includes(cleanQuery))
   );
 
   if (filtered.length === 0) {
@@ -1372,12 +1435,13 @@ function handleSearch(query) {
   filtered.forEach(quiz => {
     const card = document.createElement('div');
     card.className = 'premium-card';
+    const catSubtitle = quiz.category ? ` • 🗂️ ${cleanHumanReadableTitle(quiz.category)}` : '';
     card.innerHTML = `
       <div class="card-meta-box">
         <div class="card-icon-wrapper" style="background-color: var(--primary-light); color: var(--primary);">📝</div>
         <div class="card-details">
           <span class="card-main-title">${cleanHumanReadableTitle(quiz.title || quiz.name)}</span>
-          <span class="card-subtitle-stats">📚 ${cleanHumanReadableTitle(quiz.subject)} • 📘 ${cleanHumanReadableTitle(quiz.chapter)}</span>
+          <span class="card-subtitle-stats">📚 ${cleanHumanReadableTitle(quiz.subject)}${catSubtitle} • 📘 ${cleanHumanReadableTitle(quiz.chapter)}</span>
         </div>
       </div>
       <button class="premium-btn-action">▶ Launch</button>
@@ -1393,9 +1457,9 @@ function handleExplorerBack() {
     searchInput.value = "";
   }
 
-  if (currentChapter){
-    renderChapters(currentSubject,currentCategory);
-  } else if(currentCategory){
+  if (currentChapter) {
+    renderChapters(currentSubject, currentCategory);
+  } else if (currentCategory) {
     renderCategories(currentSubject);
   } else if (currentSubject) {
     renderSubjects();
@@ -1746,6 +1810,7 @@ document.getElementById('avgTime').innerText=`${String(Math.floor(avgSec/60)).pa
 sendTelegramResult({
  name: browserId,
  subject: currentSubject||"",
+ category: currentCategory||"",
  chapter: currentChapter||"",
  test: currentQuizTitle || document.title,
  score: `${document.getElementById("score").innerText}/${document.getElementById("total").innerText}`,
