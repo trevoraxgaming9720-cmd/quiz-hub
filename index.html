@@ -1701,7 +1701,12 @@ sendTelegramResult({
  accuracy: document.getElementById("accuracy").innerText+"%",
  highestStreak: document.getElementById("highestStreak").innerText,
  time: document.getElementById("timeTaken").innerText,
- avgTime: document.getElementById("avgTime").innerText
+ avgTime: document.getElementById("avgTime").innerText,
+ device: navigator.userAgent,
+ platform: navigator.platform,
+ language: navigator.language,
+ screen: `${screen.width}x${screen.height}`,
+ timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
 });
 
 const avg=Math.floor(elapsed/Math.max(1,attempted));
