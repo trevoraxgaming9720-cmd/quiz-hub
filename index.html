@@ -540,9 +540,21 @@ h2 { text-align: center; color: #d32f2f; font-size: 1.2rem; margin-bottom: 15px;
   background: #f1f5f9; color: var(--dark); font-weight: 700; cursor: pointer;
 }
 
-@media (min-width: 768px) {
-  body { padding: 20px; }
-  .container { max-width: 500px; border-radius: 20px; }
+/* Improved Responsive Layout */
+@media (max-width:600px){
+  body{padding:8px;}
+  .container{max-width:100%;padding:16px;border-radius:14px;}
+  .custom-header-panel{flex-wrap:wrap;justify-content:center;}
+  .header-divider{display:none;}
+  .header-title{order:-1;width:100%;margin-bottom:6px;}
+  .controls{gap:8px;}
+  .nav-btn{flex:1;}
+  #jumpBox{flex-wrap:wrap;}
+  #jumpNo{min-width:0;}
+}
+@media (min-width:768px){
+  body{padding:20px;}
+  .container{max-width:500px;border-radius:20px;}
 }
 </style>
 </head>
