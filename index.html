@@ -826,14 +826,7 @@ body {
       </div>
 
       <div class="quiz-main-content-area">
-        
-        <!-- Quick Navigation Jump Control Module Panel -->
-        <div id="jumpBox" class="jump-box-premium">
-          <input id="jumpNo" type="number" class="jump-input-premium" placeholder="Jump to Question No...">
-          <button class="jump-btn-premium" onclick="goToQuestion(document.getElementById('jumpNo').value)">Go</button>
-        </div>
-
-        <div id="quiz-box" style="position:relative; display:flex; flex-direction:column;">
+<div id="quiz-box" style="position:relative; display:flex; flex-direction:column;">
           
           <!-- Premium Configured Pause View Modal Component Box Layer -->
           <div id="pauseModal">
@@ -861,6 +854,15 @@ body {
                 <div style="display:none;"><span id="pauseUn">0</span></div>
               </div>
               
+              
+        
+        <!-- Quick Navigation Jump Control Module Panel -->
+        <div id="jumpBox" class="jump-box-premium">
+          <input id="jumpNo" type="number" class="jump-input-premium" placeholder="Jump to Question No...">
+          <button class="jump-btn-premium" onclick="goToQuestion(document.getElementById('jumpNo').value)">Go</button>
+        </div>
+
+        
               <div class="btns">
                 <button id="resumePopupBtn" style="background:var(--warning)">Resume</button>
                 <button id="submitPopupBtn" style="background:var(--success)">Submit Test</button>
@@ -1244,7 +1246,7 @@ async function loadQuizData(quizPath) {
     document.getElementById('quizEngineBox').style.display='flex';
     document.getElementById('quiz-box').style.display='flex';
     document.getElementById('controls').style.display='flex';
-    document.getElementById('jumpBox').style.display='flex';
+    document.getElementById('jumpBox').style.display='block';
     document.querySelector('.floating-quiz-header').style.display='flex';
     
     showQ();
