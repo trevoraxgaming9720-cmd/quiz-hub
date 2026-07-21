@@ -591,99 +591,220 @@ text-align:center;
   cursor: pointer;
 }
 
-/* Premium Metric Dashboard Result screen */
+/* Premium Metric Dashboard Result screen (REDESIGNED VIZ) */
 .premium-result-screen {
-  padding: 24px 20px;
-  background: var(--bg-app);
-}
-.result-hero-card {
-  background: linear-gradient(135deg,#fffdf5 0%,#fff7d6 55%,#fffdf5 100%);
-  border-radius: var(--radius);
-  padding: 32px 24px;
-  text-align: center;
-  color: white;
-  box-shadow:0 12px 30px rgba(218,165,32,.22);
-  margin-bottom: 24px;
-}
-.result-hero-title {
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color:#b91c1c;
-  margin-bottom: 8px;
-}
-.score-big-display {
-  font-size: 48px;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 12px;
-  color:#000 !important;
-}
-
-.score-big-display span{
-  color:#555 !important;
-}
-.score-big-display span {
-  font-size: 24px;
-  opacity: 0.7;
-  font-weight: 500;
-}
-.perf-badge-premium {
-  display: inline-block;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 800;
-  background:#e60023;
-  border:none;
-}
-
-.stats-grid-dashboard {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 24px;
-}
-.stat-mini-card {
-  background: var(--card-bg);
-  border: 1px solid #edf2f7;
-  padding: 16px;
-  border-radius: 18px;
+  padding: 20px 16px;
+  background: #ffffff;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  animation: fadeIn 0.35s ease-out;
 }
-.stat-mini-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
+
+.result-hero-card {
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.stat-mini-value {
-  font-size: 20px;
+
+.trophy-wrapper {
+  margin-bottom: 12px;
+  filter: drop-shadow(0 8px 16px rgba(234, 179, 8, 0.25));
+  animation: trophyFloat 3s ease-in-out infinite;
+}
+
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.result-hero-title {
+  font-size: 13px;
   font-weight: 800;
-  color: var(--dark);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  margin-bottom: 20px;
 }
-.stat-mini-card.success-border { border-left: 4px solid var(--success); }
-.stat-mini-card.danger-border { border-left: 4px solid var(--danger); }
-.stat-mini-card.primary-border { border-left: 4px solid var(--primary); }
-.stat-mini-card.warning-border { border-left: 4px solid var(--warning); }
+
+/* Circular Score Ring */
+.score-ring-container {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.score-ring-bg {
+  fill: none;
+  stroke: #fee2e2;
+  stroke-width: 10;
+}
+
+.score-ring-progress {
+  fill: none;
+  stroke: #ef4444;
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 440;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.score-ring-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-big-display {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #0f172a !important;
+  letter-spacing: -0.5px;
+}
+
+.score-sub-text {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.perf-badge-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background: var(--danger);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.perf-badge-premium:hover {
+  transform: scale(1.03);
+}
+
+/* Modern Analytics Grid */
+.stats-grid-dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-mini-card {
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  padding: 16px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-mini-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+.stat-icon-bg {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Custom Card Theming */
+.card-green .stat-icon-bg { background: #ecfdf5; color: #10b981; }
+.card-red .stat-icon-bg { background: #fef2f2; color: #ef4444; }
+.card-blue .stat-icon-bg { background: #eff6ff; color: #2563eb; }
+.card-orange .stat-icon-bg { background: #fffbeb; color: #f59e0b; }
+.card-purple .stat-icon-bg { background: #faf5ff; color: #a855f7; }
+.card-teal .stat-icon-bg { background: #f0fdfa; color: #14b8a6; }
+.card-cyan .stat-icon-bg { background: #ecfeff; color: #06b6d4; }
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-mini-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-mini-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 2px;
+}
 
 .restart-actions-container {
-  margin-top: 10px;
+  margin-top: auto;
+  padding-bottom: 12px;
 }
+
 .full-width-restart-btn {
   width: 100%;
-  padding: 16px;
-  background: var(--danger);
+  padding: 18px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: white;
   border: none;
-  border-radius: 18px;
-  font-size: 15px;
-  font-weight: 700;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
-  transition: var(--transition);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.full-width-restart-btn:hover {
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.full-width-restart-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
 /* Modals System Custom Redesigns */
@@ -728,7 +849,6 @@ animation:burstFly 1.1s ease-out forwards;
 @keyframes burstFly{
 to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 }
-
 
 .options button:disabled {
   opacity: 1 !important;
@@ -781,7 +901,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
   .options-stack button{font-size:16px;}
 }
 
-/* New CSS for image_0.png style Retest Modal */
+/* Retest Modal */
 #retestModal {
   position: fixed;
   inset: 0;
@@ -913,7 +1033,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
       </div>
     </div>
 
-    <!-- Active Action Nav Back Bar (Hidden on deep root home layout level) -->
+    <!-- Active Action Nav Back Bar -->
     <div class="action-bar" id="explorerActionBar" style="display:none;">
       <button id="explorerBackBtn" class="back-circle-btn" onclick="handleExplorerBack()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -1023,65 +1143,145 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
           
           <!-- Options Dynamic Cards Stack -->
           <div id="options" class="options-stack"></div>
-<div id="toggleExplanation" style="display:none;cursor:pointer;font-size:13px;font-weight:700;color:#2563eb;margin:6px 0 8px 0;text-align:left;">▼ Show Explanation</div>
+          <div id="toggleExplanation" style="display:none;cursor:pointer;font-size:13px;font-weight:700;color:#2563eb;margin:6px 0 8px 0;text-align:left;">▼ Show Explanation</div>
           
           <!-- Premium Solution Explanation Layout Box Panel Module Component -->
           <div id="feedback" class="explanation-box-premium" style="display:none;"></div>
         </div>
 
-        <!-- Redesigned Dashboard Metric Assessment Score Card Screen Frame Component Module Layout -->
+        <!-- REDESIGNED PREMIUM RESULT SCREEN PAGE -->
         <div id="score-card" style="display:none;" class="premium-result-screen">
           <div class="result-hero-card">
-            <div class="result-hero-title">Assessment Completed</div>
-            <div class="score-big-display"><span style="font-size:32px; opacity:1; font-weight:800;" id="score"></span> <span>/ <span id="total"></span> Points</span></div>
+            <!-- Premium Gold Trophy SVG -->
+            <div class="trophy-wrapper">
+              <svg width="68" height="68" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 21H16M12 17V21M6 4C6 3.44772 6.44772 3 7 3H17C17.5523 3 18 3.44772 18 4V9C18 12.3137 15.3137 15 12 15C8.68629 15 6 12.3137 6 9V4Z" stroke="url(#trophy_grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 5H4C2.89543 5 2 5.89543 2 7V8C2 9.65685 3.34315 11 5 11H6" stroke="url(#trophy_grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 5H20C21.1046 5 22 5.89543 22 7V8C22 9.65685 20.6569 11 19 11H18" stroke="url(#trophy_grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="trophy_grad" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#F59E0B"/>
+                    <stop offset="0.5" stop-color="#FBBF24"/>
+                    <stop offset="1" stop-color="#D97706"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <div class="result-hero-title">ASSESSMENT COMPLETED</div>
+
+            <!-- Large Circular Score Ring -->
+            <div class="score-ring-container">
+              <svg class="score-ring-svg" viewBox="0 0 160 160">
+                <circle class="score-ring-bg" cx="80" cy="80" r="70" />
+                <circle class="score-ring-progress" id="scoreRingCircle" cx="80" cy="80" r="70" />
+              </svg>
+              <div class="score-ring-content">
+                <div class="score-big-display" id="score">0.00</div>
+                <div class="score-sub-text">/<span id="total">0</span> Points</div>
+              </div>
+            </div>
+
             <div id="perfBadge" class="perf-badge-premium">EXCELLENT</div>
           </div>
 
-          <!-- Premium Analytical Metrics Grid Stack Panel Layout -->
+          <!-- Premium Analytics Cards Grid -->
           <div class="stats-grid-dashboard">
-            <div class="stat-mini-card success-border">
-              <span class="stat-mini-title">Correct Answers</span>
-              <span class="stat-mini-value" id="correct">0</span>
+            <div class="stat-mini-card card-green">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Correct</span>
+                <span class="stat-mini-value" id="correct">0</span>
+              </div>
             </div>
-            <div class="stat-mini-card danger-border">
-              <span class="stat-mini-title">Incorrect Answers</span>
-              <span class="stat-mini-value" id="wrong">0</span>
+
+            <div class="stat-mini-card card-red">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Wrong</span>
+                <span class="stat-mini-value" id="wrong">0</span>
+              </div>
             </div>
-            <div class="stat-mini-card primary-border">
-              <span class="stat-mini-title">Total Attempted</span>
-              <span class="stat-mini-value" id="attempted">0</span>
+
+            <div class="stat-mini-card card-blue">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Accuracy</span>
+                <span class="stat-mini-value"><span id="accuracy">0</span>%</span>
+              </div>
             </div>
-            <div class="stat-mini-card warning-border">
-              <span class="stat-mini-title">Skipped Questions</span>
-              <span class="stat-mini-value" id="unattempted">0</span>
+
+            <div class="stat-mini-card card-cyan">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Time Taken</span>
+                <span class="stat-mini-value" id="timeTaken">00:00</span>
+              </div>
             </div>
-            <div class="stat-mini-card primary-border">
-              <span class="stat-mini-title">Accuracy Rate</span>
-              <span class="stat-mini-value"><span id="accuracy">0</span>%</span>
+
+            <div class="stat-mini-card card-purple">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Attempted</span>
+                <span class="stat-mini-value" id="attempted">0</span>
+              </div>
             </div>
-            <div class="stat-mini-card success-border">
-              <span class="stat-mini-title">Highest Streak</span>
-              <span class="stat-mini-value" id="highestStreak">0</span>
+
+            <div class="stat-mini-card card-orange">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Skipped</span>
+                <span class="stat-mini-value" id="unattempted">0</span>
+              </div>
             </div>
-            <div class="stat-mini-card primary-border">
-              <span class="stat-mini-title">Time Taken</span>
-              <span class="stat-mini-value" id="timeTaken">00:00</span>
+
+            <div class="stat-mini-card card-teal">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Highest Streak</span>
+                <span class="stat-mini-value" id="highestStreak">0</span>
+              </div>
             </div>
-            <div class="stat-mini-card warning-border">
-              <span class="stat-mini-title">Avg Time / Q</span>
-              <span class="stat-mini-value" id="avgTime">00:00</span>
+
+            <div class="stat-mini-card card-cyan">
+              <div class="stat-icon-bg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div class="stat-info">
+                <span class="stat-mini-title">Avg Time / Q</span>
+                <span class="stat-mini-value" id="avgTime">00:00</span>
+              </div>
             </div>
           </div>
 
-          <!-- Restart Target Trigger Configurations Box Area Panel -->
+          <!-- Premium Reattempt Action Button -->
           <div class="restart-actions-container">
-            <button class="full-width-restart-btn" onclick="restartOptions()">Retake / Practice Analytics Mode</button>
+            <button class="full-width-restart-btn" onclick="restartOptions()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span>REATTEMPT</span>
+            </button>
           </div>
         </div>
 
       </div>
 
-      <!-- Redesigned Assessment Interaction Control Bar Footer Panel Menu Layout Area -->
+      <!-- Assessment Interaction Control Bar Footer Panel Menu Layout Area -->
       <div id="controls" class="quiz-controls-footer">
         <button id="backBtn" class="footer-nav-btn btn-back-quiz" onclick="prevQ()">Back</button>
         <button id="submitKeep" class="footer-nav-btn btn-submit-quiz" onclick="confirmSubmit()">Submit Test</button>
@@ -1141,20 +1341,10 @@ function cleanHumanReadableTitle(rawString) {
   if (!rawString) return '';
 
   let title = rawString.replace(/\.html$/i, '');
-
-  // 1_, 01_, 001_, 10-, 002. जैसे Prefix हटाए
   title = title.replace(/^\d+\s*[-_.]?\s*/, '');
-
-  // _ और - को Space में बदलें
   title = title.replace(/[-_]/g, ' ');
-
-  // PYQ नाम साफ़ रखें
   title = title.replace(/\bpyq\b/gi, 'PYQ Test');
-
-  // Extra Spaces हटाएँ
   title = title.replace(/\s+/g, ' ').trim();
-
-  // First Letter Capital
   return title.replace(/\b\w/g, c => c.toUpperCase());
 }
 
@@ -1566,7 +1756,7 @@ function retryFetch() {
 }
 </script>
 
-<!-- NATIVE LEGACY BACKEND ASSESSMENT ENGINE DRIVER UTILITIES CODE (100% UNTOUCHED LOGIC ARCHITECTURE) -->
+<!-- NATIVE LEGACY BACKEND ASSESSMENT ENGINE DRIVER UTILITIES CODE -->
 <script>
 function formatContent(txt){
  if(txt==null) return "";
@@ -1817,6 +2007,16 @@ document.getElementById('avgTime').innerText=`${String(Math.floor(avg/60)).padSt
 document.getElementById('highestStreak').innerText=maxStreak;
 const avgSec=attempted?Math.round(elapsed/attempted):0;
 document.getElementById('avgTime').innerText=`${String(Math.floor(avgSec/60)).padStart(2,'0')}:${String(avgSec%60).padStart(2,'0')}`;
+
+/* Circular Score Ring Calculation Dynamic Update */
+const circumference = 440; // 2 * pi * 70
+const scoreRatio = Math.max(0, Math.min(1, finalScore / (data.length || 1)));
+const strokeOffset = circumference - (scoreRatio * circumference);
+const ringCircle = document.getElementById('scoreRingCircle');
+if(ringCircle) {
+  ringCircle.style.strokeDashoffset = strokeOffset;
+}
+
 sendTelegramResult({
  name: browserId,
  subject: cleanHumanReadableTitle(currentSubject||""),
@@ -1838,12 +2038,14 @@ sendTelegramResult({
  screen: `${screen.width}x${screen.height}`,
  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
 });
+
 const overallPercent=(Math.max(0,finalScore)/data.length)*100;
 let badge='NEEDS PRACTICE',bg='var(--danger)';
 if(overallPercent>=90){badge='EXCELLENT';bg='var(--success)';}
-else if(overallPercent>=75){badge='VERY GOOD';bg='var(--primary)';}
-else if(overallPercent>=60){badge='GOOD';bg='var(--warning)';}
-else if(overallPercent>=40){badge='AVERAGE';bg='var(--text-secondary)';}
+else if(overallPercent>=75){badge='GOOD';bg='var(--primary)';}
+else if(overallPercent>=60){badge='AVERAGE';bg='var(--warning)';}
+else if(overallPercent>=40){badge='NEEDS PRACTICE';bg='var(--text-secondary)';}
+
 const pb=document.getElementById('perfBadge');
 pb.innerText=badge;pb.style.background=bg;
 document.getElementById('score-card').style.background='var(--card-bg)';
@@ -2011,11 +2213,10 @@ showQ=function(){
 })();
 </script>
 
-<!-- Redesigned image_0.png Style Retest Modal HTML -->
+<!-- Retest Modal HTML -->
 <div id="retestModal">
   <div id="retestCard">
     <div class="icon-header">
-      <!-- Restart Icon svg from image_0.png -->
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
       </svg>
@@ -2026,7 +2227,6 @@ showQ=function(){
     <!-- Mode 1: Full Test -->
     <div class="rbtn" onclick="startRetest(1)">
       <div class="rbtn-icon-bg" style="background: #eef4ff; color: #2563eb;">
-        <!-- Clipboard Icon svg from image_0.png -->
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
         </svg>
@@ -2036,7 +2236,6 @@ showQ=function(){
         <small><span id="cntFull"></span> Questions</small>
       </div>
       <div class="rbtn-arrow">
-        <!-- Right Arrow svg from image_0.png -->
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
         </svg>
@@ -2046,7 +2245,6 @@ showQ=function(){
     <!-- Mode 2: Wrong Questions -->
     <div class="rbtn" id="cardWrong" onclick="startRetest(2)">
       <div class="rbtn-icon-bg" style="background: #fef2f2; color: #ef4444;">
-        <!-- X (Wrong) Icon from image_0.png -->
         <span style="font-size: 24px; font-weight: 500;">✕</span>
       </div>
       <div class="rbtn-text-content">
@@ -2054,7 +2252,6 @@ showQ=function(){
         <small><span id="cntWrong"></span> Questions</small>
       </div>
       <div class="rbtn-arrow">
-        <!-- Right Arrow svg -->
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
         </svg>
@@ -2064,7 +2261,6 @@ showQ=function(){
     <!-- Mode 3: Skipped Questions -->
     <div class="rbtn" id="cardUn" onclick="startRetest(3)">
       <div class="rbtn-icon-bg" style="background: #fffbeb; color: #f59e0b;">
-        <!-- Fast Forward Icon svg from image_0.png -->
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/>
         </svg>
@@ -2074,7 +2270,6 @@ showQ=function(){
         <small><span id="cntUn"></span> Questions</small>
       </div>
       <div class="rbtn-arrow">
-        <!-- Right Arrow svg -->
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
         </svg>
@@ -2084,7 +2279,6 @@ showQ=function(){
     <!-- Mode 4: Mixed Practice -->
     <div class="rbtn" id="cardMix" onclick="startRetest(4)">
       <div class="rbtn-icon-bg" style="background: #f3e8ff; color: #9333ea;">
-        <!-- Shuffle Icon svg from image_0.png -->
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/>
         </svg>
@@ -2094,7 +2288,6 @@ showQ=function(){
         <small><span id="cntMix"></span> Questions</small>
       </div>
       <div class="rbtn-arrow">
-        <!-- Right Arrow svg -->
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
         </svg>
@@ -2104,8 +2297,6 @@ showQ=function(){
     <button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Cancel</button>
   </div>
 </div>
-<!-- End image_0.png Style Retest Modal HTML -->
-
 
 <script>
 (function(){
