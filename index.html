@@ -1370,15 +1370,12 @@ function renderQuizList(subjectName, categoryName, chapterName) {
     const card = document.createElement('div');
     card.className = 'premium-card';
     
-    let calculatedDiffBadge = (idx % 2 === 0) ? '<span class="badge-difficulty badge-easy">Easy Practice</span>' : '<span class="badge-difficulty badge-medium">Standard Pack</span>';
-
     card.innerHTML = `
       <div class="card-meta-box">
         <div class="card-icon-wrapper" style="background-color: var(--warning-light); color: var(--warning);">📝</div>
         <div class="card-details">
           <span class="card-main-title">${cleanHumanReadableTitle(quiz.title || quiz.name)}</span>
           <span class="card-subtitle-stats">📝 Category: Practice</span>
-          ${calculatedDiffBadge}
         </div>
       </div>
       <button class="premium-btn-action"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Start</button>
