@@ -1492,7 +1492,15 @@ setInterval(()=>{if(timerRunning && data.length > 0){
  const qt=document.getElementById('qTimer');
  if(qt){
    qt.textContent=m+':'+s;
- }
+ 
+   if(qElapsed >= 60){
+      qt.style.color='#ef4444';
+   }else if(qElapsed >= 30){
+      qt.style.color='#f59e0b';
+   }else{
+      qt.style.color='#10b981';
+   }
+}
 }},1000);
 
 function resetQuestionTimer(){if(data.length === 0) return; qElapsed=questionTimes[currentQ] || 0;const qt=document.getElementById('qTimer');if(qt){const m=String(Math.floor(qElapsed/60)).padStart(2,'0');const s=String(qElapsed%60).padStart(2,'0');qt.textContent=m+':'+s;}}
