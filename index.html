@@ -590,7 +590,7 @@ body {
   background: var(--bg-app);
 }
 .result-hero-card {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  background: linear-gradient(135deg,#B8860B 0%,#D4AF37 55%,#F4D03F 100%);
   border-radius: var(--radius);
   padding: 32px 24px;
   text-align: center;
@@ -759,7 +759,7 @@ body {
       <div class="premium-app-header">
         <div class="premium-logo-area">
           <div class="premium-logo-circle">🎓</div>
-          <div class="premium-brand-title">DREAM TO DESTINY</div>
+          <div class="premium-brand-title"><span style="color:#7A1F1F;font-weight:800;">DREAM TO DESTINY</span></div>
         </div>
         <h3 id="mainExplorerHeadline" style="font-size:22px; font-weight:800; margin-bottom:4px;">Choose Your Test</h3>
         <p id="mainExplorerSubline" class="premium-subtitle">Select your subject and start practicing.</p>
@@ -862,7 +862,7 @@ body {
               </div>
               
               <div class="btns">
-                <button id="resumePopupBtn" style="background:var(--primary)">Resume</button>
+                <button id="resumePopupBtn" style="background:var(--warning)">Resume</button>
                 <button id="submitPopupBtn" style="background:var(--success)">Submit Test</button>
               </div>
             </div>
@@ -936,9 +936,9 @@ body {
 
       <!-- Redesigned Assessment Interaction Control Bar Footer Panel Menu Layout Area -->
       <div id="controls" class="quiz-controls-footer">
-        <button id="backBtn" class="footer-nav-btn btn-back-quiz" onclick="prevQ()">Back</button>
-        <button id="submitKeep" class="footer-nav-btn btn-submit-quiz" onclick="confirmSubmit()">Submit Test</button>
-        <button id="nextBtn" class="footer-nav-btn btn-next-quiz" onclick="nextQ()">Next Q</button>
+        <button id="backBtn" class="footer-nav-btn btn-back-quiz" style="background:#60A5FA;color:#fff;flex:1;" onclick="prevQ()">Back</button>
+        <button id="submitKeep" class="footer-nav-btn btn-submit-quiz" style="flex:1;" onclick="confirmSubmit()">Submit Test</button>
+        <button id="nextBtn" class="footer-nav-btn btn-next-quiz" style="background:#60A5FA;color:#fff;flex:1;" onclick="nextQ()">Next Q</button>
       </div>
 
     </div>
