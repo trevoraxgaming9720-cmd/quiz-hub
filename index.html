@@ -1762,13 +1762,19 @@ function applyResultTheme(scorePercent){
   const badge=document.getElementById('perfBadge');
   if(!ring||!score||!badge)return;
 
-  let color='#ef4444';
-  if(scorePercent>=90) color='#10b981';
-  else if(scorePercent>=75) color='#22c55e';
-  else if(scorePercent>=60) color='#f59e0b';
-  else if(scorePercent>=40) color='#fb923c';
+  const status=badge.textContent.trim().toUpperCase();
 
-  ring.style.stroke=bg;
+  const map={
+    'EXCELLENT':'#10b981',
+    'VERY GOOD':'#22c55e',
+    'GOOD':'#3b82f6',
+    'AVERAGE':'#f59e0b',
+    'NEED PRACTICE':'#ef4444'
+  };
+
+  const color=map[status]||'#64748b';
+
+  ring.style.stroke=color;
   score.style.color=color;
   badge.style.background=color;
 
