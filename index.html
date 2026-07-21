@@ -2391,6 +2391,18 @@ function createMiniParticles(x,y){
    setTimeout(()=>d.remove(),1100);
  }
 }
+
+
+// Disable only double-tap zoom (keep pinch zoom enabled)
+let lastTouchEnd = 0;
+document.addEventListener("touchend", function(e){
+  const now = Date.now();
+  if(now - lastTouchEnd <= 300){
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, {passive:false});
+
 </script>
 
 </body>
