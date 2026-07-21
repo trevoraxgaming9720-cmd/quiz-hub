@@ -1754,6 +1754,52 @@ function retryFetch() {
   hideError();
   buildGlobalQuizIndex();
 }
+
+/* Dynamic Result Theme */
+function applyResultTheme(scorePercent){
+  const ring=document.getElementById('scoreRingCircle');
+  const score=document.getElementById('score');
+  const badge=document.getElementById('perfBadge');
+  if(!ring||!score||!badge)return;
+
+  let color='#ef4444';
+  if(scorePercent>=90) color='#10b981';
+  else if(scorePercent>=75) color='#22c55e';
+  else if(scorePercent>=60) color='#f59e0b';
+  else if(scorePercent>=40) color='#fb923c';
+
+  ring.style.stroke=color;
+  score.style.color=color;
+  badge.style.background=color;
+
+  const r=70,c=2*Math.PI*r;
+  ring.style.strokeDasharray=c;
+  ring.style.strokeDashoffset=c-(Math.max(0,Math.min(100,scorePercent))/100)*c;
+}
+
+(function(){
+ const oldSet=window.showScoreCard;
+ if(typeof oldSet==="function"){
+   window.showScoreCard=function(){
+      const res=oldSet.apply(this,arguments);
+      const s=parseFloat(document.getElementById('score').textContent)||0;
+      const t=parseFloat(document.getElementById('total').textContent)||100;
+      applyResultTheme((s/t)*100);
+      return res;
+   }
+ }else{
+   const obs=new MutationObserver(()=>{
+      const sc=document.getElementById('score-card');
+      if(sc && getComputedStyle(sc).display!=="none"){
+         const s=parseFloat(document.getElementById('score').textContent)||0;
+         const t=parseFloat(document.getElementById('total').textContent)||100;
+         applyResultTheme((s/t)*100);
+      }
+   });
+   window.addEventListener('load',()=>obs.observe(document.body,{subtree:true,attributes:true,attributeFilter:['style','class']}));
+ }
+})();
+
 </script>
 
 <!-- NATIVE LEGACY BACKEND ASSESSMENT ENGINE DRIVER UTILITIES CODE -->
