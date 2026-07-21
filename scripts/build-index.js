@@ -19,6 +19,7 @@ function walk(dir) {
       ) continue;
 
       walk(full);
+
     } else if (
       item.isFile() &&
       item.name.endsWith(".html") &&
@@ -28,12 +29,34 @@ function walk(dir) {
       const relative = path.relative(ROOT, full).replace(/\\/g, "/");
       const parts = relative.split("/");
 
-      if (parts.length < 3) continue;
+      let subject = "";
+      let category = null;
+      let chapter = "";
+      let title = path.basename(item.name, ".html");
+
+      // Subject/Chapter/Test.html
+      if (parts.length === 3) {
+        subject = parts[0];
+        chapter = parts[1];
+      }
+
+      // Subject/Category/Chapter/Test.html
+      else if (parts.length === 4) {
+        subject = parts[0];
+        category = parts[1];
+        chapter = parts[2];
+      }
+
+      // बाकी Structure Ignore
+      else {
+        continue;
+      }
 
       result.push({
-        subject: parts[0],
-        chapter: parts[1],
-        title: path.basename(item.name, ".html"),
+        subject,
+        category,
+        chapter,
+        title,
         path: relative
       });
     }
@@ -43,9 +66,10 @@ function walk(dir) {
 walk(ROOT);
 
 result.sort((a, b) =>
-  a.subject.localeCompare(b.subject) ||
-  a.chapter.localeCompare(b.chapter) ||
-  a.title.localeCompare(b.title)
+  a.subject.localeCompare(b.subject, undefined, { numeric: true }) ||
+  (a.category || "").localeCompare(b.category || "", undefined, { numeric: true }) ||
+  a.chapter.localeCompare(b.chapter, undefined, { numeric: true }) ||
+  a.title.localeCompare(b.title, undefined, { numeric: true })
 );
 
 fs.writeFileSync(
