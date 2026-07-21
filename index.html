@@ -46,7 +46,7 @@ body {
   padding: 10px;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  align-items: flex-start;
 }
 
 .container {
@@ -58,6 +58,9 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,.05);
   position: relative;
   overflow-x: hidden;
+  height: auto;
+  min-height: fit-content;
+  align-self: flex-start;
 }
 
 /* Explorer Screens Setup */
@@ -399,7 +402,7 @@ h2 { text-align: center; color: #d32f2f; font-size: 1.2rem; margin-bottom: 15px;
   background: #fff;
   cursor: pointer;
   text-align: left;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   transition: var(--transition);
 }
 .options button:disabled {
@@ -540,21 +543,9 @@ h2 { text-align: center; color: #d32f2f; font-size: 1.2rem; margin-bottom: 15px;
   background: #f1f5f9; color: var(--dark); font-weight: 700; cursor: pointer;
 }
 
-/* Improved Responsive Layout */
-@media (max-width:600px){
-  body{padding:8px;}
-  .container{max-width:100%;padding:16px;border-radius:14px;}
-  .custom-header-panel{flex-wrap:wrap;justify-content:center;}
-  .header-divider{display:none;}
-  .header-title{order:-1;width:100%;margin-bottom:6px;}
-  .controls{gap:8px;}
-  .nav-btn{flex:1;}
-  #jumpBox{flex-wrap:wrap;}
-  #jumpNo{min-width:0;}
-}
-@media (min-width:768px){
-  body{padding:20px;}
-  .container{max-width:500px;border-radius:20px;}
+@media (min-width: 768px) {
+  body { padding: 20px; }
+  .container { max-width: 500px; border-radius: 20px; }
 }
 </style>
 </head>
