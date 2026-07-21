@@ -11,9 +11,9 @@
 
 <style>
 :root {
-  --primary: #2563eb;
-  --primary-light: #eff6ff;
-  --primary-dark: #1d4ed8;
+  --primary: #818CF8;
+  --primary-light: #EEF2FF;
+  --primary-dark: #6366F1;
   --success: #10b981;
   --success-light: #ecfdf5;
   --danger: #ef4444;
@@ -25,7 +25,7 @@
   --bg-app: #f8fafc;
   --card-bg: #ffffff;
   --radius: 24px;
-  --shadow-sm: 0 2px 8px rgba(37, 99, 235, 0.04);
+  --shadow-sm: 0 2px 8px rgba(15,23,42,0.05);
   --shadow-md: 0 12px 34px rgba(15, 23, 42, 0.06);
   --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.1);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,12 +78,12 @@ body {
 
 /* Premium Gradient Header Component */
 .premium-app-header {
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #A5B4FC 0%, #818CF8 100%);
   padding: 32px 24px;
   border-radius: 0 0 var(--radius) var(--radius);
   color: #ffffff;
   position: relative;
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 10px 30px rgba(15,23,42,0.08);
   margin-bottom: 24px;
 }
 .premium-logo-area {
@@ -165,7 +165,7 @@ body {
 .search-input:focus {
   border-color: var(--primary);
   background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 4px rgba(129,140,248,0.18);
 }
 .search-icon-inside {
   position: absolute;
@@ -201,14 +201,14 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(37, 99, 235, 0.03);
+  background: rgba(129,140,248,0.05);
   opacity: 0;
   transition: var(--transition);
 }
 .premium-card:hover, .premium-card:active {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-color: rgba(37, 99, 235, 0.2);
+  border-color: rgba(129,140,248,0.22);
 }
 .premium-card:active::after {
   opacity: 1;
@@ -273,14 +273,14 @@ body {
 
 /* Subject Hero Banner Component */
 .subject-hero-banner {
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%);
   border-radius: var(--radius);
   padding: 24px;
   margin-bottom: 24px;
   display: flex;
   align-items: center;
   gap: 16px;
-  border: 1px solid rgba(37, 99, 235, 0.1);
+  border: 1px solid rgba(129,140,248,0.15);
 }
 .hero-icon-container {
   font-size: 44px;
@@ -288,11 +288,11 @@ body {
 .hero-text-container h4 {
   font-size: 20px;
   font-weight: 800;
-  color: #1e40af;
+  color: #4F46E5;
 }
 .hero-text-container p {
   font-size: 13px;
-  color: #1e3a8a;
+  color: #4F46E5;
   font-weight: 600;
   margin-top: 2px;
 }
@@ -310,7 +310,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 12px rgba(129,140,248,0.22);
   transition: var(--transition);
 }
 .premium-btn-action:active {
@@ -514,7 +514,7 @@ body {
   margin-top: 10px;
   font-size: 13px;
   line-height: 1.4;
-  color: #1e3a8a;
+  color: #4F46E5;
   display: none;
 }
 
@@ -590,12 +590,12 @@ body {
   background: var(--bg-app);
 }
 .result-hero-card {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #A5B4FC 0%, #818CF8 100%);
   border-radius: var(--radius);
   padding: 32px 24px;
   text-align: center;
   color: white;
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 10px 30px rgba(129,140,248,0.22);
   margin-bottom: 24px;
 }
 .result-hero-title {
@@ -670,7 +670,7 @@ body {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 4px 14px rgba(129,140,248,0.22);
   transition: var(--transition);
 }
 
@@ -876,7 +876,7 @@ body {
           
           <!-- Options Dynamic Cards Stack -->
           <div id="options" class="options-stack"></div>
-<div id="toggleExplanation" style="display:none;cursor:pointer;font-size:13px;font-weight:700;color:#2563eb;margin:6px 0 8px 0;text-align:left;">▼ Show Explanation</div>
+<div id="toggleExplanation" style="display:none;cursor:pointer;font-size:13px;font-weight:700;color:#818CF8;margin:6px 0 8px 0;text-align:left;">▼ Show Explanation</div>
           
           <!-- Premium Solution Explanation Layout Box Panel Module Component -->
           <div id="feedback" class="explanation-box-premium" style="display:none;"></div>
