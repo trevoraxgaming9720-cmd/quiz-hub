@@ -271,5 +271,40 @@
     "chapter": "003_Train_boat_race_motion",
     "title": "006_Circular_motion",
     "path": "Maths/003_Train_boat_race_motion/006_Circular_motion.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "004_Time_and_work",
+    "title": "Time_and_work_1",
+    "path": "Maths/004_Time_and_work/Time_and_work_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "004_Time_and_work",
+    "title": "Time_and_work_2",
+    "path": "Maths/004_Time_and_work/Time_and_work_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "004_Time_and_work",
+    "title": "Time_and_work_3",
+    "path": "Maths/004_Time_and_work/Time_and_work_3.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "004_Time_and_work",
+    "title": "Time_and_work_4",
+    "path": "Maths/004_Time_and_work/Time_and_work_4.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "004_Time_and_work",
+    "title": "Time_and_work_5",
+    "path": "Maths/004_Time_and_work/Time_and_work_5.html"
   }
 ]
