@@ -1670,7 +1670,7 @@ window.addEventListener('load',()=>{
    if(data.length === 0) return;
    timerRunning=!timerRunning;
    isPaused=!timerRunning;
-   this.innerHTML=timerRunning?'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg> <span>Pause</span>':'▶ Resume';
+   this.innerHTML=timerRunning?'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg> <span>Pause</span>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M8 5v14l11-7z"/></svg> <span>Resume</span>';
    const fade=document.getElementById('pauseFade');
    if(fade){ fade.classList.toggle('show', !timerRunning); }
    updatePauseStats();
