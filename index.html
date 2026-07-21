@@ -1178,7 +1178,10 @@ function renderSubjects() {
   }
 
   subjects.forEach(subjectName => {
-    const subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName && (category===null || q.category===category));
+    const subjectQuizzes = allFlattenedQuizzes.filter(
+    q => q.subject === subjectName &&
+    (category === null || q.category === category)
+);
     const chapterCount = new Set(subjectQuizzes.map(q => q.chapter)).size;
     
     const card = document.createElement('div');
@@ -1339,7 +1342,7 @@ function handleSearch(query) {
     if (currentChapter && currentSubject) {
       renderQuizList(currentSubject, currentChapter);
     } else if (currentSubject) {
-      renderChapters(currentSubject);
+      renderChapters(currentSubject, currentCategory);
     } else {
       renderSubjects();
     }
