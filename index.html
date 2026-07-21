@@ -11,7 +11,7 @@
 
 <style>
 :root {
-  --primary: #2563eb;
+  --primary: #22C55E;
   --primary-light: #eff6ff;
   --primary-dark: #1d4ed8;
   --success: #10b981;
@@ -2088,8 +2088,8 @@ sendTelegramResult({
 const overallPercent=(Math.max(0,finalScore)/data.length)*100;
 let badge='NEEDS PRACTICE',bg='var(--danger)';
 if(overallPercent>=90){badge='EXCELLENT';bg='var(--success)';}
-else if(overallPercent>=75){badge='GOOD';bg='var(--primary)';}
-else if(overallPercent>=60){badge='AVERAGE';bg='var(--warning)';}
+else if(overallPercent>=75){badge='VERY GOOD';bg='var(--primary)';}
+else if(overallPercent>=60){badge='GOOD';bg='var(--warning)';}
 else if(overallPercent>=40){badge='NEEDS PRACTICE';bg='var(--text-secondary)';}
 
 const pb=document.getElementById('perfBadge');
