@@ -1693,9 +1693,15 @@ sendTelegramResult({
  subject: currentSubject||"",
  chapter: currentChapter||"",
  test: currentQuizTitle || document.title,
- score: `${document.getElementById("correct").innerText}/${data.length}`,
- wrong: document.getElementById('wrong').innerText,
- time: document.getElementById('timeTaken').innerText
+ score: `${document.getElementById("score").innerText}/${document.getElementById("total").innerText}`,
+ correct: document.getElementById("correct").innerText,
+ wrong: document.getElementById("wrong").innerText,
+ attempted: document.getElementById("attempted").innerText,
+ unattempted: document.getElementById("unattempted").innerText,
+ accuracy: document.getElementById("accuracy").innerText+"%",
+ highestStreak: document.getElementById("highestStreak").innerText,
+ time: document.getElementById("timeTaken").innerText,
+ avgTime: document.getElementById("avgTime").innerText
 });
 
 const avg=Math.floor(elapsed/Math.max(1,attempted));
