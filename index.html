@@ -1748,27 +1748,27 @@ showQ=function(){
 </style>
 
 <div id="retestModal"><div id="retestCard">
-<div style="text-align:center;font-size:44px">🔄</div>
-<div class="rtitle">Restart Test Option Pack</div>
-<div class="rsub">Select target execution mode segment safely:</div>
+<div style="width:74px;height:74px;margin:0 auto;background:#eef4ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#2563eb">🔄</div>
+<div class="rtitle">Restart Test</div>
+<div class="rsub">Choose a practice mode</div>
 
 <div class="rbtn" onclick="startRetest(1)">
-<div style="flex:1;"><b>Full Retest Engine Mode</b><small><span id="cntFull"></span> Questions Available</small></div>➜
+<div style="flex:1;"><b>Full Test</b><small><span id="cntFull"></span> Questions</small></div>➜
 </div>
 
 <div class="rbtn" id="cardWrong" onclick="startRetest(2)">
-<div style="flex:1;"><b>Target Incorrect Subsets</b><small><span id="cntWrong"></span> Questions Isolated</small></div>➜
+<div style="flex:1;"><b>Wrong Questions</b><small><span id="cntWrong"></span> Questions</small></div>➜
 </div>
 
 <div class="rbtn" id="cardUn" onclick="startRetest(3)">
-<div style="flex:1;"><b>Target Skipped Subsets</b><small><span id="cntUn"></span> Questions Isolated</small></div>➜
+<div style="flex:1;"><b>Skipped Questions</b><small><span id="cntUn"></span> Questions</small></div>➜
 </div>
 
 <div class="rbtn" id="cardMix" onclick="startRetest(4)">
-<div style="flex:1;"><b>Mixed Mode Target</b><small><span id="cntMix"></span> Questions Remaining</small></div>➜
+<div style="flex:1;"><b>Mixed Practice</b><small><span id="cntMix"></span> Questions</small></div>➜
 </div>
 
-<button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Dismiss Panel</button>
+<button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Cancel</button>
 </div></div>
 
 
