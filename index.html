@@ -1381,7 +1381,7 @@ function renderQuizList(subjectName, categoryName, chapterName) {
           ${calculatedDiffBadge}
         </div>
       </div>
-      <button class="premium-btn-action">▶ Start</button>
+      <button class="premium-btn-action"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Start</button>
     `;
     card.onclick = () => loadQuizData(quiz.path);
     listEl.appendChild(card);
@@ -1445,7 +1445,7 @@ function handleSearch(query) {
           <span class="card-subtitle-stats">📚 ${cleanHumanReadableTitle(quiz.subject)}${catSubtitle} • 📘 ${cleanHumanReadableTitle(quiz.chapter)}</span>
         </div>
       </div>
-      <button class="premium-btn-action">▶ Launch</button>
+      <button class="premium-btn-action"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Launch</button>
     `;
     card.onclick = () => loadQuizData(quiz.path);
     listEl.appendChild(card);
