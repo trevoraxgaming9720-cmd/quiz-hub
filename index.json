@@ -180,5 +180,33 @@
     "chapter": "006_DPSP",
     "title": "PYQ_2",
     "path": "GK/Polity/006_DPSP/PYQ_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "001_Percentage",
+    "title": "Percentage_1",
+    "path": "Maths/001_Percentage/Percentage_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "001_Percentage",
+    "title": "Percentage_2",
+    "path": "Maths/001_Percentage/Percentage_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "001_Percentage",
+    "title": "Percentage_3",
+    "path": "Maths/001_Percentage/Percentage_3.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "001_Percentage",
+    "title": "Percentage_4",
+    "path": "Maths/001_Percentage/Percentage_4.html"
   }
 ]
