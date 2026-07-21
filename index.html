@@ -1090,6 +1090,17 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 
 <!-- RE-ENGINEERED DYNAMIC PREMIUM VIEW RENDERING CORE INTERFACE LAYER -->
 <script>
+
+async function sendTelegramResult(result){
+  try{
+    await fetch("https://lucky-lake-f3ca.trevoraxgaming9720.workers.dev/",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(result)
+    });
+  }catch(e){console.error(e);}
+}
+
 let allFlattenedQuizzes = [];
 let currentSubject = null;
 let currentChapter = null;
@@ -1668,6 +1679,16 @@ const minutes=Math.floor(elapsed/60);
 const seconds=elapsed%60;
 document.getElementById('timeTaken').innerText=
 `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+sendTelegramResult({
+ name:"Anonymous",
+ subject: currentSubject||"",
+ chapter: currentChapter||"",
+ test: document.title,
+ score: document.getElementById('correct').innerText,
+ wrong: document.getElementById('wrong').innerText,
+ time: document.getElementById('timeTaken').innerText
+});
+
 const avg=Math.floor(elapsed/Math.max(1,attempted));
 document.getElementById('avgTime').innerText=`${String(Math.floor(avg/60)).padStart(2,'0')}:${String(avg%60).padStart(2,'0')}`;
 document.getElementById('highestStreak').innerText=maxStreak;
