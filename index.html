@@ -1693,7 +1693,7 @@ sendTelegramResult({
  subject: currentSubject||"",
  chapter: currentChapter||"",
  test: currentQuizTitle || document.title,
- score: document.getElementById('correct').innerText,
+ score: `${document.getElementById("correct").innerText}/${data.length}`,
  wrong: document.getElementById('wrong').innerText,
  time: document.getElementById('timeTaken').innerText
 });
