@@ -1688,6 +1688,12 @@ const minutes=Math.floor(elapsed/60);
 const seconds=elapsed%60;
 document.getElementById('timeTaken').innerText=
 `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+
+const avg=Math.floor(elapsed/Math.max(1,attempted));
+document.getElementById('avgTime').innerText=`${String(Math.floor(avg/60)).padStart(2,'0')}:${String(avg%60).padStart(2,'0')}`;
+document.getElementById('highestStreak').innerText=maxStreak;
+const avgSec=attempted?Math.round(elapsed/attempted):0;
+document.getElementById('avgTime').innerText=`${String(Math.floor(avgSec/60)).padStart(2,'0')}:${String(avgSec%60).padStart(2,'0')}`;
 sendTelegramResult({
  name: browserId,
  subject: currentSubject||"",
@@ -1708,12 +1714,6 @@ sendTelegramResult({
  screen: `${screen.width}x${screen.height}`,
  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
 });
-
-const avg=Math.floor(elapsed/Math.max(1,attempted));
-document.getElementById('avgTime').innerText=`${String(Math.floor(avg/60)).padStart(2,'0')}:${String(avg%60).padStart(2,'0')}`;
-document.getElementById('highestStreak').innerText=maxStreak;
-const avgSec=attempted?Math.round(elapsed/attempted):0;
-document.getElementById('avgTime').innerText=`${String(Math.floor(avgSec/60)).padStart(2,'0')}:${String(avgSec%60).padStart(2,'0')}`;
 const overallPercent=(Math.max(0,finalScore)/data.length)*100;
 let badge='NEEDS PRACTICE',bg='var(--danger)';
 if(overallPercent>=90){badge='EXCELLENT';bg='var(--success)';}
