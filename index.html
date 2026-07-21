@@ -621,6 +621,40 @@ h2 { text-align: center; color: #d32f2f; font-size: 1.2rem; margin-bottom: 15px;
   .badge-text,.timer-val{font-size:15px;}
 }
 
+
+/* === Responsive font consistency update === */
+.question,
+.options button{
+  font-size:1.08rem;
+}
+@media (min-width:768px){
+  .question,
+  .options button{
+    font-size:1.2rem !important;
+    line-height:1.6;
+  }
+  #pauseCard{
+    width:min(560px,92%);
+    min-height:340px;
+    padding:38px 36px;
+    border-radius:28px;
+  }
+  #pauseCard h2{font-size:2rem !important;}
+  #pauseCard p{font-size:1.2rem !important;}
+  #pauseCard .btns{
+    gap:16px;
+    margin-top:24px;
+  }
+  #pauseCard .btns button{
+    height:64px;
+    font-size:1.08rem;
+    border-radius:18px;
+  }
+  #pauseCard .btns button small{
+    font-size:.9rem !important;
+  }
+}
+
 </style>
 </head>
 <body>
