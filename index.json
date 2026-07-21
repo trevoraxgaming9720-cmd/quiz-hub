@@ -390,5 +390,33 @@
     "chapter": "007_Proportion",
     "title": "Proportion_2",
     "path": "Maths/007_Proportion/Proportion_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "008_Age",
+    "title": "Age_class_1",
+    "path": "Maths/008_Age/Age_class_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "008_Age",
+    "title": "Age_class_2",
+    "path": "Maths/008_Age/Age_class_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "008_Age",
+    "title": "Age_class_3",
+    "path": "Maths/008_Age/Age_class_3.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "008_Age",
+    "title": "Age_class_4",
+    "path": "Maths/008_Age/Age_class_4.html"
   }
 ]
