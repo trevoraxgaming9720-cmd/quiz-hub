@@ -376,5 +376,19 @@
     "chapter": "006_Ratio",
     "title": "Ratio_7",
     "path": "Maths/006_Ratio/Ratio_7.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "007_Proportion",
+    "title": "Proportion_1",
+    "path": "Maths/007_Proportion/Proportion_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "007_Proportion",
+    "title": "Proportion_2",
+    "path": "Maths/007_Proportion/Proportion_2.html"
   }
 ]
