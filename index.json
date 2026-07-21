@@ -208,5 +208,26 @@
     "chapter": "001_Percentage",
     "title": "Percentage_4",
     "path": "Maths/001_Percentage/Percentage_4.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "002_Time_and_distance",
+    "title": "Time_and_distance_1",
+    "path": "Maths/002_Time_and_distance/Time_and_distance_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "002_Time_and_distance",
+    "title": "Time_and_distance_2",
+    "path": "Maths/002_Time_and_distance/Time_and_distance_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "002_Time_and_distance",
+    "title": "Time_and_distance_3",
+    "path": "Maths/002_Time_and_distance/Time_and_distance_3.html"
   }
 ]
