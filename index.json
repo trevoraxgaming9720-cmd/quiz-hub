@@ -126,6 +126,41 @@
     "path": "GK/Polity/005_Fundamental_Rights/PYQ_2.html"
   },
   {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "006_DPSP",
+    "title": "Mock_Test_1",
+    "path": "GK/Polity/006_DPSP/Mock_Test_1.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "006_DPSP",
+    "title": "Mock_Test_2",
+    "path": "GK/Polity/006_DPSP/Mock_Test_2.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "006_DPSP",
+    "title": "Mock_Test_3",
+    "path": "GK/Polity/006_DPSP/Mock_Test_3.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "006_DPSP",
+    "title": "PYQ_1",
+    "path": "GK/Polity/006_DPSP/PYQ_1.html"
+  },
+  {
+    "subject": "GK",
+    "category": "Polity",
+    "chapter": "006_DPSP",
+    "title": "PYQ_2",
+    "path": "GK/Polity/006_DPSP/PYQ_2.html"
+  },
+  {
     "subject": "Maths",
     "category": null,
     "chapter": "Percentage",
