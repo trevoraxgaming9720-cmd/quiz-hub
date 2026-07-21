@@ -1132,9 +1132,22 @@ async function buildGlobalQuizIndex() {
 
 function cleanHumanReadableTitle(rawString) {
   if (!rawString) return '';
+
   let title = rawString.replace(/\.html$/i, '');
+
+  // 1_, 01_, 001_, 10-, 002. जैसे Prefix हटाए
+  title = title.replace(/^\d+\s*[-_.]?\s*/, '');
+
+  // _ और - को Space में बदलें
   title = title.replace(/[-_]/g, ' ');
+
+  // PYQ नाम साफ़ रखें
   title = title.replace(/\bpyq\b/gi, 'PYQ Test');
+
+  // Extra Spaces हटाएँ
+  title = title.replace(/\s+/g, ' ').trim();
+
+  // First Letter Capital
   return title.replace(/\b\w/g, c => c.toUpperCase());
 }
 
