@@ -306,5 +306,26 @@
     "chapter": "004_Time_and_work",
     "title": "Time_and_work_5",
     "path": "Maths/004_Time_and_work/Time_and_work_5.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "005_Pipe_cictern_wages",
+    "title": "Pipe_and_cictern_1",
+    "path": "Maths/005_Pipe_cictern_wages/Pipe_and_cictern_1.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "005_Pipe_cictern_wages",
+    "title": "Pipe_and_cictern_2",
+    "path": "Maths/005_Pipe_cictern_wages/Pipe_and_cictern_2.html"
+  },
+  {
+    "subject": "Maths",
+    "category": null,
+    "chapter": "005_Pipe_cictern_wages",
+    "title": "Work_and_wages",
+    "path": "Maths/005_Pipe_cictern_wages/Work_and_wages.html"
   }
 ]
