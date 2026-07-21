@@ -1104,7 +1104,6 @@ async function sendTelegramResult(result){
 let allFlattenedQuizzes = [];
 let currentSubject = null;
 let currentChapter = null;
-let currentCategory = null;
 let currentQuizTitle = "";
 
 let browserId = localStorage.getItem("browserId");
@@ -1178,10 +1177,7 @@ function renderSubjects() {
   }
 
   subjects.forEach(subjectName => {
-    const subjectQuizzes = allFlattenedQuizzes.filter(
-    q => q.subject === subjectName &&
-    (category === null || q.category === category)
-);
+    const subjectQuizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName);
     const chapterCount = new Set(subjectQuizzes.map(q => q.chapter)).size;
     
     const card = document.createElement('div');
@@ -1196,42 +1192,13 @@ function renderSubjects() {
       </div>
       <span class="premium-arrow-action">➜</span>
     `;
-    card.onclick = () => {
-      const hasCategory = allFlattenedQuizzes.some(q => q.subject===subjectName && q.category);
-      hasCategory ? renderCategories(subjectName) : renderChapters(subjectName);
-    };
+    card.onclick = () => renderChapters(subjectName);
     listEl.appendChild(card);
   });
 }
 
-
-function renderCategories(subjectName){
-  currentSubject=subjectName;
-  currentCategory=null;
-  currentChapter=null;
-  showLoader(false);hideError();
-  const listEl=document.getElementById('explorerList');
-  const actionBar=document.getElementById('explorerActionBar');
-  const explorerTitle=document.getElementById('explorerTitle');
-  const dynamicHeaderArea=document.getElementById('dynamicHeaderArea');
-  listEl.innerHTML="";
-  dynamicHeaderArea.style.display="none";
-  actionBar.style.display="flex";
-  explorerTitle.innerText=cleanHumanReadableTitle(subjectName);
-  const categories=[...new Set(allFlattenedQuizzes.filter(q=>q.subject===subjectName).map(q=>q.category).filter(Boolean))];
-  categories.forEach(category=>{
-    const total=allFlattenedQuizzes.filter(q=>q.subject===subjectName&&q.category===category);
-    const card=document.createElement('div');
-    card.className='premium-card';
-    card.innerHTML=`<div class="card-meta-box"><div class="card-icon-wrapper">📂</div><div class="card-details"><span class="card-main-title">${cleanHumanReadableTitle(category)}</span><span class="card-subtitle-stats">${new Set(total.map(q=>q.chapter)).size} Chapters • ${total.length} Tests</span></div></div><span class="premium-arrow-action">➜</span>`;
-    card.onclick=()=>renderChapters(subjectName,category);
-    listEl.appendChild(card);
-  });
-}
-
-function renderChapters(subjectName, category = null) {
+function renderChapters(subjectName) {
   currentSubject = subjectName;
-  currentCategory = category;
   currentChapter = null;
 
   showLoader(false);
@@ -1281,12 +1248,12 @@ function renderChapters(subjectName, category = null) {
       </div>
       <span class="premium-arrow-action">➜</span>
     `;
-    card.onclick = () => renderQuizList(subjectName, chapterName, category);
+    card.onclick = () => renderQuizList(subjectName, chapterName);
     listEl.appendChild(card);
   });
 }
 
-function renderQuizList(subjectName, chapterName, category = currentCategory) {
+function renderQuizList(subjectName, chapterName) {
   currentSubject = subjectName;
   currentChapter = chapterName;
 
@@ -1303,7 +1270,7 @@ function renderQuizList(subjectName, chapterName, category = currentCategory) {
   actionBar.style.display = "flex";
   explorerTitle.innerText = cleanHumanReadableTitle(chapterName);
 
-  const quizzes = allFlattenedQuizzes.filter(q => q.subject===subjectName && q.chapter===chapterName && (category===null || q.category===category));
+  const quizzes = allFlattenedQuizzes.filter(q => q.subject === subjectName && q.chapter === chapterName);
 
   if (quizzes.length === 0) {
     showEmptyState();
@@ -1342,7 +1309,7 @@ function handleSearch(query) {
     if (currentChapter && currentSubject) {
       renderQuizList(currentSubject, currentChapter);
     } else if (currentSubject) {
-      renderChapters(currentSubject, currentCategory);
+      renderChapters(currentSubject);
     } else {
       renderSubjects();
     }
@@ -1393,9 +1360,7 @@ function handleExplorerBack() {
   }
 
   if (currentChapter) {
-    renderChapters(currentSubject,currentCategory);
-  } else if (currentCategory) {
-    renderCategories(currentSubject);
+    renderChapters(currentSubject);
   } else if (currentSubject) {
     renderSubjects();
   } else {
