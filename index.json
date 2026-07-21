@@ -425,5 +425,26 @@
     "chapter": "009_Partnership",
     "title": "Partnership_class_1",
     "path": "Maths/009_Partnership/Partnership_class_1.html"
+  },
+  {
+    "subject": "Science",
+    "category": "Physics",
+    "chapter": "001_Unit_and_measurement",
+    "title": "Unit_and_measurement_1",
+    "path": "Science/Physics/001_Unit_and_measurement/Unit_and_measurement_1.html"
+  },
+  {
+    "subject": "Science",
+    "category": "Physics",
+    "chapter": "001_Unit_and_measurement",
+    "title": "Unit_and_measurement_2",
+    "path": "Science/Physics/001_Unit_and_measurement/Unit_and_measurement_2.html"
+  },
+  {
+    "subject": "Science",
+    "category": "Physics",
+    "chapter": "001_Unit_and_measurement",
+    "title": "Unit_and_measurement_3",
+    "path": "Science/Physics/001_Unit_and_measurement/Unit_and_measurement_3.html"
   }
 ]
