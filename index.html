@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PREMIUM ONLINE ASSESSMENT PLATFORM</title>
 <!-- Google Fonts for Professional Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -855,18 +855,6 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
   color: var(--dark) !important;
   -webkit-text-fill-color: var(--dark) !important;
 }
-
-
-html,body{
-height:100%;
--webkit-text-size-adjust:100%;
-overflow:hidden;
-}
-body{min-height:100dvh;}
-.container{height:100dvh;min-height:100dvh;}
-.quiz-single-card{height:100%;}
-.quiz-main-content-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0;}
-.quiz-controls-footer{position:sticky;bottom:0;z-index:100;background:#fff;padding-bottom:calc(14px + env(safe-area-inset-bottom));}
 
 /* ===== Universal Responsive Upgrade ===== */
 .container{
@@ -2403,6 +2391,18 @@ function createMiniParticles(x,y){
    setTimeout(()=>d.remove(),1100);
  }
 }
+
+
+// Disable only double-tap zoom (keep pinch zoom enabled)
+let lastTouchEnd = 0;
+document.addEventListener("touchend", function(e){
+  const now = Date.now();
+  if(now - lastTouchEnd <= 300){
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, {passive:false});
+
 </script>
 
 </body>
