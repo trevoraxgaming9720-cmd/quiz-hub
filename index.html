@@ -2391,6 +2391,20 @@ function createMiniParticles(x,y){
    setTimeout(()=>d.remove(),1100);
  }
 }
+
+// Instant reset for touch devices
+document.addEventListener('pointerup',e=>{
+ const c=e.target.closest('.premium-card');
+ if(!c) return;
+ c.style.transform='none';
+ requestAnimationFrame(()=>c.style.transform='');
+});
+document.addEventListener('pointercancel',e=>{
+ const c=e.target.closest('.premium-card');
+ if(!c) return;
+ c.style.transform='none';
+ requestAnimationFrame(()=>c.style.transform='');
+});
 </script>
 
 </body>
