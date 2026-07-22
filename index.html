@@ -206,11 +206,28 @@ body {
   opacity: 0;
   transition: var(--transition);
 }
-.premium-card:hover, .premium-card:active {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: rgba(37, 99, 235, 0.2);
+.premium-card{
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select:none;
+  user-select:none;
+  touch-action:manipulation;
+  transform:translateZ(0);
 }
+
+@media (hover:hover) and (pointer:fine){
+.premium-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+  border-color:rgba(37,99,235,.2);
+}
+}
+
+.premium-card:active{
+  transform:scale(.985);
+  box-shadow:var(--shadow-md);
+  border-color:rgba(37,99,235,.2);
+}
+
 .premium-card:active::after {
   opacity: 1;
 }
