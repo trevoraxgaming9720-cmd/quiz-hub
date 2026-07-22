@@ -198,6 +198,13 @@ body {
   position: relative;
   overflow: hidden;
 }
+}
+
+.premium-card:active {
+  transform: scale(.98);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(37, 99, 235, 0.2);
+}
 .premium-card::after {
   content: '';
   position: absolute;
@@ -206,7 +213,8 @@ body {
   opacity: 0;
   transition: var(--transition);
 }
-.premium-card:hover, .premium-card:active {
+@media (hover: hover) and (pointer: fine) {
+.premium-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
   border-color: rgba(37, 99, 235, 0.2);
@@ -2391,20 +2399,6 @@ function createMiniParticles(x,y){
    setTimeout(()=>d.remove(),1100);
  }
 }
-
-// Instant reset for touch devices
-document.addEventListener('pointerup',e=>{
- const c=e.target.closest('.premium-card');
- if(!c) return;
- c.style.transform='none';
- requestAnimationFrame(()=>c.style.transform='');
-});
-document.addEventListener('pointercancel',e=>{
- const c=e.target.closest('.premium-card');
- if(!c) return;
- c.style.transform='none';
- requestAnimationFrame(()=>c.style.transform='');
-});
 </script>
 
 </body>
