@@ -2909,12 +2909,10 @@ async function requestGeminiResponse() {
   currentAbortController = new AbortController();
 
   try {
-const payload = {
-  subject: currentSubject,
-
-  systemInstruction: {
-    parts: [{
-      text: `Reply ONLY in plain Unicode text.
+    const payload = {
+      systemInstruction: {
+        parts: [{
+          text: `Reply ONLY in plain Unicode text.
 
 Never use LaTeX or Markdown math.
 Never use $, $$, \\(...\\), \\[...\\], \\frac, \\sqrt, \\text, \\times, \\div.
@@ -2928,13 +2926,12 @@ STRICT FORMATTING RULES:
 - Never bold the entire paragraph or every sentence.
 - Use bullet points where appropriate.
 - Keep answers clean, mobile-friendly and easy to read.
-- Follow these formatting rules for ALL subjects including Maths, Reasoning, GK, English, General Science, History, Geography, Polity, Economics, Current Affairs, Computer and every other subject.
+- Follow these formatting rules for ALL subjects including Maths, Reasoning, English, General Science, History, Geography, Polity, Economics, Current Affairs, Computer and every other subject.
 - Do not overuse bold.`
-    }]
-  },
-
-  contents: aiChatHistory
-};
+        }]
+      },
+      contents: aiChatHistory
+    };
 
     const res = await fetch(GEMINI_WORKER_URL, {
       method: 'POST',
