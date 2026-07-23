@@ -1303,8 +1303,8 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 
 @media (min-width: 768px) {
   #ai-floating-btn {
-    right: calc(50% - 470px);
-    bottom: 32px;
+    right: max(24px, calc((100vw - 980px) / 2 + 24px));
+    bottom: 24px;
   }
 }
 </style>
