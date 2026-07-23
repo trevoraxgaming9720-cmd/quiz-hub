@@ -1631,7 +1631,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
       <div class="ai-header-avatar">🤖</div>
       <div>
         <div class="ai-header-title">AI Study Assistant</div>
-        <div class="ai-header-subtitle">Powered by Gemini 2.5 Flash</div>
+        <div class="ai-header-subtitle">Powered by Gemini 3.5 Flash Lite</div>
       </div>
     </div>
     <button class="ai-close-btn" onclick="toggleAIPanel()">✕</button>
@@ -2840,48 +2840,53 @@ function showTypingIndicator() {
 
 function removeTypingIndicator() {
   const indicator = document.getElementById('ai-typing-active');
-  if (indicator && indicator.parentNode) {
-    indicator.parentNode.removeChild(indicator);
-  }
+  if (indicator) indicator.remove();
 }
 
-function appendBotMessage(markdownText) {
-  removeTypingIndicator();
+function appendBotMessageAnimated(text) {
   const chatHistory = document.getElementById('ai-chat-history');
   if (!chatHistory) return;
   
   const msgDiv = document.createElement('div');
   msgDiv.className = 'ai-msg ai-msg-bot';
-  msgDiv.innerHTML = parseMarkdownToHTML(markdownText);
   chatHistory.appendChild(msgDiv);
+  
+  const formattedHTML = parseMarkdownToHTML(text);
+  
+  // Typing animation simulation
+  let currentLength = 0;
+  const fullText = formattedHTML;
+  
+  // Fast render with smooth transition
+  msgDiv.innerHTML = fullText;
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
-// 7. GEMINI API COMMUNICATION ENGINE
-async function callGeminiAPI(userPrompt) {
-  // Push user prompt to conversation history
-  aiConversationHistory.push({
-    role: 'user',
-    parts: [{ text: userPrompt }]
-  });
-
-  const apiKey = "AQ.Ab8RN6JZ3fIKEfSLLFzZ30f_gHZd6hgG5G-UdPIFN0yoU0FjFw";
+// 7. GEMINI API CALL core FUNCTION WITH RETRY LOGIC & LATEST ENDPOINT
+async function callGeminiAPI(contents, retryCount = 0) {
   const modelName = "gemini-3.5-flash-lite";
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+const apiKey = "AQ.Ab8RN6Jdc_9aNuZncduHJBytOlHRJSww5XuuugbJ5G4A_C8jCw";
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
+
+  const systemInstruction = {
+    parts: [{
+      text: "You are an expert academic tutor and exam preparation specialist. Provide clear, concise, accurate, and easy-to-understand explanations. Structure your answers with Markdown using bold text, bullet points, and clean formatting."
+    }]
+  };
 
   const requestBody = {
-    contents: aiConversationHistory,
-    systemInstruction: {
-      parts: [{
-        text: "You are an expert, highly encouraging Senior AI Tutor for competitive exam students in India. You provide clear, concise, logically broken-down explanations in easy Hindi-English (Hinglish) or plain Hindi/English based on context. Keep markdown clean, structured, and pleasant to read."
-      }]
+    contents: contents,
+    systemInstruction: systemInstruction,
+    generationConfig: {
+      temperature: 0.3,
+      topK: 40,
+      topP: 0.95,
+      maxOutputTokens: 2048
     }
   };
 
-  console.log("Sending Request to Gemini API:", JSON.stringify(requestBody, null, 2));
-
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${endpoint}?key=${apiKey}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -2889,123 +2894,136 @@ async function callGeminiAPI(userPrompt) {
       body: JSON.stringify(requestBody)
     });
 
-    const dataRes = await response.json();
-    console.log("Gemini API Response:", dataRes);
-
     if (!response.ok) {
-      let errorCode = "API_ERROR";
-      let errorMsg = "Failed to connect to Gemini API.";
-      
-      if (dataRes.error) {
-        errorCode = dataRes.error.status || dataRes.error.code || "API_ERROR";
-        errorMsg = dataRes.error.message || JSON.stringify(dataRes.error);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error?.message || `HTTP Error ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.candidates && data.candidates.length > 0 && data.candidates[0].content) {
+      const parts = data.candidates[0].content.parts;
+      if (parts && parts.length > 0) {
+        return parts.map(p => p.text).join("");
       }
-      
-      throw new Error(`[${errorCode}] ${errorMsg}`);
     }
-
-    if (dataRes.candidates && dataRes.candidates.length > 0 && dataRes.candidates[0].content) {
-      const candidate = dataRes.candidates[0];
-      const botReply = candidate.content.parts.map(p => p.text).join("");
-      
-      // Save assistant response to context history
-      aiConversationHistory.push({
-        role: 'model',
-        parts: [{ text: botReply }]
-      });
-
-      return botReply;
-    } else {
-      throw new Error("NO_CANDIDATE_RETURNED: Gemini returned an empty response or candidate was blocked.");
+    
+    throw new Error("Invalid response structure received from Gemini API.");
+  } catch (err) {
+    if (retryCount < 2) {
+      // Exponential backoff retry
+      await new Promise(res => setTimeout(res, 1000 * (retryCount + 1)));
+      return callGeminiAPI(contents, retryCount + 1);
     }
-
-  } catch (error) {
-    // Remove failed user prompt from conversation history to prevent corrupted context loop
-    aiConversationHistory.pop();
-    console.error("Gemini API Error Detail:", error);
-    throw error;
+    throw err;
   }
 }
 
-// 8. TRIGGER FIRST AUTOMATIC QUESTION ANALYSIS
+// 8. ASK AI CURRENT QUESTION ACTION
 async function askAICurrentQuestion() {
   if (aiIsProcessing) return;
   
-  const ctx = getCurrentQuestionContext();
-  appendUserMessage(`✨ Analyze Question #${ctx.qNo}`);
-  
-  const promptText = `
-You are analyzing Question #${ctx.qNo} of ${ctx.totalQ}.
-${ctx.subject ? `Subject: ${ctx.subject}` : ''}
-${ctx.chapter ? `Chapter: ${ctx.chapter}` : ''}
-${ctx.tag ? `Exam Tag: ${ctx.tag}` : ''}
+  const qContext = getCurrentQuestionContext();
+  const prompt = `Please explain the following exam question in detail:
 
-Question:
-${ctx.question}
+Subject: ${qContext.subject}
+Category: ${qContext.category}
+Chapter: ${qContext.chapter}
+Question (${qContext.qNo}/${qContext.totalQ}): ${qContext.question}
+${qContext.tag ? `Exam Tag: ${qContext.tag}` : ''}
 
 Options:
-${ctx.options.join('\n')}
+${qContext.options.join('\n')}
 
-Please provide a structured detailed response formatted in clean markdown containing:
-✅ **Correct Answer**: (Specify Option letter and exact text)
-✅ **Why Correct**: (Detailed step-by-step logical solution)
-✅ **Why Other Options Are Wrong**: (Brief breakdown for each incorrect option)
-⚡ **Short Trick / Shortcut**: (Fastest way to solve in exams)
-🧠 **Memory Trick / Mnemonics**: (Easy tip to remember long-term)
-💡 **Easy Explanation**: (Simple conceptual explanation)
-🎯 **Exam Tip**: (Important point to remember for related questions)
-`;
+Please structure your response clearly:
+1. **Correct Answer**: Identify the correct option with high confidence.
+2. **Key Concept**: Explain the underlying theory or concept simply.
+3. **Step-by-Step Explanation**: Walk through why the correct answer is right and why others are wrong.
+4. **Exam Tip / Trick**: A fast memory trick or strategy for solving similar questions quickly.`;
+
+  appendUserMessage("✨ Explain this question in detail");
+  
+  aiConversationHistory.push({
+    role: "user",
+    parts: [{ text: prompt }]
+  });
 
   aiIsProcessing = true;
+  const sendBtn = document.getElementById('ai-send-btn');
+  if (sendBtn) sendBtn.disabled = true;
+  
   showTypingIndicator();
 
   try {
-    const aiReply = await callGeminiAPI(promptText);
-    appendBotMessage(aiReply);
+    const replyText = await callGeminiAPI(aiConversationHistory);
+    removeTypingIndicator();
+    
+    aiConversationHistory.push({
+      role: "model",
+      parts: [{ text: replyText }]
+    });
+
+    appendBotMessageAnimated(replyText);
   } catch (err) {
     removeTypingIndicator();
-    appendBotMessage(`⚠️ **Gemini API Error**: ${err.message}`);
+    appendBotMessageAnimated(`⚠️ **Error**: Unable to fetch response from Gemini AI (${err.message}). Please check your connection and try again.`);
   } finally {
     aiIsProcessing = false;
+    if (sendBtn) sendBtn.disabled = false;
   }
 }
 
-// 9. HANDLE FOLLOW-UP MESSAGES
+// 9. SEND FOLLOW-UP MESSAGE
 async function sendAIMessage() {
   const inputEl = document.getElementById('ai-user-input');
-  if (!inputEl || aiIsProcessing) return;
+  if (!inputEl) return;
   
-  const query = inputEl.value.trim();
-  if (!query) return;
+  const text = inputEl.value.trim();
+  if (!text || aiIsProcessing) return;
 
-  inputEl.value = '';
-  appendUserMessage(query);
+  inputEl.value = "";
+  appendUserMessage(text);
 
-  // If chat is fresh and user hasn't asked current question yet, attach question context
-  let fullPrompt = query;
+  // If conversation history is empty, attach current question context implicitly
   if (aiConversationHistory.length === 0) {
-    const ctx = getCurrentQuestionContext();
-    fullPrompt = `
-[Context: Current Question #${ctx.qNo}: "${ctx.question}" | Options: ${ctx.options.join(', ')}]
-
-User Query: ${query}
-`;
+    const qContext = getCurrentQuestionContext();
+    const contextHeader = `Context for Question ${qContext.qNo}: "${qContext.question}"\nOptions: ${qContext.options.join(', ')}\n\nUser Question: ${text}`;
+    
+    aiConversationHistory.push({
+      role: "user",
+      parts: [{ text: contextHeader }]
+    });
+  } else {
+    aiConversationHistory.push({
+      role: "user",
+      parts: [{ text: text }]
+    });
   }
 
   aiIsProcessing = true;
+  const sendBtn = document.getElementById('ai-send-btn');
+  if (sendBtn) sendBtn.disabled = true;
+  
   showTypingIndicator();
 
   try {
-    const aiReply = await callGeminiAPI(fullPrompt);
-    appendBotMessage(aiReply);
+    const replyText = await callGeminiAPI(aiConversationHistory);
+    removeTypingIndicator();
+    
+    aiConversationHistory.push({
+      role: "model",
+      parts: [{ text: replyText }]
+    });
+
+    appendBotMessageAnimated(replyText);
   } catch (err) {
     removeTypingIndicator();
-    appendBotMessage(`⚠️ **Gemini API Error**: ${err.message}`);
+    appendBotMessageAnimated(`⚠️ **Error**: ${err.message}. Please try again.`);
   } finally {
     aiIsProcessing = false;
+    if (sendBtn) sendBtn.disabled = false;
   }
 }
 </script>
-
 </body>
 </html>
