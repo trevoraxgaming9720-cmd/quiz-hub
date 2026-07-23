@@ -1042,7 +1042,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
   font-size: 28px;
   cursor: pointer;
   z-index: 999990;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
@@ -1631,7 +1631,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
       <div class="ai-header-avatar">🤖</div>
       <div>
         <div class="ai-header-title">AI Study Assistant</div>
-        <div class="ai-header-subtitle">Powered by Gemini 3.5 Flash-Lite</div>
+        <div class="ai-header-subtitle">Powered by Gemini 2.5 Flash</div>
       </div>
     </div>
     <button class="ai-close-btn" onclick="toggleAIPanel()">✕</button>
@@ -1654,6 +1654,53 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
     <button id="ai-send-btn" class="ai-send-btn" onclick="sendAIMessage()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
+  </div>
+</div>
+
+<!-- Modal for Retest Options -->
+<div id="retestModal">
+  <div id="retestCard">
+    <div class="icon-header">🔄</div>
+    <div class="rtitle">Reattempt Quiz</div>
+    <div class="rsub">Choose how you would like to practice:</div>
+    
+    <div class="rbtn" id="cardFull" onclick="startRetest(1)">
+      <div class="rbtn-icon-bg" style="background:#eff6ff; color:#2563eb;">📝</div>
+      <div class="rbtn-text-content">
+        <b>Full Test Restart</b>
+        <small><span id="cntFull">0</span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">➔</div>
+    </div>
+
+    <div class="rbtn" id="cardWrong" onclick="startRetest(2)">
+      <div class="rbtn-icon-bg" style="background:#fef2f2; color:#ef4444;">❌</div>
+      <div class="rbtn-text-content">
+        <b>Wrong Answers Only</b>
+        <small><span id="cntWrong">0</span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">➔</div>
+    </div>
+
+    <div class="rbtn" id="cardUn" onclick="startRetest(3)">
+      <div class="rbtn-icon-bg" style="background:#fffbeb; color:#f59e0b;">⏭️</div>
+      <div class="rbtn-text-content">
+        <b>Unattempted Only</b>
+        <small><span id="cntUn">0</span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">➔</div>
+    </div>
+
+    <div class="rbtn" id="cardMix" onclick="startRetest(4)">
+      <div class="rbtn-icon-bg" style="background:#faf5ff; color:#a855f7;">🔄</div>
+      <div class="rbtn-text-content">
+        <b>Wrong + Unattempted</b>
+        <small><span id="cntMix">0</span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">➔</div>
+    </div>
+
+    <button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Cancel</button>
   </div>
 </div>
 
@@ -1684,6 +1731,7 @@ if(!browserId){
 
 window.addEventListener('DOMContentLoaded', () => {
   buildGlobalQuizIndex();
+  updateAIFloatingButtonVisibility();
 });
 
 async function buildGlobalQuizIndex() {
@@ -1771,6 +1819,7 @@ function renderSubjects() {
     };
     listEl.appendChild(card);
   });
+  updateAIFloatingButtonVisibility();
 }
 
 function renderCategories(subjectName) {
@@ -1829,6 +1878,7 @@ function renderCategories(subjectName) {
     card.onclick = () => renderChapters(subjectName, categoryName);
     listEl.appendChild(card);
   });
+  updateAIFloatingButtonVisibility();
 }
 
 function renderChapters(subjectName, categoryName) {
@@ -1892,6 +1942,7 @@ function renderChapters(subjectName, categoryName) {
     card.onclick = () => renderQuizList(subjectName, categoryName, chapterName);
     listEl.appendChild(card);
   });
+  updateAIFloatingButtonVisibility();
 }
 
 function renderQuizList(subjectName, categoryName, chapterName) {
@@ -1941,6 +1992,7 @@ function renderQuizList(subjectName, categoryName, chapterName) {
     card.onclick = () => loadQuizData(quiz.path);
     listEl.appendChild(card);
   });
+  updateAIFloatingButtonVisibility();
 }
 
 function handleSearch(query) {
@@ -2005,6 +2057,7 @@ function handleSearch(query) {
     card.onclick = () => loadQuizData(quiz.path);
     listEl.appendChild(card);
   });
+  updateAIFloatingButtonVisibility();
 }
 
 function handleExplorerBack() {
@@ -2029,6 +2082,7 @@ function backToExplorer() {
   document.getElementById('explorerScreen').style.display = 'flex';
   document.getElementById('score-card').style.display = 'none';
   clearInterval(timer);
+  updateAIFloatingButtonVisibility();
 }
 
 function showEmptyState() {
@@ -2086,6 +2140,7 @@ async function loadQuizData(quizPath) {
     
     showQ();
     resetQuestionTimer();
+    updateAIFloatingButtonVisibility();
   }catch(err){
     console.error(err);
     alert("System core failed loading target execution data streams cleanly parameters context variables: "+err.message);
@@ -2307,6 +2362,7 @@ let answerCorrect=[];
 function showQ() {
 if(data.length === 0) return;
 resetAIChat();
+document.getElementById('qBadge').innerText = `Q ${currentQ + 1}/${data.length}`;
 document.getElementById('q-text').innerHTML = formatContent(data[currentQ].q);
 const tagBox=document.getElementById('exam-tag');
 if(data[currentQ].tag){tagBox.innerHTML=formatContent(data[currentQ].tag);tagBox.style.display='inline-block';}else{tagBox.innerText='';tagBox.style.display='none';}
@@ -2469,6 +2525,7 @@ pb.innerText=badge;pb.style.background=bg;
 document.getElementById('score-card').style.background='var(--card-bg)';
 document.getElementById('score-card').style.display='block';
 document.querySelector('.floating-quiz-header').style.display='none';
+updateAIFloatingButtonVisibility();
 }
 
 function next() {
@@ -2572,6 +2629,7 @@ if(goBtn) goBtn.disabled=false;
    document.querySelector('.floating-quiz-header').style.display='flex';
    showQ();
    resetQuestionTimer();
+   updateAIFloatingButtonVisibility();
    return;
  }
  let arr=[];
@@ -2584,16 +2642,7 @@ if(goBtn) goBtn.disabled=false;
  data.length=0;
  newData.forEach(q=>data.push(q));
  currentQ=0;
-score=0;
-elapsed=0;
-currentStreak=0;
-maxStreak=0;
-timerRunning=true;
-isPaused=false;
-const lt=document.getElementById('liveTimer');
-if(lt) lt.textContent='00:00';
-const pt=document.getElementById('popupTime');
-if(pt) pt.textContent='00:00';
+ score=0;
  answered=new Array(data.length).fill(false);
  selectedAnswers=new Array(data.length).fill(null);
  answerCorrect=new Array(data.length).fill(null);
@@ -2605,177 +2654,64 @@ if(pt) pt.textContent='00:00';
  document.querySelector('.floating-quiz-header').style.display='flex';
  showQ();
  resetQuestionTimer();
+ updateAIFloatingButtonVisibility();
 }
 </script>
 
+<!-- ==========================================================================
+     AI ASSISTANT FULL ENGINE & GEMINI API INTEGRATION CORE
+     ========================================================================== -->
 <script>
-(function(){
-function upd(){
- var b=document.getElementById('qBadge');
- if(!b)return;
- var total=(typeof data!=='undefined'&&data)?data.length:0;
- var cur=1;
- if(typeof currentQuestion!=='undefined')cur=currentQuestion+1;
- else if(typeof currentQ!=='undefined')cur=currentQ+1;
- else if(typeof index!=='undefined')cur=index+1;
- b.textContent='Q '+cur+'/'+total;
-}
-document.addEventListener('DOMContentLoaded',function(){
- upd();
-});
-const __oldShowQ=showQ;
-showQ=function(){
-  __oldShowQ();
-  upd();
-};
-})();
-</script>
-
-<!-- Retest Modal HTML -->
-<div id="retestModal">
-  <div id="retestCard">
-    <div class="icon-header">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
-      </svg>
-    </div>
-    <div class="rtitle">Restart Test</div>
-    <div class="rsub">Choose a practice mode</div>
-
-    <!-- Mode 1: Full Test -->
-    <div class="rbtn" onclick="startRetest(1)">
-      <div class="rbtn-icon-bg" style="background: #eef4ff; color: #2563eb;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-        </svg>
-      </div>
-      <div class="rbtn-text-content">
-        <b>Full Test</b>
-        <small><span id="cntFull"></span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Mode 2: Wrong Questions -->
-    <div class="rbtn" id="cardWrong" onclick="startRetest(2)">
-      <div class="rbtn-icon-bg" style="background: #fef2f2; color: #ef4444;">
-        <span style="font-size: 24px; font-weight: 500;">✕</span>
-      </div>
-      <div class="rbtn-text-content">
-        <b>Wrong Questions</b>
-        <small><span id="cntWrong"></span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Mode 3: Skipped Questions -->
-    <div class="rbtn" id="cardUn" onclick="startRetest(3)">
-      <div class="rbtn-icon-bg" style="background: #fffbeb; color: #f59e0b;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/>
-        </svg>
-      </div>
-      <div class="rbtn-text-content">
-        <b>Skipped Questions</b>
-        <small><span id="cntUn"></span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Mode 4: Mixed Practice -->
-    <div class="rbtn" id="cardMix" onclick="startRetest(4)">
-      <div class="rbtn-icon-bg" style="background: #f3e8ff; color: #9333ea;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/>
-        </svg>
-      </div>
-      <div class="rbtn-text-content">
-        <b>Mixed Practice</b>
-        <small><span id="cntMix"></span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-        </svg>
-      </div>
-    </div>
-
-    <button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Cancel</button>
-  </div>
-</div>
-
-<script>
-(function(){
-const btn=document.getElementById('toggleExplanation');
-const fb=document.getElementById('feedback');
-if(!btn||!fb) return;
-window.resetExplanationUI=function(){
- fb.style.display='none';
- btn.style.display='none';
- btn.innerHTML='▼ Show Explanation';
-};
-window.enableExplanationToggle=function(){
- btn.style.display='inline-block';
- fb.style.display='none';
- btn.innerHTML='▼ Show Explanation';
-};
-btn.onclick=function(){
- if(fb.style.display==='none'||fb.style.display===''){
-   fb.style.display='block';
-   btn.innerHTML='▲ Hide Explanation';
- }else{
-   fb.style.display='none';
-   btn.innerHTML='▼ Show Explanation';
- }
-};
-})();
-
-function createMiniParticles(x,y){
- for(let i=0;i<18;i++){
-   const d=document.createElement('div');
-   d.className='burst';
-   d.style.left=x+'px';
-   d.style.top=y+'px';
-   d.style.setProperty('--x',((Math.random()-0.5)*140)+'px');
-   d.style.setProperty('--y',((Math.random()-0.5)*140)+'px');
-   d.style.background=['#FFD700','#FFF','#FFE066','#F59E0B'][i%4];
-   document.body.appendChild(d);
-   setTimeout(()=>d.remove(),1100);
- }
-}
-</script>
-
-<!-- AI ASSISTANT LOGIC & GEMINI API INTEGRATION -->
-<script>
-const API_KEY = "AQ.Ab8RN6L8NBOHaAp8XTNrS3jEjnDTjavn95Z_Dc9bf1ijIhrNbw";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${API_KEY}`;
-
 let aiConversationHistory = [];
-let aiIsLoading = false;
+let aiIsProcessing = false;
 
+// 1. UPDATE FLOATING AI BUTTON VISIBILITY (QUIZ SCREEN ONLY)
+function updateAIFloatingButtonVisibility() {
+  const quizEngineBox = document.getElementById('quizEngineBox');
+  const quizBox = document.getElementById('quiz-box');
+  const aiBtn = document.getElementById('ai-floating-btn');
+  
+  if (!aiBtn) return;
+  
+  const isQuizVisible = quizEngineBox && getComputedStyle(quizEngineBox).display !== 'none';
+  const isQuizBoxVisible = quizBox && getComputedStyle(quizBox).display !== 'none';
+  
+  if (isQuizVisible && isQuizBoxVisible) {
+    aiBtn.style.display = 'flex';
+  } else {
+    aiBtn.style.display = 'none';
+    closeAIPanel();
+  }
+}
+
+// 2. TOGGLE / OPEN / CLOSE AI PANEL
 function toggleAIPanel() {
   const panel = document.getElementById('ai-panel');
   const overlay = document.getElementById('ai-panel-overlay');
-  panel.classList.toggle('active');
-  overlay.classList.toggle('active');
+  if (!panel) return;
+  
+  if (panel.classList.contains('active')) {
+    closeAIPanel();
+  } else {
+    panel.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+  }
 }
 
+function closeAIPanel() {
+  const panel = document.getElementById('ai-panel');
+  const overlay = document.getElementById('ai-panel-overlay');
+  if (panel) panel.classList.remove('active');
+  if (overlay) overlay.classList.remove('active');
+}
+
+// 3. RESET CHAT & CONVERSATION ON QUESTION CHANGE
 function resetAIChat() {
   aiConversationHistory = [];
+  aiIsProcessing = false;
+  
   const chatHistory = document.getElementById('ai-chat-history');
-  if(chatHistory) {
+  if (chatHistory) {
     chatHistory.innerHTML = `
       <div class="ai-msg ai-msg-bot">
         Hello! I'm your AI tutor. Click <b>"Ask AI for this Question"</b> to get instant explanations, tricks, and exam tips for the active question!
@@ -2785,174 +2721,289 @@ function resetAIChat() {
   }
 }
 
-function getDOMQuestionData() {
-  const qText = document.getElementById('q-text')?.innerText || '';
-  const examTag = document.getElementById('exam-tag')?.innerText || '';
-  const qBadge = document.getElementById('qBadge')?.innerText || '';
-  const optionBtns = document.querySelectorAll('#options button');
+// 4. MARKDOWN TO HTML FORMATTER
+function parseMarkdownToHTML(markdown) {
+  if (!markdown) return '';
+  let html = markdown;
   
-  const options = [];
-  optionBtns.forEach((btn, index) => {
-    const letter = String.fromCharCode(65 + index);
-    options.push(`${letter}) ${btn.innerText}`);
-  });
-
-  return {
-    question: qText,
-    options: options,
-    examTag: examTag,
-    qNum: qBadge,
-    subject: typeof currentSubject !== 'undefined' ? currentSubject : ''
-  };
-}
-
-function renderFormattedHTML(text) {
-  let html = text
-    .replace(/^### (.*$)/gim, '<h4>$1</h4>')
-    .replace(/^## (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^# (.*$)/gim, '<h2>$1</h2>')
-    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-    .replace(/\*(.*?)\*/g, '<i>$1</i>')
-    .replace(/`(.*?)`/g, '<code>$1</code>')
-    .replace(/^\* (.*$)/gim, '<ul><li>$1</li></ul>')
-    .replace(/^\d+\. (.*$)/gim, '<ol><li>$1</li></ol>')
-    .replace(/<\/ul>\s*<ul>/g, '')
-    .replace(/<\/ol>\s*<ol>/g, '')
-    .replace(/\n\n/g, '<p></p>')
-    .replace(/\n/g, '<br>');
+  // Clean potential code block wraps
+  html = html.replace(/```html/gi, '').replace(/```markdown/gi, '').replace(/```/g, '');
+  
+  // Headers
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  
+  // Bold & Italic
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  
+  // Inline code
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  
+  // Unordered lists
+  html = html.replace(/^\s*[\-\*]\s+(.*$)/gim, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>');
+  html = html.replace(/<\/ul>\s*<ul>/g, ''); // Join adjacent lists
+  
+  // Line breaks & paragraphs
+  const paragraphs = html.split(/\n\s*\n/);
+  html = paragraphs.map(p => {
+    p = p.trim();
+    if (!p) return '';
+    if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<ol') || p.startsWith('<table')) {
+      return p;
+    }
+    return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+  }).join('');
+  
   return html;
 }
 
-function appendAIMessage(sender, content) {
-  const chatHistory = document.getElementById('ai-chat-history');
-  const msgDiv = document.createElement('div');
-  msgDiv.className = `ai-msg ai-msg-${sender}`;
-  
-  if(sender === 'bot') {
-    msgDiv.innerHTML = renderFormattedHTML(content);
-  } else {
-    msgDiv.textContent = content;
+// 5. EXTRACT CURRENT QUESTION DATA FROM DOM & STATE
+function getCurrentQuestionContext() {
+  if (!data || !data[currentQ]) {
+    // Fallback extraction directly from DOM if state isn't available
+    const qTextEl = document.getElementById('q-text');
+    const tagEl = document.getElementById('exam-tag');
+    const optionBtns = document.querySelectorAll('#options button');
+    
+    const options = [];
+    optionBtns.forEach((btn, idx) => {
+      options.push(`${String.fromCharCode(65 + idx)}. ${btn.innerText.trim()}`);
+    });
+    
+    return {
+      qNo: currentQ + 1,
+      totalQ: data ? data.length : 1,
+      question: qTextEl ? qTextEl.innerText.trim() : 'N/A',
+      tag: tagEl ? tagEl.innerText.trim() : '',
+      options: options,
+      subject: currentSubject || '',
+      category: currentCategory || '',
+      chapter: currentChapter || ''
+    };
   }
+
+  const qObj = data[currentQ];
+  const qText = document.getElementById('q-text')?.innerText || qObj.q;
+  const tagText = document.getElementById('exam-tag')?.innerText || qObj.tag || '';
   
+  const formattedOptions = (qObj.o || []).map((opt, idx) => {
+    // Strip HTML tags for clean AI prompt context
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = opt;
+    const cleanOpt = tempDiv.innerText || tempDiv.textContent || opt;
+    return `${String.fromCharCode(65 + idx)}. ${cleanOpt.trim()}`;
+  });
+
+  return {
+    qNo: currentQ + 1,
+    totalQ: data.length,
+    question: qText.trim(),
+    tag: tagText.trim(),
+    options: formattedOptions,
+    subject: currentSubject ? cleanHumanReadableTitle(currentSubject) : '',
+    category: currentCategory ? cleanHumanReadableTitle(currentCategory) : '',
+    chapter: currentChapter ? cleanHumanReadableTitle(currentChapter) : ''
+  };
+}
+
+// 6. UI CHAT HELPERS
+function appendUserMessage(text) {
+  const chatHistory = document.getElementById('ai-chat-history');
+  if (!chatHistory) return;
+  
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'ai-msg ai-msg-user';
+  msgDiv.textContent = text;
   chatHistory.appendChild(msgDiv);
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
-function showAITyping() {
+function showTypingIndicator() {
   const chatHistory = document.getElementById('ai-chat-history');
-  const typingDiv = document.createElement('div');
-  typingDiv.id = 'ai-typing';
-  typingDiv.className = 'ai-typing-indicator';
-  typingDiv.innerHTML = `
+  if (!chatHistory) return null;
+  
+  const indicator = document.createElement('div');
+  indicator.className = 'ai-typing-indicator';
+  indicator.id = 'ai-typing-active';
+  indicator.innerHTML = `
     <div class="ai-typing-dot"></div>
     <div class="ai-typing-dot"></div>
     <div class="ai-typing-dot"></div>
   `;
-  chatHistory.appendChild(typingDiv);
+  chatHistory.appendChild(indicator);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+  return indicator;
+}
+
+function removeTypingIndicator() {
+  const indicator = document.getElementById('ai-typing-active');
+  if (indicator && indicator.parentNode) {
+    indicator.parentNode.removeChild(indicator);
+  }
+}
+
+function appendBotMessage(markdownText) {
+  removeTypingIndicator();
+  const chatHistory = document.getElementById('ai-chat-history');
+  if (!chatHistory) return;
+  
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'ai-msg ai-msg-bot';
+  msgDiv.innerHTML = parseMarkdownToHTML(markdownText);
+  chatHistory.appendChild(msgDiv);
   chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
-function hideAITyping() {
-  const typing = document.getElementById('ai-typing');
-  if(typing) typing.remove();
-}
+// 7. GEMINI API COMMUNICATION ENGINE
+async function callGeminiAPI(userPrompt) {
+  // Push user prompt to conversation history
+  aiConversationHistory.push({
+    role: 'user',
+    parts: [{ text: userPrompt }]
+  });
 
-async function fetchGeminiResponse(contents) {
-  aiIsLoading = true;
-  showAITyping();
-  
+  const apiKey = "";
+  const modelName = "gemini-2.5-flash";
+  const url = `[https://generativelanguage.googleapis.com/v1beta/models/$](https://generativelanguage.googleapis.com/v1beta/models/$){modelName}:generateContent?key=${apiKey}`;
+
+  const requestBody = {
+    contents: aiConversationHistory,
+    systemInstruction: {
+      parts: [{
+        text: "You are an expert, highly encouraging Senior AI Tutor for competitive exam students in India. You provide clear, concise, logically broken-down explanations in easy Hindi-English (Hinglish) or plain Hindi/English based on context. Keep markdown clean, structured, and pleasant to read."
+      }]
+    }
+  };
+
+  console.log("Sending Request to Gemini API:", JSON.stringify(requestBody, null, 2));
+
   try {
-    const response = await fetch(GEMINI_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: contents })
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(requestBody)
     });
-    
-    if(!response.ok) throw new Error('API Request Failed');
-    
-    const resData = await response.json();
-    const replyText = resData.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't process that.";
-    
-    hideAITyping();
-    appendAIMessage('bot', replyText);
-    
-    aiConversationHistory.push({
-      role: 'model',
-      parts: [{ text: replyText }]
-    });
-  } catch(e) {
-    hideAITyping();
-    appendAIMessage('bot', "⚠️ Error connecting to AI Assistant. Please try again.");
-    console.error("Gemini API Error:", e);
-  } finally {
-    aiIsLoading = false;
+
+    const dataRes = await response.json();
+    console.log("Gemini API Response:", dataRes);
+
+    if (!response.ok) {
+      let errorCode = "API_ERROR";
+      let errorMsg = "Failed to connect to Gemini API.";
+      
+      if (dataRes.error) {
+        errorCode = dataRes.error.status || dataRes.error.code || "API_ERROR";
+        errorMsg = dataRes.error.message || JSON.stringify(dataRes.error);
+      }
+      
+      throw new Error(`[${errorCode}] ${errorMsg}`);
+    }
+
+    if (dataRes.candidates && dataRes.candidates.length > 0 && dataRes.candidates[0].content) {
+      const candidate = dataRes.candidates[0];
+      const botReply = candidate.content.parts.map(p => p.text).join("");
+      
+      // Save assistant response to context history
+      aiConversationHistory.push({
+        role: 'model',
+        parts: [{ text: botReply }]
+      });
+
+      return botReply;
+    } else {
+      throw new Error("NO_CANDIDATE_RETURNED: Gemini returned an empty response or candidate was blocked.");
+    }
+
+  } catch (error) {
+    // Remove failed user prompt from conversation history to prevent corrupted context loop
+    aiConversationHistory.pop();
+    console.error("Gemini API Error Detail:", error);
+    throw error;
   }
 }
 
-function askAICurrentQuestion() {
-  if(aiIsLoading) return;
+// 8. TRIGGER FIRST AUTOMATIC QUESTION ANALYSIS
+async function askAICurrentQuestion() {
+  if (aiIsProcessing) return;
   
-  const qData = getDOMQuestionData();
-  if(!qData.question) {
-    appendAIMessage('bot', "No active question detected on page.");
-    return;
-  }
+  const ctx = getCurrentQuestionContext();
+  appendUserMessage(`✨ Analyze Question #${ctx.qNo}`);
   
-  resetAIChat();
-  
-  const initialPrompt = `
-You are a senior tutor analyzing a competitive exam question.
+  const promptText = `
+You are analyzing Question #${ctx.qNo} of ${ctx.totalQ}.
+${ctx.subject ? `Subject: ${ctx.subject}` : ''}
+${ctx.chapter ? `Chapter: ${ctx.chapter}` : ''}
+${ctx.tag ? `Exam Tag: ${ctx.tag}` : ''}
 
-Question details:
-- Subject: ${qData.subject}
-- Number/Tag: ${qData.qNum} | ${qData.examTag}
-- Question: ${qData.question}
-- Options:
-${qData.options.join('\n')}
+Question:
+${ctx.question}
 
-Provide a structured, clean analysis using HTML or markdown formatting with the exact sections:
-1. Correct Answer
-2. Why correct
-3. Why other options are wrong
-4. Short Trick (if applicable)
-5. Memory Trick
-6. Exam Tip
+Options:
+${ctx.options.join('\n')}
+
+Please provide a structured detailed response formatted in clean markdown containing:
+✅ **Correct Answer**: (Specify Option letter and exact text)
+✅ **Why Correct**: (Detailed step-by-step logical solution)
+✅ **Why Other Options Are Wrong**: (Brief breakdown for each incorrect option)
+⚡ **Short Trick / Shortcut**: (Fastest way to solve in exams)
+🧠 **Memory Trick / Mnemonics**: (Easy tip to remember long-term)
+💡 **Easy Explanation**: (Simple conceptual explanation)
+🎯 **Exam Tip**: (Important point to remember for related questions)
 `;
 
-  appendAIMessage('user', "Explain this question for me.");
+  aiIsProcessing = true;
+  showTypingIndicator();
 
-  aiConversationHistory.push({
-    role: 'user',
-    parts: [{ text: initialPrompt }]
-  });
-
-  fetchGeminiResponse(aiConversationHistory);
+  try {
+    const aiReply = await callGeminiAPI(promptText);
+    appendBotMessage(aiReply);
+  } catch (err) {
+    removeTypingIndicator();
+    appendBotMessage(`⚠️ **Gemini API Error**: ${err.message}`);
+  } finally {
+    aiIsProcessing = false;
+  }
 }
 
-function sendAIMessage() {
-  if(aiIsLoading) return;
-  
+// 9. HANDLE FOLLOW-UP MESSAGES
+async function sendAIMessage() {
   const inputEl = document.getElementById('ai-user-input');
-  const userText = inputEl.value.trim();
-  if(!userText) return;
+  if (!inputEl || aiIsProcessing) return;
   
+  const query = inputEl.value.trim();
+  if (!query) return;
+
   inputEl.value = '';
-  appendAIMessage('user', userText);
-  
-  if(aiConversationHistory.length === 0) {
-    const qData = getDOMQuestionData();
-    aiConversationHistory.push({
-      role: 'user',
-      parts: [{ text: `Context Question: ${qData.question}\nOptions: ${qData.options.join(', ')}` }]
-    });
+  appendUserMessage(query);
+
+  // If chat is fresh and user hasn't asked current question yet, attach question context
+  let fullPrompt = query;
+  if (aiConversationHistory.length === 0) {
+    const ctx = getCurrentQuestionContext();
+    fullPrompt = `
+[Context: Current Question #${ctx.qNo}: "${ctx.question}" | Options: ${ctx.options.join(', ')}]
+
+User Query: ${query}
+`;
   }
-  
-  aiConversationHistory.push({
-    role: 'user',
-    parts: [{ text: userText }]
-  });
-  
-  fetchGeminiResponse(aiConversationHistory);
+
+  aiIsProcessing = true;
+  showTypingIndicator();
+
+  try {
+    const aiReply = await callGeminiAPI(fullPrompt);
+    appendBotMessage(aiReply);
+  } catch (err) {
+    removeTypingIndicator();
+    appendBotMessage(`⚠️ **Gemini API Error**: ${err.message}`);
+  } finally {
+    aiIsProcessing = false;
+  }
 }
 </script>
 
