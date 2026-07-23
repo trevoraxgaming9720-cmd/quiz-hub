@@ -1631,7 +1631,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
       <div class="ai-header-avatar">🤖</div>
       <div>
         <div class="ai-header-title">AI Study Assistant</div>
-        <div class="ai-header-subtitle">Powered by Gemini 2.5</div>
+        <div class="ai-header-subtitle">Powered by Gemini 3.5 Flash-Lite</div>
       </div>
     </div>
     <button class="ai-close-btn" onclick="toggleAIPanel()">✕</button>
@@ -2760,7 +2760,7 @@ function createMiniParticles(x,y){
 <!-- AI ASSISTANT LOGIC & GEMINI API INTEGRATION -->
 <script>
 const API_KEY = "AQ.Ab8RN6L8NBOHaAp8XTNrS3jEjnDTjavn95Z_Dc9bf1ijIhrNbw";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${API_KEY}`;
 
 let aiConversationHistory = [];
 let aiIsLoading = false;
