@@ -1631,7 +1631,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
       <div class="ai-header-avatar">🤖</div>
       <div>
         <div class="ai-header-title">AI Study Assistant</div>
-        <div class="ai-header-subtitle">Powered by Gemini 3.5 Flash Lite</div>
+        <div class="ai-header-subtitle">Powered by Gemini 2.5 Flash Lite</div>
       </div>
     </div>
     <button class="ai-close-btn" onclick="toggleAIPanel()">✕</button>
@@ -2864,7 +2864,7 @@ function appendBotMessageAnimated(text) {
 
 // 7. GEMINI API CALL core FUNCTION WITH RETRY LOGIC & LATEST ENDPOINT
 async function callGeminiAPI(contents, retryCount = 0) {
-  const modelName = "gemini-3.5-flash-lite";
+  const modelName = "gemini-2.5-flash-lite";
 const apiKey = "AQ.Ab8RN6Jdc_9aNuZncduHJBytOlHRJSww5XuuugbJ5G4A_C8jCw";
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
 
