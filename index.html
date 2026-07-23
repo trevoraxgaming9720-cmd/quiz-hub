@@ -2352,6 +2352,7 @@ currentStreak=0;
 selectedAnswers[currentQ]=idx;
 answerCorrect[currentQ]=(idx===data[currentQ].a);
 answered[currentQ] = true;
+timerRunning=false;
 document.getElementById("feedback").innerHTML="<b>Explanation / व्याख्या:</b> "+formatContent(data[currentQ].e);
 document.getElementById('feedback').style.display = "block";
 };
@@ -2469,6 +2470,7 @@ function next() {
  if(isPaused) return;
  if(currentQ < data.length - 1){
    currentQ++;
+   timerRunning=true;
    showQ();resetQuestionTimer();
  }else{
    confirmSubmit();
@@ -2476,7 +2478,8 @@ function next() {
 }
 
 function prevQ() {
- if(isPaused) return; if(currentQ > 0) { currentQ--; showQ(); resetQuestionTimer(); } }
+ if(isPaused) return; if(currentQ > 0) { currentQ--;
+ timerRunning=true; showQ(); resetQuestionTimer(); } }
 function confirmSubmit(){ if(confirm('Do you want to submit the test?')) showScore(); }
 
 document.getElementById("jumpNo").addEventListener("keydown", function(e){
@@ -2488,6 +2491,7 @@ document.getElementById("jumpNo").addEventListener("keydown", function(e){
 });
 
 function goToQuestion(qNo){
+ timerRunning=true;
   if(isPaused) return;
   qNo = parseInt(qNo,10);
   if(!Number.isFinite(qNo)) return;
