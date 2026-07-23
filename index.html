@@ -1638,7 +1638,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
   </div>
 
   <div class="ai-input-area">
-    <input type="text" id="aiInput" class="ai-input-field" placeholder="अपना प्रश्न यहाँ पूछें..." onkeydown="if(event.key==='Enter') sendUserMessage()">
+    <input type="text" id="aiInput" class="ai-input-field" placeholder="Ask your question here..." onkeydown="if(event.key==='Enter') sendUserMessage()">
     <button id="aiSendBtn" class="ai-send-btn" onclick="sendUserMessage()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
@@ -2874,7 +2874,7 @@ Current Question Details:
     { role: "user", parts: [{ text: systemInstruction + "\nTask: Please provide a clear, short explanation (संक्षिप्त व्याख्या) for this question in Hindi." }] }
   ];
 
-  appendAIMessage("bot", "🔍 **प्रश्न स्कैन किया गया!** उत्तर तैयार हो रहा है...");
+  appendAIMessage("bot", "🔍 **Question scanned!** Answer is being prepared...");
   requestGeminiResponse();
 }
 
@@ -2951,7 +2951,7 @@ STRICT FORMATTING RULES:
     } else if (resData && resData.text) {
       replyText = resData.text;
     } else {
-      replyText = "क्षमा करें, उत्तर प्राप्त करने में समस्या हुई। कृपया पुनः प्रयास करें।";
+      replyText = "Sorry, there was a problem retrieving the answer. Please try again.";
     }
 
     aiChatHistory.push({
@@ -2965,7 +2965,7 @@ STRICT FORMATTING RULES:
     showAITyping(false);
     if (err.name === 'AbortError') return;
     console.error(err);
-    appendAIMessage("bot", "⚠️ **नेटवर्क त्रुटि:** AI सर्वर से संपर्क नहीं हो सका। कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।");
+    appendAIMessage("bot", "⚠️ **Network Error:** Could not connect to the AI ​​server. Please check your internet connection and try again.");
   } finally {
     isAIGenerating = false;
     currentAbortController = null;
