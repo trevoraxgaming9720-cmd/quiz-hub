@@ -1061,8 +1061,9 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 #ai-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(4px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   z-index: 10000;
   opacity: 0;
   pointer-events: none;
@@ -1076,10 +1077,11 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 #ai-bottom-sheet {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  width: 100%;
-  max-width: 500px;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  max-width: none;
+  transform: translateY(100%);
   height: 80vh;
   max-height: 680px;
   background: #ffffff;
@@ -1093,7 +1095,7 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
   overflow: hidden;
 }
 #ai-bottom-sheet.active {
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 .ai-sheet-header {
