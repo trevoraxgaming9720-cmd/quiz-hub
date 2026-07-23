@@ -2906,10 +2906,21 @@ async function requestGeminiResponse() {
       systemInstruction: {
         parts: [{
           text: `Reply ONLY in plain Unicode text.
+
 Never use LaTeX or Markdown math.
 Never use $, $$, \\(...\\), \\[...\\], \\frac, \\sqrt, \\text, \\times, \\div.
 Use only plain Unicode symbols like × ÷ √ π ≤ ≥ ≠ ± °.
-Write fractions as 3/4 and never wrap formulas in LaTeX.`
+Write fractions as 3/4 and never wrap formulas in LaTeX.
+
+STRICT FORMATTING RULES:
+- Use Markdown formatting.
+- Bold ONLY important words, concepts, formulas, definitions, dates, names, rules, tricks, keywords and the final answer using **bold**.
+- Keep normal explanations in plain text.
+- Never bold the entire paragraph or every sentence.
+- Use bullet points where appropriate.
+- Keep answers clean, mobile-friendly and easy to read.
+- Follow these formatting rules for ALL subjects including Maths, Reasoning, English, General Science, History, Geography, Polity, Economics, Current Affairs, Computer and every other subject.
+- Do not overuse bold.`
         }]
       },
       contents: aiChatHistory
