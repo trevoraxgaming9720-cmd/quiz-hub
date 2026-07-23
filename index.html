@@ -2910,7 +2910,6 @@ async function requestGeminiResponse() {
 
   try {
     const payload = {
-      subject: (typeof currentSubject !== "undefined" ? currentSubject : ""),
       systemInstruction: {
         parts: [{
           text: `Reply ONLY in plain Unicode text.
