@@ -2984,7 +2984,26 @@ function appendAIMessage(sender, text, showCopy = false) {
   }
 
   chatBody.appendChild(msgDiv);
+  renderMathForAI(msgDiv);
   chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+
+function renderMathForAI(element){
+  if(!element) return;
+  try{
+    if(window.renderMathInElement){
+      renderMathInElement(element);
+    }else if(window.renderMathInElement){
+      window.renderMathInElement(element);
+    }else if(window.MathJax && MathJax.typesetPromise){
+      MathJax.typesetPromise([element]);
+    }else if(window.MathJax && MathJax.typeset){
+      MathJax.typeset([element]);
+    }else if(window.renderMath){
+      renderMath(element);
+    }
+  }catch(e){console.warn('AI math render failed',e);}
 }
 
 function formatAIResponseText(txt) {
