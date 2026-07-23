@@ -1025,293 +1025,261 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 .quiz-pause-btn-premium,.btns button{display:flex;align-items:center;justify-content:center;gap:8px}
 .quiz-pause-btn-premium svg,.btns button svg{flex-shrink:0}
 
-/* ==========================================================================
-   AI ASSISTANT PREMIUM STYLES (GLASSMORPHISM & MOBILE FIRST)
-   ========================================================================== */
+/* ==================================================
+   FLOATING AI ASSISTANT & BOTTOM SHEET STYLES
+   ================================================== */
 #ai-floating-btn {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 60px;
-  height: 60px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
   color: #ffffff;
   border: none;
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
-  font-size: 28px;
   cursor: pointer;
-  z-index: 999990;
   display: none;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
-
 #ai-floating-btn:hover {
-  transform: scale(1.08) rotate(5deg);
-  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.5);
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.5);
 }
-
 #ai-floating-btn:active {
   transform: scale(0.92);
 }
+#ai-floating-btn svg {
+  width: 28px;
+  height: 28px;
+}
 
-#ai-panel-overlay {
+#ai-overlay {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(6px);
-  z-index: 999991;
+  backdrop-filter: blur(4px);
+  z-index: 10000;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
-
-#ai-panel-overlay.active {
+#ai-overlay.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-#ai-panel {
+#ai-bottom-sheet {
   position: fixed;
-  top: 0;
-  right: -100%;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
   width: 100%;
-  max-width: 440px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
-  z-index: 999992;
+  max-width: 500px;
+  height: 80vh;
+  max-height: 680px;
+  background: #ffffff;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  box-shadow: 0 -10px 40px rgba(15, 23, 42, 0.2);
+  z-index: 10001;
   display: flex;
   flex-direction: column;
-  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+#ai-bottom-sheet.active {
+  transform: translateX(-50%) translateY(0);
 }
 
-#ai-panel.active {
-  right: 0;
-}
-
-.ai-header {
-  padding: 18px 20px;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9));
+.ai-sheet-header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
 }
-
-.ai-header-info {
+.ai-sheet-title {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.ai-header-avatar {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
-
-.ai-header-title {
-  font-size: 16px;
+  gap: 10px;
+  font-size: 17px;
   font-weight: 800;
-  letter-spacing: -0.3px;
 }
-
-.ai-header-subtitle {
-  font-size: 12px;
-  opacity: 0.85;
-}
-
-.ai-close-btn {
-  background: rgba(255, 255, 255, 0.2);
+.ai-sheet-close {
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   color: #ffffff;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
-}
-
-.ai-close-btn:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
-
-.ai-quick-action {
-  padding: 12px 16px;
-  background: rgba(239, 246, 255, 0.8);
-  border-bottom: 1px solid #e2e8f0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ai-ask-btn {
-  width: 100%;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: #ffffff;
-  border: none;
-  border-radius: 14px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-  transition: var(--transition);
+  transition: background 0.2s ease;
+}
+.ai-sheet-close:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
-.ai-ask-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
-}
-
-.ai-chat-history {
+.ai-chat-body {
   flex: 1;
   padding: 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  scroll-behavior: smooth;
+  gap: 12px;
+  background: #f8fafc;
 }
 
 .ai-msg {
-  max-width: 88%;
+  max-width: 85%;
   padding: 12px 16px;
   border-radius: 18px;
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
   animation: fadeIn 0.25s ease;
+  position: relative;
 }
-
-.ai-msg-user {
+.ai-msg.user {
   align-self: flex-end;
   background: var(--primary);
   color: #ffffff;
   border-bottom-right-radius: 4px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
 }
-
-.ai-msg-bot {
+.ai-msg.bot {
   align-self: flex-start;
   background: #ffffff;
   color: var(--dark);
+  border: 1px solid #e2e8f0;
   border-bottom-left-radius: 4px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
-  border: 1px solid #edf2f7;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-
-.ai-msg-bot h1, .ai-msg-bot h2, .ai-msg-bot h3, .ai-msg-bot h4 {
-  color: var(--primary-dark);
-  margin: 10px 0 6px 0;
-  font-size: 15px;
+.ai-msg.bot pre {
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 13px;
+  margin: 6px 0;
 }
-
-.ai-msg-bot ul, .ai-msg-bot ol {
-  margin-left: 18px;
-  margin-bottom: 8px;
-}
-
-.ai-msg-bot p {
-  margin-bottom: 8px;
-}
-
-.ai-msg-bot code {
+.ai-msg.bot code {
   background: #f1f5f9;
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-family: monospace;
   font-size: 13px;
 }
 
-.ai-msg-bot table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 8px 0;
-  font-size: 12px;
+.ai-msg-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: flex-end;
 }
-
-.ai-msg-bot th, .ai-msg-bot td {
+.ai-action-btn {
+  background: #f1f5f9;
   border: 1px solid #cbd5e1;
-  padding: 6px;
-  text-align: left;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ai-action-btn:hover {
+  background: #e2e8f0;
+  color: var(--dark);
 }
 
 .ai-typing-indicator {
+  display: none;
+  align-self: flex-start;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 12px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.ai-typing-indicator.active {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 12px 16px;
-  background: #ffffff;
-  border-radius: 18px;
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
-  border: 1px solid #edf2f7;
 }
-
-.ai-typing-dot {
-  width: 8px;
-  height: 8px;
+.ai-dot {
+  width: 7px;
+  height: 7px;
   background: var(--primary);
   border-radius: 50%;
   animation: aiBounce 1.4s infinite ease-in-out both;
 }
-
-.ai-typing-dot:nth-child(1) { animation-delay: -0.32s; }
-.ai-typing-dot:nth-child(2) { animation-delay: -0.16s; }
-
+.ai-dot:nth-child(1) { animation-delay: -0.32s; }
+.ai-dot:nth-child(2) { animation-delay: -0.16s; }
 @keyframes aiBounce {
   0%, 80%, 100% { transform: scale(0); }
   40% { transform: scale(1); }
 }
 
+.ai-quick-prompts {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 16px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  scrollbar-width: none;
+}
+.ai-quick-prompts::-webkit-scrollbar { display: none; }
+.ai-chip {
+  white-space: nowrap;
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ai-chip:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
 .ai-input-area {
-  padding: 14px 16px;
+  padding: 12px 16px;
   background: #ffffff;
   border-top: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
-.ai-input-box {
+.ai-input-field {
   flex: 1;
   padding: 12px 16px;
   border: 1.5px solid #e2e8f0;
   border-radius: 16px;
   font-size: 14px;
   outline: none;
-  background: #f8fafc;
   transition: var(--transition);
 }
-
-.ai-input-box:focus {
+.ai-input-field:focus {
   border-color: var(--primary);
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
-
 .ai-send-btn {
   width: 44px;
   height: 44px;
@@ -1319,20 +1287,25 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
   background: var(--primary);
   color: #ffffff;
   border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: var(--transition);
 }
-
-.ai-send-btn:hover {
-  background: var(--primary-dark);
+.ai-send-btn:active {
+  transform: scale(0.92);
+}
+.ai-send-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
 }
 
-.ai-send-btn:disabled {
-  background: #cbd5e1;
-  cursor: not-allowed;
+@media (min-width: 768px) {
+  #ai-floating-btn {
+    right: calc(50% - 470px);
+    bottom: 32px;
+  }
 }
 </style>
 </head>
@@ -1620,87 +1593,52 @@ to{transform:translate(var(--x),var(--y)) scale(0) rotate(360deg);opacity:0;}
 
 </div>
 
-<!-- AI ASSISTANT FLOATING UI LAYOUT -->
-<button id="ai-floating-btn" onclick="toggleAIPanel()" title="Ask AI Assistant">🤖</button>
+<!-- FLOATING AI ASSISTANT BUTTON & BOTTOM SHEET UI -->
+<button id="ai-floating-btn" onclick="toggleAIPanel()" title="AI सहायक">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
+    <path d="M12 12L2.5 7.5"></path>
+    <path d="M12 12v10"></path>
+    <circle cx="12" cy="12" r="3" fill="#ffffff"></circle>
+  </svg>
+</button>
 
-<div id="ai-panel-overlay" onclick="toggleAIPanel()"></div>
+<div id="ai-overlay" onclick="toggleAIPanel()"></div>
 
-<div id="ai-panel">
-  <div class="ai-header">
-    <div class="ai-header-info">
-      <div class="ai-header-avatar">🤖</div>
-      <div>
-        <div class="ai-header-title">AI Study Assistant</div>
-        <div class="ai-header-subtitle">Powered by Gemini 2.5 Flash</div>
-      </div>
+<div id="ai-bottom-sheet">
+  <div class="ai-sheet-header">
+    <div class="ai-sheet-title">
+      <span style="font-size: 20px;">🤖</span>
+      <span>AI सहायक</span>
     </div>
-    <button class="ai-close-btn" onclick="toggleAIPanel()">✕</button>
-  </div>
-  
-  <div class="ai-quick-action">
-    <button class="ai-ask-btn" onclick="askAICurrentQuestion()">
-      <span>✨ Ask AI for this Question</span>
-    </button>
+    <button class="ai-sheet-close" onclick="toggleAIPanel()">✕</button>
   </div>
 
-  <div id="ai-chat-history" class="ai-chat-history">
-    <div class="ai-msg ai-msg-bot">
-      Hello! I'm your AI tutor. Click <b>"Ask AI for this Question"</b> to get instant explanations, tricks, and exam tips for the active question!
-    </div>
+  <div class="ai-chat-body" id="aiChatBody">
+    <!-- Messages inserted dynamically -->
+  </div>
+
+  <div class="ai-typing-indicator" id="aiTyping">
+    <span style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-right:6px;">उत्तर तैयार किया जा रहा है</span>
+    <div class="ai-dot"></div>
+    <div class="ai-dot"></div>
+    <div class="ai-dot"></div>
+  </div>
+
+  <div class="ai-quick-prompts">
+    <button class="ai-chip" onclick="sendQuickPrompt('Explain karo')">💡 Explain</button>
+    <button class="ai-chip" onclick="sendQuickPrompt('Step by Step samjhao')">📝 Step-by-Step</button>
+    <button class="ai-chip" onclick="sendQuickPrompt('Short Trick batao')">⚡ Short Trick</button>
+    <button class="ai-chip" onclick="sendQuickPrompt('Formula kya hai?')">📐 Formula</button>
+    <button class="ai-chip" onclick="sendQuickPrompt('Memory Trick batao')">🧠 Memory Trick</button>
+    <button class="ai-chip" onclick="sendQuickPrompt('Ye option galat kyu hai?')">❌ Wrong Options</button>
   </div>
 
   <div class="ai-input-area">
-    <input type="text" id="ai-user-input" class="ai-input-box" placeholder="Ask follow-up question..." onkeydown="if(event.key==='Enter') sendAIMessage()">
-    <button id="ai-send-btn" class="ai-send-btn" onclick="sendAIMessage()">
+    <input type="text" id="aiInput" class="ai-input-field" placeholder="अपना प्रश्न यहाँ पूछें..." onkeydown="if(event.key==='Enter') sendUserMessage()">
+    <button id="aiSendBtn" class="ai-send-btn" onclick="sendUserMessage()">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     </button>
-  </div>
-</div>
-
-<!-- Modal for Retest Options -->
-<div id="retestModal">
-  <div id="retestCard">
-    <div class="icon-header">🔄</div>
-    <div class="rtitle">Reattempt Quiz</div>
-    <div class="rsub">Choose how you would like to practice:</div>
-    
-    <div class="rbtn" id="cardFull" onclick="startRetest(1)">
-      <div class="rbtn-icon-bg" style="background:#eff6ff; color:#2563eb;">📝</div>
-      <div class="rbtn-text-content">
-        <b>Full Test Restart</b>
-        <small><span id="cntFull">0</span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">➔</div>
-    </div>
-
-    <div class="rbtn" id="cardWrong" onclick="startRetest(2)">
-      <div class="rbtn-icon-bg" style="background:#fef2f2; color:#ef4444;">❌</div>
-      <div class="rbtn-text-content">
-        <b>Wrong Answers Only</b>
-        <small><span id="cntWrong">0</span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">➔</div>
-    </div>
-
-    <div class="rbtn" id="cardUn" onclick="startRetest(3)">
-      <div class="rbtn-icon-bg" style="background:#fffbeb; color:#f59e0b;">⏭️</div>
-      <div class="rbtn-text-content">
-        <b>Unattempted Only</b>
-        <small><span id="cntUn">0</span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">➔</div>
-    </div>
-
-    <div class="rbtn" id="cardMix" onclick="startRetest(4)">
-      <div class="rbtn-icon-bg" style="background:#faf5ff; color:#a855f7;">🔄</div>
-      <div class="rbtn-text-content">
-        <b>Wrong + Unattempted</b>
-        <small><span id="cntMix">0</span> Questions</small>
-      </div>
-      <div class="rbtn-arrow">➔</div>
-    </div>
-
-    <button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Cancel</button>
   </div>
 </div>
 
@@ -1731,7 +1669,6 @@ if(!browserId){
 
 window.addEventListener('DOMContentLoaded', () => {
   buildGlobalQuizIndex();
-  updateAIFloatingButtonVisibility();
 });
 
 async function buildGlobalQuizIndex() {
@@ -1819,7 +1756,6 @@ function renderSubjects() {
     };
     listEl.appendChild(card);
   });
-  updateAIFloatingButtonVisibility();
 }
 
 function renderCategories(subjectName) {
@@ -1878,7 +1814,6 @@ function renderCategories(subjectName) {
     card.onclick = () => renderChapters(subjectName, categoryName);
     listEl.appendChild(card);
   });
-  updateAIFloatingButtonVisibility();
 }
 
 function renderChapters(subjectName, categoryName) {
@@ -1942,7 +1877,6 @@ function renderChapters(subjectName, categoryName) {
     card.onclick = () => renderQuizList(subjectName, categoryName, chapterName);
     listEl.appendChild(card);
   });
-  updateAIFloatingButtonVisibility();
 }
 
 function renderQuizList(subjectName, categoryName, chapterName) {
@@ -1992,7 +1926,6 @@ function renderQuizList(subjectName, categoryName, chapterName) {
     card.onclick = () => loadQuizData(quiz.path);
     listEl.appendChild(card);
   });
-  updateAIFloatingButtonVisibility();
 }
 
 function handleSearch(query) {
@@ -2057,7 +1990,6 @@ function handleSearch(query) {
     card.onclick = () => loadQuizData(quiz.path);
     listEl.appendChild(card);
   });
-  updateAIFloatingButtonVisibility();
 }
 
 function handleExplorerBack() {
@@ -2082,7 +2014,7 @@ function backToExplorer() {
   document.getElementById('explorerScreen').style.display = 'flex';
   document.getElementById('score-card').style.display = 'none';
   clearInterval(timer);
-  updateAIFloatingButtonVisibility();
+  updateAIButtonVisibility();
 }
 
 function showEmptyState() {
@@ -2140,7 +2072,7 @@ async function loadQuizData(quizPath) {
     
     showQ();
     resetQuestionTimer();
-    updateAIFloatingButtonVisibility();
+    updateAIButtonVisibility();
   }catch(err){
     console.error(err);
     alert("System core failed loading target execution data streams cleanly parameters context variables: "+err.message);
@@ -2361,8 +2293,6 @@ let answerCorrect=[];
 
 function showQ() {
 if(data.length === 0) return;
-resetAIChat();
-document.getElementById('qBadge').innerText = `Q ${currentQ + 1}/${data.length}`;
 document.getElementById('q-text').innerHTML = formatContent(data[currentQ].q);
 const tagBox=document.getElementById('exam-tag');
 if(data[currentQ].tag){tagBox.innerHTML=formatContent(data[currentQ].tag);tagBox.style.display='inline-block';}else{tagBox.innerText='';tagBox.style.display='none';}
@@ -2435,6 +2365,10 @@ if(prevSel!==null && prevSel!==undefined){
  }
  document.getElementById("feedback").innerHTML="<b>Explanation / व्याख्या:</b> "+formatContent(data[currentQ].e);
  document.getElementById('feedback').style.display="block";
+}
+
+if(typeof onQuestionChangeAI === 'function'){
+  onQuestionChangeAI();
 }
 }
 
@@ -2525,7 +2459,7 @@ pb.innerText=badge;pb.style.background=bg;
 document.getElementById('score-card').style.background='var(--card-bg)';
 document.getElementById('score-card').style.display='block';
 document.querySelector('.floating-quiz-header').style.display='none';
-updateAIFloatingButtonVisibility();
+updateAIButtonVisibility();
 }
 
 function next() {
@@ -2629,7 +2563,7 @@ if(goBtn) goBtn.disabled=false;
    document.querySelector('.floating-quiz-header').style.display='flex';
    showQ();
    resetQuestionTimer();
-   updateAIFloatingButtonVisibility();
+   updateAIButtonVisibility();
    return;
  }
  let arr=[];
@@ -2642,7 +2576,16 @@ if(goBtn) goBtn.disabled=false;
  data.length=0;
  newData.forEach(q=>data.push(q));
  currentQ=0;
- score=0;
+score=0;
+elapsed=0;
+currentStreak=0;
+maxStreak=0;
+timerRunning=true;
+isPaused=false;
+const lt=document.getElementById('liveTimer');
+if(lt) lt.textContent='00:00';
+const pt=document.getElementById('popupTime');
+if(pt) pt.textContent='00:00';
  answered=new Array(data.length).fill(false);
  selectedAnswers=new Array(data.length).fill(null);
  answerCorrect=new Array(data.length).fill(null);
@@ -2654,29 +2597,181 @@ if(goBtn) goBtn.disabled=false;
  document.querySelector('.floating-quiz-header').style.display='flex';
  showQ();
  resetQuestionTimer();
- updateAIFloatingButtonVisibility();
+ updateAIButtonVisibility();
 }
 </script>
 
-<!-- ==========================================================================
-     AI ASSISTANT FULL ENGINE & GEMINI API INTEGRATION CORE
-     ========================================================================== -->
 <script>
-let aiConversationHistory = [];
-let aiIsProcessing = false;
+(function(){
+function upd(){
+ var b=document.getElementById('qBadge');
+ if(!b)return;
+ var total=(typeof data!=='undefined'&&data)?data.length:0;
+ var cur=1;
+ if(typeof currentQuestion!=='undefined')cur=currentQuestion+1;
+ else if(typeof currentQ!=='undefined')cur=currentQ+1;
+ else if(typeof index!=='undefined')cur=index+1;
+ b.textContent='Q '+cur+'/'+total;
+}
+document.addEventListener('DOMContentLoaded',function(){
+ upd();
+});
+const __oldShowQ=showQ;
+showQ=function(){
+  __oldShowQ();
+  upd();
+};
+})();
+</script>
 
-// 1. UPDATE FLOATING AI BUTTON VISIBILITY (QUIZ SCREEN ONLY)
-function updateAIFloatingButtonVisibility() {
-  const quizEngineBox = document.getElementById('quizEngineBox');
+<!-- Retest Modal HTML -->
+<div id="retestModal">
+  <div id="retestCard">
+    <div class="icon-header">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+      </svg>
+    </div>
+    <div class="rtitle">Restart Test</div>
+    <div class="rsub">Choose a practice mode</div>
+
+    <!-- Mode 1: Full Test -->
+    <div class="rbtn" onclick="startRetest(1)">
+      <div class="rbtn-icon-bg" style="background: #eef4ff; color: #2563eb;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+        </svg>
+      </div>
+      <div class="rbtn-text-content">
+        <b>Full Test</b>
+        <small><span id="cntFull"></span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Mode 2: Wrong Questions -->
+    <div class="rbtn" id="cardWrong" onclick="startRetest(2)">
+      <div class="rbtn-icon-bg" style="background: #fef2f2; color: #ef4444;">
+        <span style="font-size: 24px; font-weight: 500;">✕</span>
+      </div>
+      <div class="rbtn-text-content">
+        <b>Wrong Questions</b>
+        <small><span id="cntWrong"></span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Mode 3: Skipped Questions -->
+    <div class="rbtn" id="cardUn" onclick="startRetest(3)">
+      <div class="rbtn-icon-bg" style="background: #fffbeb; color: #f59e0b;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 19 22 12 13 5 13 19"/><polygon points="2 19 11 12 2 5 2 19"/>
+        </svg>
+      </div>
+      <div class="rbtn-text-content">
+        <b>Skipped Questions</b>
+        <small><span id="cntUn"></span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Mode 4: Mixed Practice -->
+    <div class="rbtn" id="cardMix" onclick="startRetest(4)">
+      <div class="rbtn-icon-bg" style="background: #f3e8ff; color: #9333ea;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/>
+        </svg>
+      </div>
+      <div class="rbtn-text-content">
+        <b>Mixed Practice</b>
+        <small><span id="cntMix"></span> Questions</small>
+      </div>
+      <div class="rbtn-arrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </div>
+    </div>
+
+    <button id="cancelRetest" onclick="document.getElementById('retestModal').style.display='none'">Cancel</button>
+  </div>
+</div>
+
+<script>
+(function(){
+const btn=document.getElementById('toggleExplanation');
+const fb=document.getElementById('feedback');
+if(!btn||!fb) return;
+window.resetExplanationUI=function(){
+ fb.style.display='none';
+ btn.style.display='none';
+ btn.innerHTML='▼ Show Explanation';
+};
+window.enableExplanationToggle=function(){
+ btn.style.display='inline-block';
+ fb.style.display='none';
+ btn.innerHTML='▼ Show Explanation';
+};
+btn.onclick=function(){
+ if(fb.style.display==='none'||fb.style.display===''){
+   fb.style.display='block';
+   btn.innerHTML='▲ Hide Explanation';
+ }else{
+   fb.style.display='none';
+   btn.innerHTML='▼ Show Explanation';
+ }
+};
+})();
+
+function createMiniParticles(x,y){
+ for(let i=0;i<18;i++){
+   const d=document.createElement('div');
+   d.className='burst';
+   d.style.left=x+'px';
+   d.style.top=y+'px';
+   d.style.setProperty('--x',((Math.random()-0.5)*140)+'px');
+   d.style.setProperty('--y',((Math.random()-0.5)*140)+'px');
+   d.style.background=['#FFD700','#FFF','#FFE066','#F59E0B'][i%4];
+   document.body.appendChild(d);
+   setTimeout(()=>d.remove(),1100);
+ }
+}
+</script>
+
+<!-- ==================================================
+     GEMINI AI WORKER INTEGRATION SCRIPT
+     ================================================== -->
+<script>
+const GEMINI_WORKER_URL = "https://gemini-proxy.trevoraxgaming9720.workers.dev/";
+
+let aiChatHistory = [];
+let isAIGenerating = false;
+let currentAbortController = null;
+let currentAutoScannedQ = -1;
+
+function updateAIButtonVisibility() {
+  const quizEngine = document.getElementById('quizEngineBox');
   const quizBox = document.getElementById('quiz-box');
+  const scoreCard = document.getElementById('score-card');
   const aiBtn = document.getElementById('ai-floating-btn');
-  
-  if (!aiBtn) return;
-  
-  const isQuizVisible = quizEngineBox && getComputedStyle(quizEngineBox).display !== 'none';
-  const isQuizBoxVisible = quizBox && getComputedStyle(quizBox).display !== 'none';
-  
-  if (isQuizVisible && isQuizBoxVisible) {
+
+  if (
+    quizEngine && quizEngine.style.display !== 'none' &&
+    quizBox && quizBox.style.display !== 'none' &&
+    (!scoreCard || scoreCard.style.display === 'none')
+  ) {
     aiBtn.style.display = 'flex';
   } else {
     aiBtn.style.display = 'none';
@@ -2684,346 +2779,253 @@ function updateAIFloatingButtonVisibility() {
   }
 }
 
-// 2. TOGGLE / OPEN / CLOSE AI PANEL
 function toggleAIPanel() {
-  const panel = document.getElementById('ai-panel');
-  const overlay = document.getElementById('ai-panel-overlay');
-  if (!panel) return;
-  
-  if (panel.classList.contains('active')) {
+  const sheet = document.getElementById('ai-bottom-sheet');
+  const overlay = document.getElementById('ai-overlay');
+  const isActive = sheet.classList.contains('active');
+
+  if (isActive) {
     closeAIPanel();
   } else {
-    panel.classList.add('active');
-    if (overlay) overlay.classList.add('active');
+    sheet.classList.add('active');
+    overlay.classList.add('active');
+    if (currentAutoScannedQ !== currentQ) {
+      resetAIChat();
+      autoScanAndExplain();
+    }
   }
 }
 
 function closeAIPanel() {
-  const panel = document.getElementById('ai-panel');
-  const overlay = document.getElementById('ai-panel-overlay');
-  if (panel) panel.classList.remove('active');
+  const sheet = document.getElementById('ai-bottom-sheet');
+  const overlay = document.getElementById('ai-overlay');
+  if (sheet) sheet.classList.remove('active');
   if (overlay) overlay.classList.remove('active');
 }
 
-// 3. RESET CHAT & CONVERSATION ON QUESTION CHANGE
 function resetAIChat() {
-  aiConversationHistory = [];
-  aiIsProcessing = false;
-  
-  const chatHistory = document.getElementById('ai-chat-history');
-  if (chatHistory) {
-    chatHistory.innerHTML = `
-      <div class="ai-msg ai-msg-bot">
-        Hello! I'm your AI tutor. Click <b>"Ask AI for this Question"</b> to get instant explanations, tricks, and exam tips for the active question!
-      </div>
-    `;
-    chatHistory.scrollTop = 0;
+  aiChatHistory = [];
+  const chatBody = document.getElementById('aiChatBody');
+  if (chatBody) chatBody.innerHTML = '';
+  if (currentAbortController) {
+    currentAbortController.abort();
+    currentAbortController = null;
   }
+  isAIGenerating = false;
+  showAITyping(false);
 }
 
-// 4. MARKDOWN TO HTML FORMATTER
-function parseMarkdownToHTML(markdown) {
-  if (!markdown) return '';
-  let html = markdown;
-  
-  // Clean potential code block wraps
-  html = html.replace(/```html/gi, '').replace(/```markdown/gi, '').replace(/```/g, '');
-  
-  // Headers
-  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-  
-  // Bold & Italic
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  
-  // Inline code
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-  
-  // Unordered lists
-  html = html.replace(/^\s*[\-\*]\s+(.*$)/gim, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>');
-  html = html.replace(/<\/ul>\s*<ul>/g, ''); // Join adjacent lists
-  
-  // Line breaks & paragraphs
-  const paragraphs = html.split(/\n\s*\n/);
-  html = paragraphs.map(p => {
-    p = p.trim();
-    if (!p) return '';
-    if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<ol') || p.startsWith('<table')) {
-      return p;
-    }
-    return `<p>${p.replace(/\n/g, '<br>')}</p>`;
-  }).join('');
-  
-  return html;
-}
-
-// 5. EXTRACT CURRENT QUESTION DATA FROM DOM & STATE
 function getCurrentQuestionContext() {
-  if (!data || !data[currentQ]) {
-    // Fallback extraction directly from DOM if state isn't available
-    const qTextEl = document.getElementById('q-text');
-    const tagEl = document.getElementById('exam-tag');
-    const optionBtns = document.querySelectorAll('#options button');
-    
-    const options = [];
-    optionBtns.forEach((btn, idx) => {
-      options.push(`${String.fromCharCode(65 + idx)}. ${btn.innerText.trim()}`);
-    });
-    
-    return {
-      qNo: currentQ + 1,
-      totalQ: data ? data.length : 1,
-      question: qTextEl ? qTextEl.innerText.trim() : 'N/A',
-      tag: tagEl ? tagEl.innerText.trim() : '',
-      options: options,
-      subject: currentSubject || '',
-      category: currentCategory || '',
-      chapter: currentChapter || ''
-    };
+  if (!data || !data[currentQ]) return null;
+  const item = data[currentQ];
+
+  let selectedOptText = "Not Selected Yet";
+  if (selectedAnswers[currentQ] !== null && selectedAnswers[currentQ] !== undefined) {
+    selectedOptText = item.o[selectedAnswers[currentQ]] || "Selected Option Index: " + selectedAnswers[currentQ];
   }
 
-  const qObj = data[currentQ];
-  const qText = document.getElementById('q-text')?.innerText || qObj.q;
-  const tagText = document.getElementById('exam-tag')?.innerText || qObj.tag || '';
-  
-  const formattedOptions = (qObj.o || []).map((opt, idx) => {
-    // Strip HTML tags for clean AI prompt context
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = opt;
-    const cleanOpt = tempDiv.innerText || tempDiv.textContent || opt;
-    return `${String.fromCharCode(65 + idx)}. ${cleanOpt.trim()}`;
-  });
+  let correctOptText = "Unknown";
+  if (item.a !== undefined && item.o && item.o[item.a]) {
+    correctOptText = item.o[item.a];
+  }
 
   return {
-    qNo: currentQ + 1,
-    totalQ: data.length,
-    question: qText.trim(),
-    tag: tagText.trim(),
-    options: formattedOptions,
-    subject: currentSubject ? cleanHumanReadableTitle(currentSubject) : '',
-    category: currentCategory ? cleanHumanReadableTitle(currentCategory) : '',
-    chapter: currentChapter ? cleanHumanReadableTitle(currentChapter) : ''
+    questionNumber: currentQ + 1,
+    totalQuestions: data.length,
+    questionText: item.q || "",
+    options: item.o || [],
+    examTag: item.tag || "",
+    correctAnswer: correctOptText,
+    explanation: item.e || "",
+    userSelected: selectedOptText
   };
 }
 
-// 6. UI CHAT HELPERS
-function appendUserMessage(text) {
-  const chatHistory = document.getElementById('ai-chat-history');
-  if (!chatHistory) return;
-  
-  const msgDiv = document.createElement('div');
-  msgDiv.className = 'ai-msg ai-msg-user';
-  msgDiv.textContent = text;
-  chatHistory.appendChild(msgDiv);
-  chatHistory.scrollTop = chatHistory.scrollHeight;
-}
-
-function showTypingIndicator() {
-  const chatHistory = document.getElementById('ai-chat-history');
-  if (!chatHistory) return null;
-  
-  const indicator = document.createElement('div');
-  indicator.className = 'ai-typing-indicator';
-  indicator.id = 'ai-typing-active';
-  indicator.innerHTML = `
-    <div class="ai-typing-dot"></div>
-    <div class="ai-typing-dot"></div>
-    <div class="ai-typing-dot"></div>
-  `;
-  chatHistory.appendChild(indicator);
-  chatHistory.scrollTop = chatHistory.scrollHeight;
-  return indicator;
-}
-
-function removeTypingIndicator() {
-  const indicator = document.getElementById('ai-typing-active');
-  if (indicator) indicator.remove();
-}
-
-function appendBotMessageAnimated(text) {
-  const chatHistory = document.getElementById('ai-chat-history');
-  if (!chatHistory) return;
-  
-  const msgDiv = document.createElement('div');
-  msgDiv.className = 'ai-msg ai-msg-bot';
-  chatHistory.appendChild(msgDiv);
-  
-  const formattedHTML = parseMarkdownToHTML(text);
-  
-  // Typing animation simulation
-  let currentLength = 0;
-  const fullText = formattedHTML;
-  
-  // Fast render with smooth transition
-  msgDiv.innerHTML = fullText;
-  chatHistory.scrollTop = chatHistory.scrollHeight;
-}
-
-// 7. GEMINI API CALL core FUNCTION WITH RETRY LOGIC & LATEST ENDPOINT
-async function callGeminiAPI(contents, retryCount = 0) {
-  const modelName = "gemini-2.5-flash-lite";
-const apiKey = "AQ.Ab8RN6LEHFT_yDwK7edyOZtOG684JdukA_bc0k0cq01OvmMHzQ";
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`;
-
-  const systemInstruction = {
-    parts: [{
-      text: "You are an expert academic tutor and exam preparation specialist. Provide clear, concise, accurate, and easy-to-understand explanations. Structure your answers with Markdown using bold text, bullet points, and clean formatting."
-    }]
-  };
-
-  const requestBody = {
-    contents: contents,
-    systemInstruction: systemInstruction,
-    generationConfig: {
-      temperature: 0.3,
-      topK: 40,
-      topP: 0.95,
-      maxOutputTokens: 2048
-    }
-  };
-
-  try {
-    const response = await fetch(`${endpoint}?key=${apiKey}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(requestBody)
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error?.message || `HTTP Error ${response.status}`);
-    }
-
-    const data = await response.json();
-    
-    if (data.candidates && data.candidates.length > 0 && data.candidates[0].content) {
-      const parts = data.candidates[0].content.parts;
-      if (parts && parts.length > 0) {
-        return parts.map(p => p.text).join("");
-      }
-    }
-    
-    throw new Error("Invalid response structure received from Gemini API.");
-  } catch (err) {
-    if (retryCount < 2) {
-      // Exponential backoff retry
-      await new Promise(res => setTimeout(res, 1000 * (retryCount + 1)));
-      return callGeminiAPI(contents, retryCount + 1);
-    }
-    throw err;
-  }
-}
-
-// 8. ASK AI CURRENT QUESTION ACTION
-async function askAICurrentQuestion() {
-  if (aiIsProcessing) return;
-  
+function autoScanAndExplain() {
+  currentAutoScannedQ = currentQ;
   const qContext = getCurrentQuestionContext();
-  const prompt = `Please explain the following exam question in detail:
+  if (!qContext) return;
 
-Subject: ${qContext.subject}
-Category: ${qContext.category}
-Chapter: ${qContext.chapter}
-Question (${qContext.qNo}/${qContext.totalQ}): ${qContext.question}
-${qContext.tag ? `Exam Tag: ${qContext.tag}` : ''}
+  const systemInstruction = `
+System Role: You are an expert SSC/RRB Exam AI Assistant and Tutor.
+Rules:
+1. Always output answer in Hindi (Devanagari script) cleanly and politely.
+2. Formats supported: Math, Formulas, Short Tricks, Reasoning, GK, English doubts.
+3. Be concise and precise. Give short explanation by default unless requested for detail.
 
-Options:
-${qContext.options.join('\n')}
+Current Question Details:
+- Question Number: ${qContext.questionNumber}/${qContext.totalQuestions}
+- Exam Tag: ${qContext.examTag}
+- Question: ${qContext.questionText}
+- Options: ${JSON.stringify(qContext.options)}
+- Correct Answer: ${qContext.correctAnswer}
+- Given Explanation: ${qContext.explanation}
+- User Choice: ${qContext.userSelected}
+`;
 
-Please structure your response clearly:
-1. **Correct Answer**: Identify the correct option with high confidence.
-2. **Key Concept**: Explain the underlying theory or concept simply.
-3. **Step-by-Step Explanation**: Walk through why the correct answer is right and why others are wrong.
-4. **Exam Tip / Trick**: A fast memory trick or strategy for solving similar questions quickly.`;
+  aiChatHistory = [
+    { role: "user", parts: [{ text: systemInstruction + "\nTask: Please provide a clear, short explanation (संक्षिप्त व्याख्या) for this question in Hindi." }] }
+  ];
 
-  appendUserMessage("✨ Explain this question in detail");
-  
-  aiConversationHistory.push({
+  appendAIMessage("bot", "🔍 **प्रश्न स्कैन किया गया!** उत्तर तैयार हो रहा है...");
+  requestGeminiResponse();
+}
+
+function sendUserMessage() {
+  const inputEl = document.getElementById('aiInput');
+  const text = inputEl.value.trim();
+  if (!text || isAIGenerating) return;
+
+  inputEl.value = '';
+  appendAIMessage("user", text);
+
+  aiChatHistory.push({
     role: "user",
-    parts: [{ text: prompt }]
+    parts: [{ text: text }]
   });
 
-  aiIsProcessing = true;
-  const sendBtn = document.getElementById('ai-send-btn');
-  if (sendBtn) sendBtn.disabled = true;
-  
-  showTypingIndicator();
+  requestGeminiResponse();
+}
+
+function sendQuickPrompt(promptText) {
+  if (isAIGenerating) return;
+  const inputEl = document.getElementById('aiInput');
+  inputEl.value = promptText;
+  sendUserMessage();
+}
+
+async function requestGeminiResponse() {
+  if (isAIGenerating) return;
+  isAIGenerating = true;
+  showAITyping(true);
+
+  currentAbortController = new AbortController();
 
   try {
-    const replyText = await callGeminiAPI(aiConversationHistory);
-    removeTypingIndicator();
-    
-    aiConversationHistory.push({
+    const payload = {
+      contents: aiChatHistory
+    };
+
+    const res = await fetch(GEMINI_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: currentAbortController.signal
+    });
+
+    if (!res.ok) throw new Error("Worker Response Error Status: " + res.status);
+
+    const resData = await res.json();
+    showAITyping(false);
+
+    let replyText = "";
+    if (resData && resData.candidates && resData.candidates[0] && resData.candidates[0].content && resData.candidates[0].content.parts) {
+      replyText = resData.candidates[0].content.parts.map(p => p.text).join('');
+    } else if (resData && resData.text) {
+      replyText = resData.text;
+    } else {
+      replyText = "क्षमा करें, उत्तर प्राप्त करने में समस्या हुई। कृपया पुनः प्रयास करें।";
+    }
+
+    aiChatHistory.push({
       role: "model",
       parts: [{ text: replyText }]
     });
 
-    appendBotMessageAnimated(replyText);
+    appendAIMessage("bot", replyText, true);
+
   } catch (err) {
-    removeTypingIndicator();
-    appendBotMessageAnimated(`⚠️ **Error**: Unable to fetch response from Gemini AI (${err.message}). Please check your connection and try again.`);
+    showAITyping(false);
+    if (err.name === 'AbortError') return;
+    console.error(err);
+    appendAIMessage("bot", "⚠️ **नेटवर्क त्रुटि:** AI सर्वर से संपर्क नहीं हो सका। कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।");
   } finally {
-    aiIsProcessing = false;
-    if (sendBtn) sendBtn.disabled = false;
+    isAIGenerating = false;
+    currentAbortController = null;
   }
 }
 
-// 9. SEND FOLLOW-UP MESSAGE
-async function sendAIMessage() {
-  const inputEl = document.getElementById('ai-user-input');
-  if (!inputEl) return;
-  
-  const text = inputEl.value.trim();
-  if (!text || aiIsProcessing) return;
+function appendAIMessage(sender, text, showCopy = false) {
+  const chatBody = document.getElementById('aiChatBody');
+  if (!chatBody) return;
 
-  inputEl.value = "";
-  appendUserMessage(text);
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `ai-msg ${sender}`;
 
-  // If conversation history is empty, attach current question context implicitly
-  if (aiConversationHistory.length === 0) {
-    const qContext = getCurrentQuestionContext();
-    const contextHeader = `Context for Question ${qContext.qNo}: "${qContext.question}"\nOptions: ${qContext.options.join(', ')}\n\nUser Question: ${text}`;
-    
-    aiConversationHistory.push({
-      role: "user",
-      parts: [{ text: contextHeader }]
-    });
-  } else {
-    aiConversationHistory.push({
-      role: "user",
-      parts: [{ text: text }]
-    });
+  let formattedText = formatAIResponseText(text);
+  msgDiv.innerHTML = formattedText;
+
+  if (sender === 'bot' && showCopy) {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'ai-msg-actions';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'ai-action-btn';
+    copyBtn.innerText = '📋 Copy';
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(text);
+      copyBtn.innerText = '✅ Copied!';
+      setTimeout(() => copyBtn.innerText = '📋 Copy', 2000);
+    };
+
+    const retryBtn = document.createElement('button');
+    retryBtn.className = 'ai-action-btn';
+    retryBtn.innerText = '🔄 Retry';
+    retryBtn.onclick = () => {
+      if (!isAIGenerating) {
+        aiChatHistory.pop();
+        requestGeminiResponse();
+      }
+    };
+
+    actionsDiv.appendChild(copyBtn);
+    actionsDiv.appendChild(retryBtn);
+    msgDiv.appendChild(actionsDiv);
   }
 
-  aiIsProcessing = true;
-  const sendBtn = document.getElementById('ai-send-btn');
-  if (sendBtn) sendBtn.disabled = true;
-  
-  showTypingIndicator();
+  chatBody.appendChild(msgDiv);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
 
-  try {
-    const replyText = await callGeminiAPI(aiConversationHistory);
-    removeTypingIndicator();
-    
-    aiConversationHistory.push({
-      role: "model",
-      parts: [{ text: replyText }]
-    });
+function formatAIResponseText(txt) {
+  if (!txt) return "";
+  let formatted = txt
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 
-    appendBotMessageAnimated(replyText);
-  } catch (err) {
-    removeTypingIndicator();
-    appendBotMessageAnimated(`⚠️ **Error**: ${err.message}. Please try again.`);
-  } finally {
-    aiIsProcessing = false;
-    if (sendBtn) sendBtn.disabled = false;
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
+  formatted = formatted.replace(/\n/g, '<br>');
+
+  return formatted;
+}
+
+function showAITyping(show) {
+  const typing = document.getElementById('aiTyping');
+  const chatBody = document.getElementById('aiChatBody');
+  if (typing) {
+    typing.classList.toggle('active', show);
+    if (show && chatBody) {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
   }
 }
+
+function onQuestionChangeAI() {
+  resetAIChat();
+  updateAIButtonVisibility();
+  const sheet = document.getElementById('ai-bottom-sheet');
+  if (sheet && sheet.classList.contains('active')) {
+    autoScanAndExplain();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateAIButtonVisibility();
+});
 </script>
+
 </body>
 </html>
