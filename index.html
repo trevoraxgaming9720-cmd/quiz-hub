@@ -2903,6 +2903,15 @@ async function requestGeminiResponse() {
 
   try {
     const payload = {
+      systemInstruction: {
+        parts: [{
+          text: `Reply ONLY in plain Unicode text.
+Never use LaTeX or Markdown math.
+Never use $, $$, \\(...\\), \\[...\\], \\frac, \\sqrt, \\text, \\times, \\div.
+Use only plain Unicode symbols like × ÷ √ π ≤ ≥ ≠ ± °.
+Write fractions as 3/4 and never wrap formulas in LaTeX.`
+        }]
+      },
       contents: aiChatHistory
     };
 
@@ -2984,26 +2993,7 @@ function appendAIMessage(sender, text, showCopy = false) {
   }
 
   chatBody.appendChild(msgDiv);
-  renderMathForAI(msgDiv);
   chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-
-function renderMathForAI(element){
-  if(!element) return;
-  try{
-    if(window.renderMathInElement){
-      renderMathInElement(element);
-    }else if(window.renderMathInElement){
-      window.renderMathInElement(element);
-    }else if(window.MathJax && MathJax.typesetPromise){
-      MathJax.typesetPromise([element]);
-    }else if(window.MathJax && MathJax.typeset){
-      MathJax.typeset([element]);
-    }else if(window.renderMath){
-      renderMath(element);
-    }
-  }catch(e){console.warn('AI math render failed',e);}
 }
 
 function formatAIResponseText(txt) {
