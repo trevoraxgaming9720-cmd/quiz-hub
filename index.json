@@ -1,6 +1,13 @@
 [
   {
     "subject": "GK",
+    "category": "History",
+    "chapter": "001_Stone_age",
+    "title": "Mock_Test_1",
+    "path": "GK/History/001_Stone_age/Mock_Test_1.html"
+  },
+  {
+    "subject": "GK",
     "category": "Polity",
     "chapter": "001_Making_of_constitution",
     "title": "Mock_Test_1",
