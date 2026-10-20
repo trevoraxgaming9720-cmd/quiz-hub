@@ -126,7 +126,7 @@
     return {svg,kind,verified: /triangle|त्रिभुज/i.test(s) && /\d+\s*°/.test(s), label:"Auto-generated schematic"};
   }
   function append(container,item,lang) {
-    if (!container || !item || container.querySelector(".auto-geometry-diagram")) return;
+    if (!container || !item || container.querySelector(".auto-geometry-diagram") || container.querySelector("img")) return;
     // Do not duplicate a supplied source figure: it may contain the exact exam diagram.
     const source = item.image || item.img;
     if (typeof source === "string" && source.trim()) return;
