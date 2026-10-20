@@ -29,7 +29,7 @@
     return out;
   }
   function triangleSvg(s, title) {
-    const equal = /AB\s*=\s*AC|AC\s*=\s*AB|AB\s*≅\s*AC|समद्विबाहु/i.test(s);
+    const equal = /AB\\s*=\\s*AC|AC\\s*=\\s*AB|AB\\s*≅\\s*AC|समद्विबाहु/i.test(s);
     const angles = anglesFrom(s);
     let A=angles.A, B=angles.B, C=angles.C;
     if (equal && Number.isFinite(A) && !Number.isFinite(B) && !Number.isFinite(C)) B=C=(180-A)/2;
@@ -38,23 +38,25 @@
     if (Number.isFinite(B) && Number.isFinite(C) && !Number.isFinite(A)) A=180-B-C;
     const solved = [A,B,C].every(Number.isFinite) && [A,B,C].every(v=>v>0&&v<180) && Math.abs(A+B+C-180)<0.02;
     if (!solved) { A=55; B=65; C=60; }
-    const baseY=214, leftX=76, rightX=344, base=rightX-leftX;
-    const tanA=Math.tan(A*Math.PI/360);
-    const h=Number.isFinite(tanA)&&tanA>0 ? Math.min(155,base/(2*tanA)) : 125;
-    const apexX=leftX+base/2, apexY=baseY-h;
+    // Construct the triangle from its three angles using the sine rule.
+    const base=220, scale=base/Math.sin(A*Math.PI/180);
+    const leftX=100, rightX=leftX+base, baseY=210;
+    const sideC=scale*Math.sin(C*Math.PI/180);
+    const apexX=leftX+sideC*Math.cos(B*Math.PI/180);
+    const apexY=baseY-sideC*Math.sin(B*Math.PI/180);
     const side1=Math.atan2(baseY-apexY,leftX-apexX)*180/Math.PI;
     const side2=Math.atan2(baseY-apexY,rightX-apexX)*180/Math.PI;
     let out=svgStart(title);
     out+=line(leftX,baseY,rightX,baseY)+line(leftX,baseY,apexX,apexY)+line(apexX,apexY,rightX,baseY);
     out+=dot(apexX,apexY,"A",0,-10)+dot(leftX,baseY,"B",-16,18)+dot(rightX,baseY,"C",10,18);
-    out+=arc(apexX,apexY,27,side1,side2,Math.round(A*100)/100+"°");
-    out+=arc(leftX,baseY,28,-A/2,0,Math.round(B*100)/100+"°");
-    out+=arc(rightX,baseY,28,180,180-(180-C),Math.round(C*100)/100+"°");
+    out+=arc(apexX,apexY,25,side2,side1,Math.round(A*100)/100+"°");
+    out+=arc(leftX,baseY,25,-B,0,Math.round(B*100)/100+"°");
+    out+=arc(rightX,baseY,25,180-C,180,Math.round(C*100)/100+"°");
     if (equal) {
-      out+='<path d="M 143 143 l 8 7 M 269 150 l 8 -7" stroke="#b45309" stroke-width="2.5" fill="none"/>';
+      out+='<path d="M 148 143 l 8 7 M 264 150 l 8 -7" stroke="#b45309" stroke-width="2.5" fill="none"/>';
     }
     if (!solved) out+=text(210,245,"सांकेतिक आकृति (मापानुसार नहीं)");
-    else if (Math.abs(A+B+C-180)<0.02) out+=text(210,245,"कोणों का योग = 180°");
+    else out+=text(210,245,"कोणों का योग = 180°");
     return out+'</svg>';
   }
   function circleSvg(s, title) {
