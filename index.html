@@ -7014,7 +7014,11 @@ function getQuestionImageSource(item) {
 function renderQuestionContent(container, item) {
   container.innerHTML = formatContent(T(item, 'q'));
   const source = getQuestionImageSource(item);
-  if (!source) return;
+  if (!source) {
+    // Add a deterministic SVG only when no original figure/image is supplied.
+    if (window.GeometryDiagramEngine) window.GeometryDiagramEngine.append(container, item, appLang);
+    return;
+  }
   // The same figure may already be embedded in the selected language's HTML.
   const alreadyEmbedded = Array.from(container.querySelectorAll('img')).some(img =>
     (img.getAttribute('src') || '').trim() === source || img.src === source
@@ -11282,6 +11286,7 @@ function stopExamOnExit(){
 }
 </script>
 
+<script src="geometry-diagrams.js"></script>
 </body>
 
 </html>
